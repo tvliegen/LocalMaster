@@ -27,28 +27,27 @@ module ApplicationHelper
 				@main_menu.push(@temp_menu_item)
 				
 			end
-    	 end
-    	 
-    	 def getAccounts(userGroups)
-    	 	 
-    	 	 @groups=Array.new
-    	 	 @dealerAccounts=Array.new
-    	 	 @groups=userGroups
-    	 	 @dealerGroups=@groups.grep(/all/)
-    	 	 @dealerGroups.each do |group_Name|
-    	 	 	 @tempGroup=group_Name.split('|')
-    	 	 	 @temp_dealer_group=@tempGroup[0].split('.')
-    	 	 	 dealer_account="#{@tempGroup[1]}|#{@temp_dealer_group[1]}"
-    	 	 	 @dealerAccounts.push(dealer_account)
-    	 	 end
-    	 	 
-    	 	 return @dealerAccounts
-    	 end
-    		
+		end
+	end
+	
+	def getAccounts(userGroups)
+		
+		@groups=Array.new
+		@dealerAccounts=Array.new
+		@groups=userGroups
+		@dealerGroups=@groups.grep(/all/)
+		@dealerGroups.each do |group_Name|
+			@tempGroup=group_Name.split('|')
+			@temp_dealer_group=@tempGroup[0].split('.')
+			dealer_account="#{@tempGroup[1]}|#{@temp_dealer_group[1]}"
+			@dealerAccounts.push(dealer_account)
+		end
+		
+		return @dealerAccounts
+	end
+	
 end
-    	 
-    	
-    	     		 
-    	     	    
- end
-end
+
+
+
+
