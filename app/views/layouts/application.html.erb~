@@ -93,7 +93,7 @@
           <li><a href="/teknionline/profiles/edit">Account Settings</a></li> 
             <li class="divider"></li>
             <li><a href="/login/authenticates/logout">Log Out</a></li>
-            <li><%= session["Groups"] %></li>
+       
         
           </ul>
         </li>
