@@ -39,7 +39,7 @@ module ApplicationHelper
     			@temp_dealer_group=@tempGroup[0].split('.')
     			dealer_account="#{@tempGroup[1]}|#{@temp_dealer_group[1]}"
     			@dealerAccounts.push(dealer_account)
-		end
+	 	end
 
     		return @dealerAccounts
     	end
