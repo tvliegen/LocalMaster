@@ -11,7 +11,7 @@ gem 'foreman'
 gem 'haml-rails'
 gem 'rest-client'
 gem 'rails_12factor'
-
+gem 'jquery-rails'
 group :development do
   gem 'pry-rails'
   gem 'pry-nav'
