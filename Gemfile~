@@ -13,6 +13,7 @@ gem 'rest-client'
 gem 'rails_12factor'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'ruby-saml'
 group :development do
   gem 'pry-rails'
   gem 'pry-nav'
