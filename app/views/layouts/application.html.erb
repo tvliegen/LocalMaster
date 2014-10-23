@@ -64,7 +64,7 @@
 <b class="caret"></b></a>
           <ul class="dropdown-menu dropdown-menu-right">
   <li class="dropdown-header">Accounts</li>
-          <% @dealerAccounts=getAccounts %>
+          <% @dealerAccounts=Array.new %>
           <% @dealerAccounts.each do |account_number| %>
             <li>
             <a href="/teknionline/profiles/switch/<%= account_number.split('|')[1] %> ">
