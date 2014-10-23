@@ -24,6 +24,7 @@ module ApplicationHelper
     	     	    end
     	     	   end
     	     	   @main_menu.push(@temp_menu_item)
+    	     	   @userAccounts=getAccounts()
     	end
     	 
     	def getAccounts()

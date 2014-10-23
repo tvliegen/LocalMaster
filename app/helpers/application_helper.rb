@@ -2,6 +2,7 @@ module ApplicationHelper
 	
 	def create_menu()
     	 @main_menu=Array.new
+    	 @userAccounts=Array.new
     	 @groups=Array.new
     	 @groups=session[:Groups].grep(/#{session[:DealerCode]}/)
     	    @portal_menu=Portalmanager::Appdef.all
