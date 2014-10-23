@@ -1,0 +1,73 @@
+<div class="row">
+<div class="col-md-12"> 
+ <div class="col-md-1"></div>
+
+ <div class="col-md-11">
+
+
+         <h3>Application Definition</h3>
+       </div>
+       </div>
+<div clas="row">
+
+  <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+ <%= link_to 'Edit', edit_portalmanager_appdef_path,class: "btn btn-default btn-sm" %>
+<%= link_to 'Cancel', portalmanager_appdefs_path, class: "btn btn-default btn-sm" %></div>
+        </div>
+
+      </div>
+      
+      <br>
+   <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+        
+  <div class="col-md-3"><%= label_tag(:application_title, "Application Title") %></div>
+        <div class="col-md-9"><%= @portalmanager_appdef.application_title %></div>
+</div>
+  </div>
+  </div>
+      <br>
+    <div class="row">
+      <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <div class="col-md-3"><%= label_tag(:application_title, "Application Parent-Menu") %></div>
+        <div class="col-md-9"><%= @portalmanager_appdef.application_parent_menu %></div>
+</div>
+      </div>
+      </div>
+      <br>
+<div class="row">
+       <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+  <div class="col-md-3"><%= label_tag(:application_description, "Application Description") %></div>
+        <div class="col-md-9"><%= @portalmanager_appdef.description %></div>
+</div>
+      </div>
+      </div>
+      <br>
+      <div class="row">
+    <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+  <div class="col-md-3"><%= label_tag(:application_url, "Application URL") %></div>
+        <div class="col-md-9"><%= @portalmanager_appdef.application_url %></div>
+</div>
+      </div>
+      </div>
+       <br>
+      <div class="row">
+      <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+  <div class="col-md-3"><%= label_tag(:application_url, "Group Name") %></div>
+        <div class="col-md-9"><%= @portalmanager_appdef.application_groups %></div>
+</div>
+      </div>
+      </div>
+

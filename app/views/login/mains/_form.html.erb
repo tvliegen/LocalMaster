@@ -1,0 +1,17 @@
+<%= form_for(@login_main) do |f| %>
+  <% if @login_main.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@login_main.errors.count, "error") %> prohibited this login_main from being saved:</h2>
+
+      <ul>
+      <% @login_main.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+module Login::MainsHelper
+end

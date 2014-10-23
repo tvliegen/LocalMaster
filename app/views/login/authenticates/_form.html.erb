@@ -1,0 +1,57 @@
+<%= form_for @login_authenticate, url: {action: "idpLogin"} do |f| %>
+  
+    <div><div class="col-md-12"><h4>
+    <% if @errCode==nil %>
+    Please login.
+    <% else %>
+      <%= @errCode %>
+      <% end %>
+      </h3>
+      </div>
+
+    </div>
+
+<br><br>
+  <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+        
+  <div class="col-md-3"><%= label_tag(:username, "Login") %></div>
+        <div class="col-md-9"><%= f.text_field :username %></div>
+</div>
+  </div>
+  </div>
+      <br>
+    <div class="row">
+      <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <div class="col-md-3"><%= label_tag(:password, "Password") %></div>
+        <div class="col-md-9"><%= f.password_field :password %></div>
+</div>
+      </div>
+      </div>
+     
+      <br>
+      <div class="row">
+      <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <div class="col-md-3"><%= label_tag(:language, "Language") %></div>
+        <div class="col-md-9">  <%= f.select :language, [['English','EN'],['French','FRC']] %></div>
+</div>
+      </div>
+      </div>
+
+<br><br>
+     
+<div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+ <%= f.submit "Login", class: "btn btn-default btn-sm" %> 
+ <button class="btn btn-default btn-sm" id="close_btn">Close</button>
+</div>
+</div>
+
+<% end %>

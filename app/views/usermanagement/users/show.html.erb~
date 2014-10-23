@@ -1,0 +1,4 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_usermanagement_user_path(@usermanagement_user) %> |
+<%= link_to 'Back', usermanagement_users_path %>

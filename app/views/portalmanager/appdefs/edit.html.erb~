@@ -1,0 +1,6 @@
+<h1>Editing portalmanager_appdef</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @portalmanager_appdef %> |
+<%= link_to 'Back', portalmanager_appdefs_path %>

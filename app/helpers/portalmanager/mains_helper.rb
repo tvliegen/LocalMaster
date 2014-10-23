@@ -1,0 +1,2 @@
+module Portalmanager::MainsHelper
+end

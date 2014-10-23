@@ -1,0 +1,17 @@
+<%= form_for(@portalmanager_main) do |f| %>
+  <% if @portalmanager_main.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@portalmanager_main.errors.count, "error") %> prohibited this portalmanager_main from being saved:</h2>
+
+      <ul>
+      <% @portalmanager_main.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

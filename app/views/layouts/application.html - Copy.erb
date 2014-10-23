@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8" />
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="" name="description" />
+  <meta content="" name="author" />
+  <link href="../../assets/ico/favicon.ico" rel="shortcut icon" />
+  <title>Teknionline</title>
+
+  <%= csrf_meta_tags %>
+      <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+    <!-- Bootstrap -->
+
+<%= javascript_include_tag "bootstrap" %>
+
+<%= stylesheet_link_tag "bootstrap" %> 
+
+<%= stylesheet_link_tag "carousel" %> 
+<%= stylesheet_link_tag "dashboard" %> 
+<!-- Just for debugging purposes. Don't actually copy this line! --><!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]--><!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --><!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]--> </head>
+<!-- Navbar Header --> <body>
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container-fluid">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation </span></button><a class="navbar-brand" href="\"><%= image_tag("teklogo-green.jpg", :width => "50", :height => "50") %> TekniOnline </a></div>
+    <div class="navbar-collapse collapse">
+    
+          <% if session[:FirstName] != nil %> 
+
+    <ul class="nav navbar-nav navbar-left main_top_menu">
+<% create_menu %>
+ <% @main_menu.each do |menu_item| %>
+ <% @sub_item = menu_item %>
+ <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<%= @sub_item[0] %> 
+<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+           <% for i in 1..@sub_item.length %>
+
+          <li><a href="#"> <%= @sub_item[i] %> </a></li>
+          <% end %>
+        
+          </ul>
+        </li>
+  <% end %>    
+ </ul>
+ <% end %>
+    <ul class="nav navbar-nav navbar-right">
+
+ <% if session[:FirstName] == nil %> 
+
+      <li><a href="/login/authenticates/new">Login</a></li>      
+<% else %>
+
+<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<%= render :text => session[:FirstName]  %> 
+<%= render :text => session[:LastName]  %>
+<%= render :text => session[:Language]  %>
+<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/teknionline/profiles/edit">Account Settings</a></li> 
+            <li><a href="/login/authenticates/logout">Log Out</a></li>
+        
+          </ul>
+        </li>
+      
+      <% end %>
+      
+      
+ <!--<% if session[:FirstName] == nil %> 
+
+      <li><a href="/login/mains/index">SSO Login</a></li>      
+<% else %>
+
+<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<%= render :text => session[:FirstName]  %> 
+<%= render :text => session[:LastName]  %>
+<%= render :text => session[:Language]  %>
+<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Account Settings</a></li> 
+            <li><a href="/login/mains/logout">Log Out</a></li>
+        
+          </ul>
+        </li>
+      
+      <% end %>
+     -->   <li>   <a href="/portalmanager/appdefs">Portal Admin</a></li>
+    <li>   <a href="#">Help</a></li>
+  </ul></div>
+  </div>
+  </div>
+<!--<div aria-hidden="true" aria-labelledby="Login" class="modal fade" id="contentModal" role="dialog" tabindex="-1">
+      <div id="modal_content">
+       &nbsp;</div>
+
+ </div>-->
+<%= yield %>
+
+</body>
+
+<script>
+/*$('#login').click(function (e) {
+   e.preventDefault();
+                var target_issue=$(this).attr('data-target');
+                $('#modal_content').load(target_issue);
+                 $('#contentModal').modal('show');
+});*/
+</script>
+</html>

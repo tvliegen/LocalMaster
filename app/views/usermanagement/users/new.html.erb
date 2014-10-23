@@ -1,0 +1,99 @@
+<div class="row">
+<div class="col-md-12"> 
+ <div class="col-md-1"></div>
+
+ <div class="col-md-11">
+
+
+         <h3>New Profile</h3>
+       </div>
+       </div>
+
+
+<%= form_for @user_profile, url: {action: "create"} do |f| %>
+
+  <div clas="row">
+
+  <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+ <%= f.submit "Save", class: "btn btn-default btn-sm" %> 
+<%= link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm" %></div>
+</div>
+</div>
+
+      <br><br>
+    <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+         
+  <div class="col-md-3"><%= label_tag(:login, "User Name") %></div>
+        <div class="col-md-9"><%=f.text_field :login  %></div>
+        </div>
+        </div>
+        </div>
+        
+        <br><br>
+        <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+        
+  <div class="col-md-3"><%= label_tag(:firstname, "First Name") %></div>
+        <div class="col-md-9"><%= f.text_field :firstname %></div>
+        </div>
+        </div>
+        </div>
+        
+        <br><br>
+        <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+        
+  <div class="col-md-3"><%= label_tag(:lastname, "Last Name") %></div>
+        <div class="col-md-9"><%= f.text_field :lastname %></div>
+        </div>
+        </div>
+        </div>
+        
+         <br><br>
+        <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+        
+  <div class="col-md-3"><%= label_tag(:email, "E-Mail") %></div>
+        <div class="col-md-9"><%= f.text_field :email %></div>
+        </div>
+        </div>
+        </div>
+         <br>                                                      
+          <br>
+       <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+          <div class="col-md-3"><%= label_tag(:mobile, "Mobile") %></div>
+        <div class="col-md-9"><%= f.text_field :mobile %></div>
+        </div>
+        </div>
+        </div>
+        
+        <br>                                                      
+          <br>
+      <div class="row">
+      <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <div class="col-md-3"><%= label_tag(:language, "Language") %></div>
+        <div class="col-md-9">  <%= f.select :language, [['English','EN'],['French','FRC']] %></div>
+</div>
+      </div>
+      </div>
+    <% end %>
+        
+   
+
+

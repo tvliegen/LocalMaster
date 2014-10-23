@@ -1,0 +1,2 @@
+module Teknionline::ProfilesHelper
+end

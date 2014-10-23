@@ -1,0 +1,78 @@
+
+<%= form_for(@portalmanager_appdef) do |f| %>
+<div clas="row">
+
+  <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+ <%= f.submit "Save", class: "btn btn-default btn-sm" %> 
+<%= link_to 'Cancel', portalmanager_appdefs_path, class: "btn btn-default btn-sm" %></div>
+</div>
+</div>
+
+      <br>
+      
+  <% if @portalmanager_appdef.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@portalmanager_appdef.errors.count, "error") %> prohibited this appdef from being saved:</h2>
+
+      <ul>
+      <% @portalmanager_appdef.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+     <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+        
+  <div class="col-md-3"><%= label_tag(:application_title, "Application Title") %></div>
+        <div class="col-md-9"><%= f.text_field :application_title %></div>
+</div>
+  </div>
+  </div>
+      <br>
+    <div class="row">
+      <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <div class="col-md-3"><%= label_tag(:application_title, "Application Parent-Menu") %></div>
+        <div class="col-md-9"><%= f.text_field :parent_menu_item %></div>
+</div>
+      </div>
+      </div>
+      <br>
+<div class="row">
+       <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+  <div class="col-md-3"><%= label_tag(:application_description, "Application Description") %></div>
+        <div class="col-md-9"><%= f.text_field :application_description %></div>
+</div>
+      </div>
+      </div>
+      <br>
+      <div class="row">
+    <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+  <div class="col-md-3"><%= label_tag(:application_url, "Application URL") %></div>
+        <div class="col-md-9"><%= f.text_field :application_url %></div>
+</div>
+      </div>
+      </div>
+       <br>
+      <div class="row">
+      <div class="col-md-12">
+   <div class="col-md-1"></div>
+    <div class="col-md-11">
+  <div class="col-md-3"><%= label_tag(:application_group, "Group Name") %></div>
+        <div class="col-md-9"><%= f.text_field :group %></div>
+</div>
+      </div>
+      </div>
+
+
+          <% end %>

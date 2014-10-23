@@ -1,0 +1,25 @@
+<h1>Listing portalmanager_mains</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @portalmanager_mains.each do |portalmanager_main| %>
+      <tr>
+        <td><%= link_to 'Show', portalmanager_main %></td>
+        <td><%= link_to 'Edit', edit_portalmanager_main_path(portalmanager_main) %></td>
+        <td><%= link_to 'Destroy', portalmanager_main, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Main', new_portalmanager_main_path %>

@@ -1,0 +1,2 @@
+module Teknionline::MainsHelper
+end

@@ -1,0 +1,29 @@
+
+ <div class="modal-dialog" id="loginModal">
+   <div class="modal-content modal-mu-content">
+   <a href="#" class="close" id="close_box"><i class="glyphicon glyphicon-remove"></i></a>
+     <div class="main_top_menu_login" >
+
+<%= image_tag("teklogo-green.jpg", :width => "50", :height => "50") %> TekniOnline 
+</div>
+
+<%= render 'form' %>
+
+</div>
+  </div>
+ 
+  <script>
+$(document).ready(function() {
+    $('#close_box').click(function(e) {
+        e.preventDefault();
+       window.location = "/"
+  
+    });
+    
+     $('#close_btn').click(function(e) {
+        e.preventDefault();
+       window.location = "/"
+       
+    });
+});
+</script>
