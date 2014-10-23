@@ -63,9 +63,9 @@
 
 <b class="caret"></b></a>
           <ul class="dropdown-menu dropdown-menu-right">
-          <%= session[:Groups] %>
+          
   <li class="dropdown-header">Accounts</li>
-    
+	<% @userAccounts=getAccounts(session[:Groups]) %>    
           <% @userAccounts.each do |account_number| %>
             <li>
             <a href="/teknionline/profiles/switch/<%= account_number.split('|')[1] %> ">

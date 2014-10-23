@@ -25,14 +25,14 @@ module ApplicationHelper
     	     	    end
     	     	   end
     	     	   @main_menu.push(@temp_menu_item)
-    	     	   @userAccounts=session[:Groups]
+    	     	
     	end
     	 
-    	def getAccounts()
+    	def getAccounts(userGroups)
     		
     		@groups=Array.new
     		@dealerAccounts=Array.new
-    		@groups=session[:Groups]
+    		@groups=userGroups
     		@dealerGroups=@groups.grep(/all/)
     		@dealerGroups.each do |group_Name|
     			@tempGroup=group_Name.split('|')
