@@ -1,4 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+@import "claims.scss";
+@import "global.scss";
 @import "carousel.css";
 @import "dashboard.css";
