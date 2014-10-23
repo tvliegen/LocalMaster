@@ -25,7 +25,7 @@ module ApplicationHelper
     	     	   end
     	     	   @main_menu.push(@temp_menu_item)
     	end
-    	
+    	 
     	def getAccounts()
     		
     		@groups=Array.new

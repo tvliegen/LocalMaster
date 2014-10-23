@@ -63,20 +63,7 @@
 
 <b class="caret"></b></a>
           <ul class="dropdown-menu dropdown-menu-right">
-       <li class="dropdown-header">Accounts</li>
-          <% @dealerAccounts=getAccounts %>
-          <% @dealerAccounts.each do |account_number| %>
-            <li>
-            <a href="/teknionline/profiles/switch/<%= account_number.split('|')[1] %> ">
-            
-            
-            <% if account_number.match(/#{session[:DealerCode]}/) !=nil %>
-            
-            <i class="glyphicon glyphicon glyphicon-ok icon-action" > </i>
-            <% end %>
-          <%= account_number.split('|')[0] + ' ('+account_number.split('|')[1] +')' %>
-          </a></li>
-          <% end %>
+ 
        <li class="divider"></li>
        <li class="dropdown-header">Settings</li>
           <li><a href="/teknionline/profiles/edit">Account Settings</a></li> 
