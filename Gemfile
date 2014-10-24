@@ -20,18 +20,19 @@ gem 'rails_12factor'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'ruby-saml'
+  gem 'faker'
+  gem 'html2haml', require: false
 
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+  gem 'rb-fsevent', require: false
 group :development do
   gem 'pry-rails'
   gem 'pry-nav'
   gem 'pry-debugger'
   gem 'sextant'
   gem 'awesome_print'
-  gem 'faker'
-  gem 'html2haml', require: false
-  gem 'guard-livereload', require: false
-  gem 'rack-livereload'
-  gem 'rb-fsevent', require: false
+
 end
 
 group :development, :test do
