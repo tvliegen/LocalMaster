@@ -24,8 +24,6 @@ gem 'her'
   gem 'pry-debugger'
   gem 'sextant'
   gem 'awesome_print'
-  gem 'faker'
-  gem 'html2haml', require: false
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
   gem 'rb-fsevent', require: false
