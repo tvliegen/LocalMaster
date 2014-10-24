@@ -19,7 +19,7 @@ gem 'rack-contrib'
 gem 'her'
   gem 'faker'
   gem 'html2haml', require: false
-
+ 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'bootstrap-sass', '~> 3.2.0'

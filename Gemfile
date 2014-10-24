@@ -19,7 +19,16 @@ gem 'rack-contrib'
 gem 'her'
   gem 'faker'
   gem 'html2haml', require: false
- 
+   gem 'pry-rails'
+  gem 'pry-nav'
+  gem 'pry-debugger'
+  gem 'sextant'
+  gem 'awesome_print'
+  gem 'faker'
+  gem 'html2haml', require: false
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+  gem 'rb-fsevent', require: false
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'bootstrap-sass', '~> 3.2.0'
