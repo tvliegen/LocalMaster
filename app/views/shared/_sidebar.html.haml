@@ -1,0 +1,10 @@
+.col-sm-3.col-md-2.sidebar
+  %ul.nav.nav-sidebar
+    %li
+      %a{href: '#'}= t('sidebar_dashboard')
+    %li
+      %a{href: '#'}= t('sidebar_claim_requests')
+    %li
+      = link_to t('sidebar_active_claims'), claims_path
+    %li
+      = link_to t('sidebar_closed_claims'), claims_path(status: :closed)
