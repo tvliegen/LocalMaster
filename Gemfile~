@@ -14,16 +14,16 @@ gem 'rails_12factor'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'ruby-saml'
-group :development do
+#group :development do
   gem 'pry-rails'
   gem 'pry-nav'
   gem 'sextant'
   gem 'awesome_print'
   gem 'faker'
   gem 'html2haml', require: false
-end
+#end
 
-group :development, :test do
+#group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl'
   gem "better_errors"
@@ -32,7 +32,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
   gem 'seed_dump'
-end
+#end
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
