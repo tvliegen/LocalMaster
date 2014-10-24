@@ -19,6 +19,7 @@ Teknion::Application.routes.draw do
     get 'authenticates/logout', to: 'authenticates#logout'
     post 'authenticates/idpLogin', to: 'authenticates#idpLogin'
     get 'authenticates/setsession', to: 'authenticates#set_session'
+    get 'authenticates/validatesession', to: 'authenticates#validate_session'
   end
 
 

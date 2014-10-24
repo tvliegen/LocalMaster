@@ -28,7 +28,7 @@ Teknion::Application.routes.draw do
     resources :appdefs
   end
 
-
+  resources :claims
  
 
   namespace :teknionline do
