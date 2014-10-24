@@ -1,6 +1,277 @@
 %p#notice= notice
 
-
-= link_to 'Edit', edit_claim_path(@claim)
-\|
-= link_to 'Back', claims_path
+.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+  %h2.page-header
+    = t('claim_tekcare_claim')
+    = @claim.tekcare_number
+  .col-md-12
+    %legend
+      %a{:href => "#", :sect => "General_Info"}= t('claim_general_claim_information')
+  #General_Info{:name => "General_Info"}
+    .dealer
+      .col-md-12
+        %legend.dealer_heading= t('claim_dealer_information')
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_dealer_name')
+          .col-md-6
+            = @claim.dealer_name
+        .col-md-5
+          .col-md-6
+            %label= t('claim_dealer_number')
+          .col-md-6
+            = @claim.dealer_code
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_dealer_contact_name')
+          .col-md-6
+            = @claim.dealer_contact_name
+        .col-md-5
+          .col-md-6
+            %label= t('claim_dealer_contact_number')
+          .col-md-6
+            = @claim.dealer_contact_number
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_dealer_contact_email')
+          .col-md-6
+            = @claim.dealer_contact_email
+        .col-md-5
+          \ 
+        .col-md-2
+          \ 
+    %br/
+    %br/
+    .dealer
+      .col-md-12
+        %legend.dealer_heading
+          = t('claim_original_order_infomation')
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_universal_number')
+          .col-md-6
+            = @claim.universal
+        .col-md-5
+          .col-md-6
+            %label= t('claim_po_number')
+          .col-md-6
+            = @claim.original_po
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_sq_number')
+          .col-md-6
+            = @claim.original_sq
+        .col-md-5
+          .col-md-6
+            %label= t('claim_sq_rev_number')
+          .col-md-6
+            = @claim.original_po_rev
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_end_customer')
+          .col-md-6
+            = @claim.end_customer_name
+        .col-md-5
+          .col-md-6
+            %label= t('claim_received_dated')
+          .col-md-6
+            = @claim.shipment_received_date
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_product_storage')
+          .col-md-6
+            = @claim.product_in_storage
+        .col-md-5
+          .col-md-6
+            %label= t('claim_project_name')
+          .col-md-6
+            = @claim.project_name
+      .col-md-2
+        \ 
+    %br/
+    .dealer
+      .col-md-12
+        %legend.dealer_heading
+          = t('claim_installation_information')
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_installation_status')
+          .col-md-6
+            In Progress: #{@claim.installation_in_progress}
+        .col-md-5
+          .col-md-6
+            %label= t('claim_estimated_completion')
+          .col-md-6
+            = @claim.scheduled_install_completion
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_installation_company')
+          .col-md-6
+            = @claim.installation_company
+        .col-md-5
+          .col-md-6
+            %label= t('claim_installer_lead')
+          .col-md-6
+            = @claim.installer_name
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_lead_contact_number')
+          .col-md-6
+            = @claim.installer_number
+        .col-md-5
+          .col-md-6
+            %label= t('claim_lead_contact_email')
+          .col-md-6
+            = @claim.installer_email
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_site_contact_name')
+          .col-md-6
+            = @claim.site_visit_contact_name
+        .col-md-5
+          \ 
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_site_contact_number')
+          .col-md-6
+            = @claim.site_visit_contact_number
+        .col-md-5
+          .col-md-6
+            %label= t('claim_site_contact_email')
+          .col-md-6
+            = @claim.site_visit_contact_email
+        .col-md-2
+          \ 
+    %br/
+    %br/
+    %br/
+    .dealer
+      .col-md-12
+        %legend.dealer_heading
+          = t('claim_replacement_order_information')
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_ship_to_name')
+          .col-md-6
+            = @claim.replacement_shipto_name
+        .col-md-5
+          \ 
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_address')
+          .col-md-6
+            = @claim.replacement_shipto_address
+        .col-md-5
+          .col-md-6
+            %label= t('claim_city')
+          .col-md-6
+            = @claim.replacement_shipto_city
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_state')
+          .col-md-6
+            = @claim.replacement_shipto_state_prov
+        .col-md-5
+          .col-md-6
+            %label= t('claim_postal_zip')
+          .col-md-6
+            = @claim.replacement_shipto_zip_pc
+        .col-md-2
+          \ 
+      .col-md-12
+        .col-md-5
+          .col-md-6
+            %label= t('claim_call_before_name')
+          .col-md-6
+            = @claim.site_visit_contact_name
+        .col-md-5
+          .col-md-6
+            %label= t('claim_call_before_number')
+          .col-md-6
+            = @claim.site_visit_contact_number
+        .col-md-2
+          \ 
+  .dealer
+    .col-md-12
+      %legend
+        = t('claim_claim_issue_information')
+    .col-md-12
+      .table-responsive
+        %table.table.table-striped.table-hover
+          %thead
+            %tr
+              %th
+                = t('claim_tekcare_issue_number')
+              %th
+                = t('claim_shipment_number')
+              %th
+                = t('claim_item_code')
+              %th
+                = t('claim_cr_number')
+              %th
+                = t('claim_item_description')
+              %th
+                = t('claim_line_notes')
+              %th
+                = t('claim_tags')
+              %th
+                = t('claim_status')
+          %tbody.rowlink{"data-link" => "row"}
+            - @claim.claim_issues.each do |claim_issue|
+              %tr
+                %td
+                  -#/ <a data-target="#issueModal" data-toggle="modal" href="#">2014-000001-001</a></td>
+                  -#%a{"data-target" => "active-issue.html", :href => "#"}
+                    -#= claim_issue.issue_id
+                  = link_to claim_issue.issue_id, claim_claim_issue_path(@claim, claim_issue)
+                %td
+                  = claim_issue.shipment_number
+                %td
+                  = claim_issue.item_code
+                %td
+                  = claim_issue.cr
+                %td
+                  = claim_issue.item_description
+                %td
+                  = claim_issue.line_text
+                %td
+                  = claim_issue.tag
+                %td
+                  = claim_issue.status
