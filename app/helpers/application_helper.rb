@@ -17,39 +17,47 @@ module ApplicationHelper
 				@sub_menu=Array.new
 				submenu="Select * from portalmanager_appdefs where application_title != application_parent_menu and application_parent_menu= '" << menu_item.application_title << "'"
 				@sub_menu=Portalmanager::Appdef.find_by_sql(submenu)
-				if !@sub_menu.empty? 
+				
+				
+				first_item=true
+				@sub_menu.each do |sub_menu_item|
 					
-					logger.info "sub" << menu_item.application_title << @sub_menu.to_s
-					@temp_menu_item.push(menu_item.application_title)
-					@sub_menu.each do |sub_menu_item|
+					if !(@groups.grep(/#{sub_menu_item.application_groups}/).empty?)   
 						
-						if !(@groups.grep(/#{sub_menu_item.application_groups}/).empty?)   
-							
+						if first_item 
+							@temp_menu_item.push(menu_item.application_title)
 							@temp_menu_item.push(sub_menu_item.application_title)
+							
+							first_item=false
+						else
+							@temp_menu_item.push(sub_menu_item.application_title)
+							
 						end
+						
 					end
-					@main_menu.push(@temp_menu_item)
 				end
+				@main_menu.push(@temp_menu_item)
 			end
 		end
 	end
+end
+
+def getAccounts(userGroups)
 	
-	def getAccounts(userGroups)
-		
-		@groups=Array.new
-		@dealerAccounts=Array.new
-		@groups=userGroups
-		@dealerGroups=@groups.grep(/all/)
-		@dealerGroups.each do |group_Name|
-			@tempGroup=group_Name.split('|')
-			@temp_dealer_group=@tempGroup[0].split('.')
-			dealer_account="#{@tempGroup[1]}|#{@temp_dealer_group[1]}"
-			@dealerAccounts.push(dealer_account)
-		end
-		
-		return @dealerAccounts
+	@groups=Array.new
+	@dealerAccounts=Array.new
+	@groups=userGroups
+	@dealerGroups=@groups.grep(/all/)
+	@dealerGroups.each do |group_Name|
+		@tempGroup=group_Name.split('|')
+		@temp_dealer_group=@tempGroup[0].split('.')
+		dealer_account="#{@tempGroup[1]}|#{@temp_dealer_group[1]}"
+		@dealerAccounts.push(dealer_account)
 	end
 	
+	return @dealerAccounts
+end
+
 end
 
 
