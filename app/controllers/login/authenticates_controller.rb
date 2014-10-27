@@ -100,10 +100,11 @@ end
     	    	      if (dealerGroups[0] !=nil) 
     	    	    tempGroup=dealerGroups[0].split('|')
     	    	    temp_dealer_group=tempGroup[0].split('.')
+    	    	    return temp_dealer_group[1]
     	    else
-    	    	    temp_dealer_group=nil
+    	    	  return nil
     	    end
-    	    return temp_dealer_group[1]
+    	    
     end
 
 end
