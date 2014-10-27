@@ -13,19 +13,23 @@ module ApplicationHelper
 			
 			if menu_item.application_parent_menu.eql?(menu_item.application_title) 
 				@temp_menu_item=Array.new  
-				@temp_menu_item.push(menu_item.application_title)
+				
 				
 				submenu="Select * from portalmanager_appdefs where application_title != application_parent_menu and application_parent_menu= '" << menu_item.application_title << "'"
-				@sub_menu=Portalmanager::Appdef.find_by_sql(submenu)
-				@sub_menu.each do |sub_menu_item|
-					
-					if !(@groups.grep(/#{sub_menu_item.application_groups}/).empty?)   
-						
-						@temp_menu_item.push(sub_menu_item.application_title)
-					end
-				end
-				@main_menu.push(@temp_menu_item)
 				
+				
+				@sub_menu=Portalmanager::Appdef.find_by_sql(submenu)
+				if !@sub_menu.empty?
+					@temp_menu_item.push(menu_item.application_title)
+					@sub_menu.each do |sub_menu_item|
+						
+						if !(@groups.grep(/#{sub_menu_item.application_groups}/).empty?)   
+							
+							@temp_menu_item.push(sub_menu_item.application_title)
+						end
+					end
+					@main_menu.push(@temp_menu_item)
+				end
 			end
 		end
 	end
