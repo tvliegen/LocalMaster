@@ -95,8 +95,9 @@ end
     	    
     	    groups=session[:Groups]
     	    
-    	    if (groups !=nil) 
+    	  
     	    	    dealerGroups=groups.grep(/all/)
+    	    	      if (dealerGroups !=nil) 
     	    	    tempGroup=dealerGroups[0].split('|')
     	    	    temp_dealer_group=tempGroup[0].split('.')
     	    else
