@@ -91,13 +91,18 @@ end
       params.require(:login_authenticate).permit(:username, :password, :language)
     end
 
-def set_default_dealercode
-	
-	groups=session[:Groups]
-	dealerGroups=groups.grep(/all/)
-	tempGroup=dealerGroups[0].split('|')
-	temp_dealer_group=tempGroup[0].split('.')
-	return temp_dealer_group[1]
-end
+    def set_default_dealercode
+    	    
+    	    groups=session[:Groups]
+    	    
+    	    if (!groups.empty?) 
+    	    	    dealerGroups=groups.grep(/all/)
+    	    	    tempGroup=dealerGroups[0].split('|')
+    	    	    temp_dealer_group=tempGroup[0].split('.')
+    	    else
+    	    	    temp_dealer_group=nil
+    	    end
+    	    return temp_dealer_group[1]
+    end
 
 end

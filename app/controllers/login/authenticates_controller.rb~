@@ -51,6 +51,7 @@ def set_session
 	
 	session[:Groups]=@idp.getGroups(idp_id,'names')
 	session[:DealerCode]=set_default_dealercode
+	
 	respond_to do |format|
       
       	     format.html { redirect_to "/" }
@@ -61,7 +62,7 @@ end
  @idp=Login::IdpLogin.new
 	@errCode = nil	 
 	session_result=@idp.validate_session(session[:idp_session_id])
-
+	redirect_to "/"
  end
  
  def logout
