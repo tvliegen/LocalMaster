@@ -42,8 +42,9 @@
 <b class="caret"></b></a>
           <ul class="dropdown-menu">
            <% for i in 1..@sub_item.length %>
-   
-          <li><a href="#"> <%= @sub_item[i][0] %> </a></li> 
+   <% @sub_menu_item=Array.new %>
+   <% @sub_menu_item=@sub_item[i] %>
+          <li><a href="#"> <%= @sub_menu_item[0] %> </a></li> 
           <% end %> 
          
           </ul>
