@@ -44,7 +44,7 @@
            <% for i in 1..@sub_item.length %>
           <li><a href="#"> <%= @sub_item[i] %> </a></li> 
           <% end %> 
-          
+           
           </ul>
         </li>
   <% end %>    
