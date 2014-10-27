@@ -84,7 +84,7 @@ end
     def set_login_authenticate
       @login_authenticate = Login::Authenticate.find(params[:id])
     end
-
+ 
     # Never trust parameters from the scary internet, only allow the white list through.
     def login_authenticate_params
 
