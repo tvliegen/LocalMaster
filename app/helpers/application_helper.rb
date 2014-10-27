@@ -40,7 +40,6 @@ module ApplicationHelper
 			end
 		end
 	end
-end
 
 def getAccounts(userGroups)
 	
