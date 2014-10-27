@@ -2,7 +2,7 @@ Faker::Config.locale = 'en-US'
 
 # active claims
 5.times.each do
-  claim = Teknion::Claim.create!(
+  claim = Claim.create!(
     after_hours_contact_name: Faker::Name.name,
     after_hours_contact_number: Faker::PhoneNumber.phone_number,
     author: Faker::Name.name,
@@ -71,7 +71,7 @@ end
 
 # closed claims
 3.times.each do
-  claim = Teknion::Claim.create!(
+  claim = Claim.create!(
     after_hours_contact_name: Faker::Name.name,
     after_hours_contact_number: Faker::PhoneNumber.phone_number,
     author: Faker::Name.name,
