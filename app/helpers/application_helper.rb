@@ -19,7 +19,7 @@ module ApplicationHelper
 				@sub_menu=Portalmanager::Appdef.find_by_sql(submenu)
 				if !@sub_menu.empty? 
 					
-					logger.info "sub" << menu_item.application_title << @sub_menu
+					logger.info "sub" << menu_item.application_title << @sub_menu.to_s
 					@temp_menu_item.push(menu_item.application_title)
 					@sub_menu.each do |sub_menu_item|
 						
