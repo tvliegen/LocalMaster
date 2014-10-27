@@ -4,7 +4,7 @@ module ApplicationHelper
 		@main_menu=Array.new
 		@userAccounts=Array.new
 		@groups=Array.new
-		@sub_menu=Array.new
+		
 		@groups=session[:Groups].grep(/#{session[:DealerCode]}/)
 		@portal_menu=Portalmanager::Appdef.all
 		
@@ -13,10 +13,11 @@ module ApplicationHelper
 		@portal_menu.each do |menu_item|
 			
 			if menu_item.application_parent_menu.eql?(menu_item.application_title) 
-				@temp_menu_item=Array.new  			
+				@temp_menu_item=Array.new 
+				@sub_menu=Array.new
 				submenu="Select * from portalmanager_appdefs where application_title != application_parent_menu and application_parent_menu= '" << menu_item.application_title << "'"
 				@sub_menu=Portalmanager::Appdef.find_by_sql(submenu)
-				if !@sub_menu.empty?
+				if !@sub_menu.empty? 
 					@temp_menu_item.push(menu_item.application_title)
 					@sub_menu.each do |sub_menu_item|
 						
