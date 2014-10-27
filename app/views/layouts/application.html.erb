@@ -41,8 +41,8 @@
 <%= @sub_item[0] %> 
 <b class="caret"></b></a>
           <ul class="dropdown-menu">
-           <% for i in 1..@sub_item.length %>
-<% link_data=@sub_item[i].split('|') %>
+           <% for i in 1..@sub_item.length do |sub_menu_item%>
+           	<% link_data=sub_menu_item.split('|') %>
           <li><a href="<%= link_data[0] %>"> <%= link_data[1] %> </a></li>
           <% end %>
         
