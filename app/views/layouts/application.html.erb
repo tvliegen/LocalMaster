@@ -35,14 +35,17 @@
 <% create_menu %>
  <% @main_menu.each do |menu_item| %>
 
- <% @sub_item = menu_item %>
+
  <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <%= @sub_item=main_menu %> 
 <%= @sub_item[0] %> 
 <b class="caret"></b></a>
           <ul class="dropdown-menu">
+         
            <% for i in 1..@sub_item.length %>
-          <li><a href="#"> <%= @sub_item[i] %> </a></li> 
+           <% temp_sub_menu=@sub_item[i] %>
+          <li><a href="#"> <%= temp_sub_menu[0] %> </a></li> 
           <% end %> 
             
           </ul>
