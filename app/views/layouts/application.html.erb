@@ -43,7 +43,7 @@
           <ul class="dropdown-menu">
            <% for i in 1..@sub_item.length %>
            	<% link_data=@sub_item[i][[0].split('|') %>
-          <li><a href="#"> <%= link_data[1] %> </a></li>
+          <li><a href="#"> <%= @sub_item[i][[0].split('|')[0] %> </a></li>
           <% end %> 
         
           </ul>
