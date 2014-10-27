@@ -26,11 +26,11 @@ module ApplicationHelper
 						
 						if first_item 
 							@temp_menu_item.push(menu_item.application_title)
-							@temp_menu_item.push(sub_menu_item.application_title)
+							@temp_menu_item.push(sub_menu_item.application_title +"|"+ sub_menu_item.application_url)
 							
 							first_item=false
 						else
-							@temp_menu_item.push(sub_menu_item.application_title)
+							@temp_menu_item.push(sub_menu_item.application_title +"|"+ sub_menu_item.application_url)
 							
 						end
 						
