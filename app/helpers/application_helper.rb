@@ -18,6 +18,8 @@ module ApplicationHelper
 				submenu="Select * from portalmanager_appdefs where application_title != application_parent_menu and application_parent_menu= '" << menu_item.application_title << "'"
 				@sub_menu=Portalmanager::Appdef.find_by_sql(submenu)
 				if !@sub_menu.empty? 
+					
+					logger.info "sub" << menu_item.application_title << @sub_menu
 					@temp_menu_item.push(menu_item.application_title)
 					@sub_menu.each do |sub_menu_item|
 						
