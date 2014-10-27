@@ -14,6 +14,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    "dashboard" %>
+    <%= stylesheet_link_tag    "carousel" %>
  </head>
 <!-- Navbar Header --> <body>
 <% if session[:session_cookie] !=nil %>
