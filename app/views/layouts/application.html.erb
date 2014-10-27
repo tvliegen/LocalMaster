@@ -103,7 +103,7 @@ Tools
           <ul class="dropdown-menu">
 
    <li><a href="/usermanagement/users/">User Admin</a></li>  
-<% if !@mygroups.grep(/portal/).empty %>
+<% if !@mygroups.grep(/portal/).empty? %>
             <li>   <a href="/portalmanager/appdefs">Portal Admin</a></li>
     <% end %>
         
