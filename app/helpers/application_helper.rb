@@ -24,11 +24,8 @@ module ApplicationHelper
 					
 					if !(@groups.grep(/#{sub_menu_item.application_groups}/).empty?)   
 						
-						if first_item 
-							
-							@temp_menu_item.push(menu_item.application_title)
+						if first_item 	
 							first_item=false
-		
 						end
 						@temp_menu_item.push(sub_menu_item.application_title)
 					end
