@@ -97,7 +97,7 @@ end
     	    
     	  
     	    	    dealerGroups=groups.grep(/all/)
-    	    	      if (dealerGroups !=nil) 
+    	    	      if (dealerGroups[0] !=nil) 
     	    	    tempGroup=dealerGroups[0].split('|')
     	    	    temp_dealer_group=tempGroup[0].split('.')
     	    else
