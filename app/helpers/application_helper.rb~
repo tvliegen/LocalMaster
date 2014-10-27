@@ -21,19 +21,23 @@ module ApplicationHelper
 				
 				first_item=true
 				@sub_menu.each do |sub_menu_item|
-					
+					@sub_menu_item_temp=Array.new
 					if !(@groups.grep(/#{sub_menu_item.application_groups}/).empty?)   
 						
 						if first_item 
+							
 							@temp_menu_item.push(menu_item.application_title)
-							@temp_menu_item.push(sub_menu_item.application_title << "|" << sub_menu_item.application_url)
+							@sub_menu_item_temp.push(sub_menu_item.application_title)
+							@sub_menu_item_temp.push(sub_menu_item.application_url)
+							
 							
 							first_item=false
 						else
-							@temp_menu_item.push(sub_menu_item.application_title << "|" << sub_menu_item.application_url)
+							@sub_menu_item_temp.push(sub_menu_item.application_title)
+							@sub_menu_item_temp.push(sub_menu_item.application_url)
 							
 						end
-						
+						@temp_menu_item.push(@sub_menu_item_temp)
 					end
 				end
 				if !first_item
