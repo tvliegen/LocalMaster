@@ -26,7 +26,7 @@ module ApplicationHelper
 						
 						if first_item 	
 							first_item=false
-							@temp_menu_item.push(sub_menu.application_title)
+							@temp_menu_item.push(@sub_menu.application_title)
 						end
 						@temp_menu_item.push(sub_menu_item.application_title)
 					end
