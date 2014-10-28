@@ -63,15 +63,15 @@ class Usermanagement::UsersController < ApplicationController
   	  profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
   	  profileHash["profile"]["login"]=params[:usermanagement_user]["login"]
   	  profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
-  	#  new_user=JSON.parse(@idp.createProfile(profileHash))
+  	  new_user=JSON.parse(@idp.createProfile(profileHash))
   	  
   	   @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
   	  dealerCode=session[:DealerCode]
   	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
   	  
-  	#  @idp.addUserToGroup(group_id,new_user["id"])
-  	#  redirect_to '/usermanagement/users/'
-  	render text: group_id 
+  	  @idp.addUserToGroup(group_id,new_user["id"])
+  	  redirect_to '/usermanagement/users/'
+
   end
 
  
