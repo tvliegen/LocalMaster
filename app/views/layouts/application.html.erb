@@ -33,13 +33,14 @@
  
     <ul class="nav navbar-nav navbar-left main_top_menu">
 <% create_menu %>
-  <%= @main_menu.inspect %>
+
  <% @main_menu.each do |menu_item| %>
 
 
  <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <% @sub_item=menu_item %> 
+            <%= menu_item.inspect %>
 <%= @sub_item[0] %> 
 <b class="caret"></b></a>
           <ul class="dropdown-menu">
