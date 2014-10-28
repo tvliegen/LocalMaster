@@ -68,7 +68,7 @@ class Usermanagement::UsersController < ApplicationController
   	   @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
   	  dealerCode=session[:DealerCode]
   	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
-  	  render text: @idp.errcode
+  	  render text: @idp.errCode
   #	  @idp.addUserToGroup(group_id,new_user["id"])
   	#  redirect_to '/usermanagement/users/'
 
