@@ -4,106 +4,120 @@ class Usermanagement::UsersController < ApplicationController
   # GET /usermanagement/users
   # GET /usermanagement/users.json
   def index
-    @usermanagement_users = Usermanagement::User.all
-    @idp=Login::IdpLogin.new
-    @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
-    dealerCode=session[:DealerCode]
- group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
- @profiles=Usermanagement::Profile.new
- 	
-
-group_members_raw = @idp.getGroupMembers(group_id)
-		
-
-		$i=0
-
-		@raw_members=Array.new
-		
-		while $i<group_members_raw.length
-			@profiles=Usermanagement::Profile.new
-			 @profiles.idpid=group_members_raw[$i]["id"]
-			 @profiles.firstname=group_members_raw[$i]["profile"]["firstName"]
-			 @profiles.lastname=group_members_raw[$i]["profile"]["lastName"]
-			 @profiles.login=group_members_raw[$i]["profile"]["login"]
-			 @profiles.lastlogin=group_members_raw[$i]["lastLogin"]
-			 
-			$i +=1;
-			@raw_members.push(@profiles)
-		end
+  	  @usermanagement_users = Usermanagement::User.all
+  	  @idp=Login::IdpLogin.new
+  	  @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
+  	  dealerCode=session[:DealerCode]
+  	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
+  	  @profiles=Usermanagement::Profile.new
+  	  group_members_raw = @idp.getGroupMembers(group_id)
+  	  $i=0
+  	  
+  	  @raw_members=Array.new
+  	  
+  	  while $i<group_members_raw.length
+  	  	  @profiles=Usermanagement::Profile.new
+  	  	  @profiles.idpid=group_members_raw[$i]["id"]
+  	  	  @profiles.firstname=group_members_raw[$i]["profile"]["firstName"]
+  	  	  @profiles.lastname=group_members_raw[$i]["profile"]["lastName"]
+  	  	  @profiles.login=group_members_raw[$i]["profile"]["login"]
+  	  	  @profiles.lastlogin=group_members_raw[$i]["lastLogin"]
+  	  	  
+  	  	  $i +=1;
+  	  	  @raw_members.push(@profiles)
+  	  end
 	
+  end
   
- #  render :text => @raw_members[0].login
-end
+  
   # GET /usermanagement/users/new
   def new
     @usermanagement_user = Usermanagement::User.new
     @user_profile = Usermanagement::User.new(usermanagement_user_params)
   end
+  
+  
 
   # POST /usermanagement/users
   # POST /usermanagement/users.json
+  
+  
   def create
-    @usermanagement_user = Usermanagement::User.new(usermanagement_user_params)
-    @user_profile = Usermanagement::User.new(usermanagement_user_params)
-@idp=Login::IdpLogin.new
-profileHash=JSON.parse('{
-    "profile": {
-        "firstName": "",
-        "lastName": "",
-        "email": "",
-        "login": "",
-        "mobilePhone": ""
-    },
-    "credentials": {
-        "password" : { "value": "password987" }
-    }
-}')
-profileHash["profile"]["firstName"]=params[:usermanagement_user]["firstname"]
-   profileHash["profile"]["lastName"]=params[:usermanagement_user]["lastname"]
-    profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
-     profileHash["profile"]["login"]=params[:usermanagement_user]["login"]
-      profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
-@idp.createProfile(profileHash)
- #   respond_to do |format|
-  #    if @usermanagement_user.save
-   #     format.html { redirect_to @usermanagement_user, notice: 'User was successfully created.' }
-   #     format.json { render action: 'index', status: :created, location: @usermanagement_user }
-   #   else
-   #     format.html { render action: 'new' }
-   #     format.json { render json: @usermanagement_user.errors, status: :unprocessable_entity }
-   #   end
-  #  end
-  redirect_to '/usermanagement/users/'
+  	  @usermanagement_user = Usermanagement::User.new(usermanagement_user_params)
+  	  @user_profile = Usermanagement::User.new(usermanagement_user_params)
+  	  @idp=Login::IdpLogin.new
+  	  profileHash=JSON.parse('{
+  	  	  "profile": {
+  	  	  "firstName": "",
+  	  	  "lastName": "",
+  	  	  "email": "",
+  	  	  "login": "",
+  	  	  "mobilePhone": ""
+  	  	  },
+  	  	  "credentials": {
+  	  	  "password" : { "value": "password987" }
+  	  	  }
+  	  	  }')
+  	  profileHash["profile"]["firstName"]=params[:usermanagement_user]["firstname"]
+  	  profileHash["profile"]["lastName"]=params[:usermanagement_user]["lastname"]
+  	  profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
+  	  profileHash["profile"]["login"]=params[:usermanagement_user]["login"]
+  	  profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
+  	  @idp.createProfile(profileHash)
+  	  
+  	  redirect_to '/usermanagement/users/'
   end
 
-  # PATCH/PUT /usermanagement/users/1
-  # PATCH/PUT /usermanagement/users/1.json
  
   
   def update
   	#  
-  	    	@user_profile = Usermanagement::User.new(usermanagement_user_params)
-  	    
-  	    
-  	     idp_id=params["id"]
+  	@user_profile = Usermanagement::User.new(usermanagement_user_params)
+  	
+  	
+  	idp_id=params["id"]
+  	
+  	
+  	@idp=Login::IdpLogin.new
+  	user_profile_raw=@idp.getProfile(idp_id)
+  	profileHash=JSON.parse(user_profile_raw.to_json)
+  	
+  	
+  	profileHash["profile"]["firstName"]=params[:usermanagement_user]["firstname"]
+  	profileHash["profile"]["lastName"]=params[:usermanagement_user]["lastname"]
+  	profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
+  	#     profileHash["profile"]["login"]=params[:teknionline_profile]["login"]
+  	profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
+  	
+  	
+  	@idp=Login::IdpLogin.new
+  	@updateResults=@idp.updateProfile(idp_id,profileHash)
+  	@all_groups=@idp.getAllGroups('names')
+  	@AccessibleGroups=@all_groups.grep(/#{session[:DealerCode]}/)
+  	 
+  	 new_groups=params[:groups]["enabled"] 
+  	 my_groups=@idp.getGroups(idp_id,'raw')
+  	
+  	  @AccessibleGroups.each do |accessible_group|
+  	  	    group_id=accessible_group.split("|")[2]
+  	  	  if !(my_groups.grep(/#{accessible_group}/).empty?)  	  	  	
+  	  	  	  if (new_groups.grep(/#{group_id}/).empty?)  
+  	  	  	  	  # Remove from Group
+  	  	  	  	 @idp.removeUserFromGroup(group_id,idp_id)
+  	  	  	  end
+  	  	  else
+  	  	  	if !(new_groups.grep(/#{group_id}/).empty?)  
+  	  	  	
+  	  	  	  	 @idp.addUserToGroup(group_id,idp_id)
+  	  	  	  	 	
+  	  	  	  end  
+  	  	  end
+  	  	
+    	     	  
+  	  	  
+  	  end	
+  	redirect_to '/usermanagement/users'
 
-  	 	
-  	   	   @idp=Login::IdpLogin.new
-user_profile_raw=@idp.getProfile(idp_id)
-  profileHash=JSON.parse(user_profile_raw.to_json)
-  
-  
-  profileHash["profile"]["firstName"]=params[:usermanagement_user]["firstname"]
-   profileHash["profile"]["lastName"]=params[:usermanagement_user]["lastname"]
-    profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
-#     profileHash["profile"]["login"]=params[:teknionline_profile]["login"]
-      profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
-       idp_id=session["idp_id"]
-
-         @idp=Login::IdpLogin.new
-     @updateResults=@idp.updateProfile(idp_id,profileHash)
-  # redirect_to '/usermanagement/users'
-render text: params[:groups]["enabled"].to_s
   end
 
   # DELETE /usermanagement/users/1
@@ -119,41 +133,41 @@ render text: params[:groups]["enabled"].to_s
  
   def edit
   	  
-  	   idp_id=params["id"]
-
-  	 	
-  	   	   @idp=Login::IdpLogin.new
-user_profile_raw=@idp.getProfile(idp_id)
-
-       @user_profile = Usermanagement::User.new(usermanagement_user_params)
-
-@user_profile.firstname = user_profile_raw["profile"]["firstName"]
-@user_profile.lastname = user_profile_raw["profile"]["lastName"]
-@user_profile.email = user_profile_raw["profile"]["email"]
-@user_profile.language = user_profile_raw["profile"]["language"]
-@user_profile.login = user_profile_raw["profile"]["login"]
-@user_profile.mobile = user_profile_raw["profile"]["mobile"]
-
-@all_groups=@idp.getAllGroups('names')
-@AccessibleGroups=@all_groups.grep(/#{session[:DealerCode]}/)
-@user_profile.groups=@AccessibleGroups
-
-my_groups=@idp.getGroups(idp_id,'raw')
-userGroups=Array.new
-@AccessibleGroups.each do |accessible_group|
-    	     	     	    	
-    	     	     	    	    if !(my_groups.grep(/#{accessible_group}/).empty?)   
-    	     	     	    	    	  group_name=accessible_group+'|true'
-    	     	     	    else
-    	     	     	    	  group_name=accessible_group+'|false'    
-    	     	    end
-    	     	    userGroups.push(group_name)
+  	  idp_id=params["id"]
+  	  
+  	  
+  	  @idp=Login::IdpLogin.new
+  	  user_profile_raw=@idp.getProfile(idp_id)
+  	  
+  	  @user_profile = Usermanagement::User.new(usermanagement_user_params)
+  	  
+  	  @user_profile.firstname = user_profile_raw["profile"]["firstName"]
+  	  @user_profile.lastname = user_profile_raw["profile"]["lastName"]
+  	  @user_profile.email = user_profile_raw["profile"]["email"]
+  	  @user_profile.language = user_profile_raw["profile"]["language"]
+  	  @user_profile.login = user_profile_raw["profile"]["login"]
+  	  @user_profile.mobile = user_profile_raw["profile"]["mobile"]
+  	  
+  	 @all_groups=@idp.getAllGroups('names')
+  	  @AccessibleGroups=@all_groups.grep(/#{session[:DealerCode]}/)
+  	
+  	  
+  	  my_groups=@idp.getGroups(idp_id,'raw')
+  	 userGroups=Array.new
+  	  @AccessibleGroups.each do |accessible_group|
+  	  	  
+  	  	  if !(my_groups.grep(/#{accessible_group}/).empty?)   
+  	  	  	  group_name=accessible_group+'|true'
+  	  	  else
+  	  	  	  group_name=accessible_group+'|false'    
+  	  	  end
+  	  	  userGroups.push(group_name)
     	     	  
-    	     	   
-    	    end
-    	     @user_profile.groups=userGroups
-#@user_profile.allgroups=nil;
-#@user_profile.groups=nil
+  	  	  
+  	  end	
+  	  logger.info "user groups: " + userGroups.to_s
+  	  @user_profile.groups=userGroups
+
   end
   private
     # Use callbacks to share common setup or constraints between actions.

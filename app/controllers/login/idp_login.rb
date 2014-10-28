@@ -70,7 +70,7 @@ def createProfile(profileHash)
 		@@errCode="Invalid Username or Password!"
 	end
 
-	return @loginResult
+	return @profileResult
 end
 def getProfile(idp_id)
 	@@errCode=nil

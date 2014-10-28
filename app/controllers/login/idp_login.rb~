@@ -114,7 +114,7 @@ def getGroupMembers(group_id)
 	return @group_members_raw
 	end
 
-	def logout(session_id)
+def logout(session_id)
 	@@errCode=nil
 	begin	
 		@logoutResult =JSON.parse(RestClient.delete("https://teknion.oktapreview.com/api/v1/sessions/#{session_id}" , :accept => :json, :content_type => :json,'authorization'=> 'SSWS 00XLL77OIjaIDX94bYuQF8Xp4GOOYWiWUry5V0b5k7' ))
@@ -129,11 +129,15 @@ end
 
 def validate_session(session_id)
 	@@errCode=nil
-		
-		@loginResult =JSON.parse(RestClient.put("https://your-subdomain.okta.com/api/v1/sessions/#{session_id}" ,{},
+	#	begin	
+		@loginResult =JSON.parse(RestClient.get("https://teknion.oktapreview.com/api/v1/sessions/#{session_id}" ,
 	
 	 :accept => :json, :content_type => :json,'authorization'=> 'SSWS 00XLL77OIjaIDX94bYuQF8Xp4GOOYWiWUry5V0b5k7' ))
 
+#rescue => e
+#		e.to_s
+#		@@errCode="Invalid Username or Password!"
+#	end
 
 
 	return @loginResult
