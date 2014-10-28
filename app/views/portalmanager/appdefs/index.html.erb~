@@ -44,7 +44,7 @@
         <% @portalmanager_appdefs.each do |portalmanager_appdef| %>
     <tr>
      <td><%= link_to portalmanager_appdef.application_title, portalmanager_appdef %></td>
-     <td>   <%= portalmanager_appdef.application_description %></td>
+     <td>   <%= portalmanager_appdef.description %></td>
       <td>
           <%= link_to(edit_portalmanager_appdef_path(portalmanager_appdef)) do  %><% end %></td>
          <td>

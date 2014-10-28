@@ -41,6 +41,9 @@
           Last Login</th>
        
         </tr>
+         <th>
+          Last Login</th>  
+        </tr>
        </thead>
        <tbody class="rowlink" data-link="row">
        
@@ -52,8 +55,8 @@
       <td> <%= user_profile.lastname %></td>      
        <td> <%= user_profile.lastlogin %>
        </td>
-        
-
+        <td>   <%= link_to("/", method: :delete, data: {confirm: "Are you sure you want to delete this user?"}) do %><i class="glyphicon glyphicon glyphicon-trash icon-action" > </i><% end %>
+</td>
      </tr>
     <% end %>
        </tbody>
