@@ -33,6 +33,7 @@
  
     <ul class="nav navbar-nav navbar-left main_top_menu">
 <% create_menu %>
+  <% debug @main_menu %>
  <% @main_menu.each do |menu_item| %>
 
 
@@ -45,7 +46,7 @@
             
            <% for i in 1..@sub_item.length %>
            <% temp_sub_menu=Array.try_convert(@sub_item[i]) %>
-          <% debug temp_sub_menu %>
+        
           <li><a href="#"> <%= temp_sub_menu %> </a></li> 
           <% end %> 
                
