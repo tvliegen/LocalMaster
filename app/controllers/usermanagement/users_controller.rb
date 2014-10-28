@@ -70,7 +70,7 @@ class Usermanagement::UsersController < ApplicationController
   	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
   	  
   	  @idp.addUserToGroup(group_id,new_user["id"])
-  	#  redirect_to '/usermanagement/users/'
+  	  redirect_to '/usermanagement/users/'
 
   end
 
