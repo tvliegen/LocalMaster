@@ -39,16 +39,16 @@
 
  <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <% @sub_item=menu_item %> 
+      
            
-<%= @sub_item[0] %> 
+<%= menu_item[0] %> 
 <b class="caret"></b></a>
           <ul class="dropdown-menu">
             
-           <% for i in 1..@sub_item.length-1 %>
-           <% temp_sub_menu=Array.try_convert(@sub_item[i]) %>
+           <% for i in 1..menu_item.length-1 %>
+          
         
-          <li><a href="<%= temp_sub_menu[1] %>"> <%= temp_sub_menu[0] %> </a></li> 
+          <li><a href="<%= temp_sub_menu[1] %>"> <%= menu_item[i][0] %> </a></li> 
           <% end %> 
                
           </ul>
