@@ -44,7 +44,7 @@
           <ul class="dropdown-menu">
           
            <% for i in 1..@sub_item.length %>
-           <% temp_sub_menu=Array.new(@sub_item[i]) %>
+           <% temp_sub_menu=@sub_item[i] %>
           <li><a href="#"> <%= temp_sub_menu[0] %> </a></li> 
           <% end %> 
              
