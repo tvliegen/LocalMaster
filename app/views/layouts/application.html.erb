@@ -45,8 +45,8 @@
             
            <% for i in 1..@sub_item.length %>
            <% temp_sub_menu=Array.try_convert(@sub_item[i]) %>
-          
-          <li><a href="#"> <%= temp_sub_menu[0] %> </a></li> 
+          <% debug temp_sub_menu %>
+          <li><a href="#"> <%= temp_sub_menu %> </a></li> 
           <% end %> 
                
           </ul>
