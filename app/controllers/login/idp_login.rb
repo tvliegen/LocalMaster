@@ -61,7 +61,7 @@ def createProfile(profileHash)
 	
 
 	begin	
-		@profileResult =JSON.parse(RestClient.post("https://teknion.oktapreview.com/api/v1/users?activate=false" ,
+		@profileResult =JSON.parse(RestClient.post("https://teknion.oktapreview.com/api/v1/users?activate=true" ,
 	
 	profileHash.to_json, :accept => :json, :content_type => :json,'authorization'=> 'SSWS 00XLL77OIjaIDX94bYuQF8Xp4GOOYWiWUry5V0b5k7' ))
 
