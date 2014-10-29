@@ -122,8 +122,8 @@ class Usermanagement::UsersController < ApplicationController
     	     	  
   	  	  
   	  end	
-  	redirect_to '/usermanagement/users'
-
+  	#redirect_to '/usermanagement/users'
+render text: JSON.generate(profileHash)
   end
 
   # DELETE /usermanagement/users/1
