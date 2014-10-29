@@ -153,7 +153,7 @@ class Usermanagement::UsersController < ApplicationController
   	  @user_profile.language = user_profile_raw["profile"]["language"]
   	  @user_profile.login = user_profile_raw["profile"]["login"]
   	  @user_profile.mobile = user_profile_raw["profile"]["mobile"]
-  	  
+  	  @user_profile.password = user_profile_raw["credentials"]["password"]["value"]
   	 @all_groups=@idp.getAllGroups('names')
   	  @AccessibleGroups=@all_groups.grep(/#{session[:DealerCode]}/)
   	

@@ -183,7 +183,7 @@ class Usermanagement::UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def usermanagement_user_params
-    	      params.permit(:firstname, :lastname, :email, :language, :login, :mobile, :groups)
+    	      params.permit(:firstname, :lastname, :email, :language, :login, :mobile, :password, :password_confim,:groups)
 
     end
 end
