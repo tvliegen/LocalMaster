@@ -94,7 +94,7 @@ class Usermanagement::UsersController < ApplicationController
   	profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
   	#     profileHash["profile"]["login"]=params[:teknionline_profile]["login"]
   	profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
-  	profileHash["credentials"]["password"]["value"]=params[:usermanagement_user]["passwod"]
+  	profileHash["credentials"]["password"]["value"]=params[:usermanagement_user]["password"]
   	
   	@idp=Login::IdpLogin.new
   	@updateResults=@idp.updateProfile(idp_id,profileHash)
