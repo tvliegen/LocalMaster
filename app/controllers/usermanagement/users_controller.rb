@@ -94,7 +94,7 @@ class Usermanagement::UsersController < ApplicationController
   	profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
   	#     profileHash["profile"]["login"]=params[:teknionline_profile]["login"]
   	profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
-  	
+  	profileHash["credentials"]["password"]["value"]=params[:usermanagement_user]["passwod"]
   	
   	@idp=Login::IdpLogin.new
   	@updateResults=@idp.updateProfile(idp_id,profileHash)
@@ -153,7 +153,7 @@ class Usermanagement::UsersController < ApplicationController
   	  @user_profile.language = user_profile_raw["profile"]["language"]
   	  @user_profile.login = user_profile_raw["profile"]["login"]
   	  @user_profile.mobile = user_profile_raw["profile"]["mobile"]
-  	  @user_profile.password = user_profile_raw["credentials"]["password"]["value"]
+  	  
   	 @all_groups=@idp.getAllGroups('names')
   	  @AccessibleGroups=@all_groups.grep(/#{session[:DealerCode]}/)
   	
