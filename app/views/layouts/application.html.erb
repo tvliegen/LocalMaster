@@ -69,13 +69,13 @@
 <%= render :text => session[:LastName]  %>
 
 <b class="caret"></b></a>
-          <ul class="dropdown-menu dropdown-menu-right">
+          <ul class="dropdown-menu" role="menu">
           
   <li class="dropdown-header">Accounts</li>
 	<% @userAccounts=getAccounts(session[:Groups]) %>    
           <% @userAccounts.each do |account_number| %>
-            <li>
-            <a href="/teknionline/profiles/switch/<%= account_number.split('|')[1] %> ">
+            <li role="presentation">
+            <a role="menuitem" href="/teknionline/profiles/switch/<%= account_number.split('|')[1] %> ">
             
             
             <% if account_number.match(/#{session[:DealerCode]}/) !=nil %>
@@ -87,10 +87,10 @@
           <% end %>
        <li class="divider"></li>
        <li class="dropdown-header">Settings</li>
-          <li><a href="/teknionline/profiles/edit">Profile</a></li> 
-           <li><a href="/teknionline/profiles/edit">Change Password</a></li> 
+          <li><a role="menuitem"  href="/teknionline/profiles/edit">Profile</a></li> 
+           <li><a role="menuitem" href="/teknionline/profiles/edit">Change Password</a></li> 
             <li class="divider"></li>
-            <li><a href="/login/authenticates/logout">Log Out</a></li>
+            <li><a role="menuitem" href="/login/authenticates/logout">Log Out</a></li>
        
         
           </ul>
