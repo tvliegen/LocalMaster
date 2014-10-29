@@ -56,7 +56,7 @@
   <% end %>    
  </ul>
  <% end %>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right main_top_menu">
 
  <% if session[:FirstName] == nil %> 
 
@@ -69,7 +69,7 @@
 <%= render :text => session[:LastName]  %>
 
 <b class="caret"></b></a>
-          <ul class="dropdown-menu dropdown-menu-right  main_top_menu">
+          <ul class="dropdown-menu dropdown-menu-right">
           
   <li class="dropdown-header">Accounts</li>
 	<% @userAccounts=getAccounts(session[:Groups]) %>    
