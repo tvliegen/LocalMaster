@@ -90,12 +90,12 @@
      
       <% @user_profile.groups.each do |group_name| %>
       <% user_groups=group_name.split("|") %>
-      <% if user_groups[2].eql?'true' %>
+      <% if user_groups[3].eql?'true' %>
       <% def_checked=true %>
       <% else %>
       <% def_checked=false %>
       <% end %>
-<%= check_box("groups", "enabled", {:multiple => true, :checked => def_checked}, user_groups[1], nil) %>
+<%= check_box("groups", "enabled", {:multiple => true, :checked => def_checked}, user_groups[2], nil) %>
 <%= label_tag(:groups, user_groups[1])%>
 <% end %>
 
