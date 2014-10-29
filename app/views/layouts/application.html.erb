@@ -31,7 +31,7 @@
      
           <% if session[:FirstName] != nil %> 
  
-    <ul class="nav navbar-nav navbar-left">
+    <ul class="nav navbar-nav navbar-left main_top_menu">
 <% create_menu %>
 
  <% @main_menu.each do |menu_item| %>
@@ -69,7 +69,7 @@
 <%= render :text => session[:LastName]  %>
 
 <b class="caret"></b></a>
-          <ul class="dropdown-menu dropdown-menu-right">
+          <ul class="dropdown-menu dropdown-menu-right  main_top_menu">
           
   <li class="dropdown-header">Accounts</li>
 	<% @userAccounts=getAccounts(session[:Groups]) %>    
