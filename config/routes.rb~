@@ -28,14 +28,32 @@ Teknion::Application.routes.draw do
     resources :appdefs
   end
 
-  resources :claims
- 
+
 
   namespace :teknionline do
     get '/mains', to: 'mains#index', as: 'teknionline_mains'
   end
   root 'teknionline/mains#index'
 
+  
+   # Teknion API mocks
+  namespace :api do
+    resources :claims, only: [:index, :show] do
+      delete :cancel, on: :member
+      resources :claim_issues, only: :index
+    end
+    resources :claim_issues, only: :show do
+      resources :clarifications, only: [:index, :show]
+    end
+  end
+
+  # Tekcare routes
+  resources :claims, only: [:index, :show] do
+    delete :cancel, on: :member
+    resources :claim_issues, only: :show
+  end
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
