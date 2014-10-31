@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8" />
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="" name="description" />
+  <meta content="" name="author" />
+  <link href="../../assets/ico/favicon.ico" rel="shortcut icon" />
+  <title>Teknion Pre-Order Submission</title>
+<!-- Bootstrap core CSS -->  <link href="./styles/bootstrap.css" rel="stylesheet" />
+<!-- Custom styles for this template-->  <link href="./styles/dashboard.css" rel="stylesheet" />
+<!-- Just for debugging purposes. Don't actually copy this line! --><!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]--><!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --><!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]--> </head>
+<!-- Navbar Header --> <body>
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container-fluid">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation </span></button><a class="navbar-brand" href="#"> <img height="50" src="./images/teklogo-green.jpg" width="50" /> Teknion Pre-Order Submission </a></div>
+    <div class="navbar-collapse collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="#">Profile</a></li>
+      <li>
+       <a href="#">Help</a></li>
+     </ul>
+     <form class="navbar-form navbar-right">
+      <input class="form-control" placeholder="Search..." type="text" /></form>
+    </div>
+   </div>
+  </div>
+<!-- Side Bar -->  <div class="nav nav-sidebar">
+   <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation </span></button>
+   <div class="navbar-collapse collapse">
+    <div class="container-fluid">
+     <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+       <ul class="nav nav-sidebar">
+        <li class="active">
+         <a doc_type="doc" docname="all_submissions" href="#" id="item1" target="Content">Pre-Order Submissions</a></li>
+        <li>
+         <a doc_type="doc" docname="submitted" href="#" id="item2" target="Content">Submitted</a></li>
+       </ul>
+      </div>
+      <div id="Content">
+       &nbsp;</div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+<!-- Bootstrap core JavaScript
+
+    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="./js/bootstrap.min.js"></script><script src="./holder/holder.js"></script><script src="./js/custom.js"></script><script>
+       $(document).ready(function () {
+       
+        $('#Content').load("all_submissions.html");
+        
+      $('#item1').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });    
+      $('#item2').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });    
+
+    });
+
+       
+       </script></html>

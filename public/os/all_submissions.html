@@ -1,0 +1,143 @@
+<html>
+ <head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title></title>
+ </head>
+ <body>
+<!-- Heading -->  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h1 class="page-header">
+    Pre-Order Submission</h1>
+<!-- Content -->   <div class="dealer">
+    <div class="col-md-12">
+     <div class="btn-group">
+      <button class="btn btn-default" doc_type="doc" docname="new_submission" id="new_submission" target="Content" type="button">New</button></div>
+    </div>
+    <div class="col-md-8">
+     <div class="table-responsive">
+      <table class="table table-striped table-hover">
+       <thead>
+        <tr>
+         <th>
+          Submission Date</th>
+         <th>
+          Order Type</th>
+         <th>
+          SIF Name</th>
+         <th>
+          Status</th>
+         <th>
+          &nbsp;</th>
+         <th>
+          &nbsp;</th>
+        </tr>
+       </thead>
+       <tbody class="rowlink" data-link="row">
+        <tr>
+         <td>
+          <a doc_type="doc" docname="Submission_Result" href="#" id="line" params="error" target="Content">2014-01-01</a></td>
+         <td>
+          Regular</td>
+         <td>
+          SIF 1</td>
+         <td>
+          Validated with Errors</td>
+         <td>
+            <a href="#" title="Delete"><i class="glyphicon glyphicon glyphicon-trash icon-action" > </i></a></td>
+         <td>
+          <a href="#" title="Download SIF"><i class="glyphicon glyphicon glyphicon-download icon-action"> </i></a></td>
+        </tr>
+        <tr>
+         <td>
+          <a doc_type="doc" docname="Submission_Result" href="#" id="line2" params="ready" target="Content">2014-01-01</a></td>
+         <td>
+          Regular</td>
+         <td>
+          SIF 1</td>
+         <td>
+          Vaidated. Ready for Submission</td>
+          <td>
+            <a href="#" title="Delete"><i class="glyphicon glyphicon glyphicon-trash icon-action" > </i></a></td>
+         <td>
+          <a href="#" title="Download SIF"><i class="glyphicon glyphicon glyphicon-download icon-action"> </i></a></td>
+        </tr>
+        <tr>
+         <td>
+          <a doc_type="doc" docname="Submission_Result" href="#" id="line4" params="more_info" target="Content">2014-01-01</a></td>
+         <td>
+          Regular</td>
+         <td>
+          SIF 1</td>
+         <td>
+          Validated. More Information Required.</td>
+         <td>
+            <a href="#" title="Delete"><i class="glyphicon glyphicon glyphicon-trash icon-action" > </i></a></td>
+         <td>
+          <a href="#" title="Download SIF"><i class="glyphicon glyphicon glyphicon-download icon-action"> </i></a></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+<script src="./js/custom.js"></script><script>
+       $(document).ready(function () {
+       
+       
+        
+        $('#new_submission').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });     
+          $('#line').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        }); 
+            $('#line2').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });    
+          $('#line3').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });    
+          $('#line4').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });    
+        
+         $('#line5').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });    
+        
+                $('#line6').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });
+        
+           $('#line7').click(function (e) {
+            e.preventDefault();
+        updateDoc(this);
+            
+                    
+        });
+    });
+
+       
+       </script></html>
