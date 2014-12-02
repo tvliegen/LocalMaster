@@ -1,4 +1,4 @@
-ruby '2.0.0'
+#ruby '2.0.0'
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.5'
@@ -15,13 +15,15 @@ gem 'rails_12factor'
 gem 'activeresource', require: 'active_resource'
 gem 'rack-contrib'
 gem 'her'
-gem 'rest-client'
 gem 'rails_12factor'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'ruby-saml'
 gem 'faker'
-
+gem 'therubyracer',  platforms: :ruby
+gem 'paperclip', '~> 4.2'
+gem 'nested_form'
+gem 'httmultiparty'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -30,5 +32,7 @@ gem 'simple_form'
 
 gem 'aasm'
 
-
+gem 'virtus'
+gem 'faraday'
+gem 'faraday_middleware'
 

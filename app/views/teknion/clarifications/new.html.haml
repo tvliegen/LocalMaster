@@ -1,0 +1,40 @@
+#clarification_new_wrapper
+
+  %h5.modal-header New Clarification
+  = form_for @clarification, url: teknion_claim_issue_clarifications_path(@clarification.claim_issue_id), html: { class: 'form-horizontal', id: 'whatever' } do |f|
+
+    - if @clarification.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@clarification.errors.count, "error")
+          prohibited this clarification from being saved:
+        %ul
+          - @clarification.errors.full_messages.each do |message|
+            %li= message
+        .confirm-dismiss
+          %a.btn.btn-default.btn-sm
+            OK
+
+    %p.mod-author
+      = f.label :author
+      = f.text_field :author
+    %p.mod-subject
+      = f.label :subject
+      = f.text_field :subject
+    %p.mod-question
+      = f.label :question
+      = f.text_field :question
+    %p.mod-answer
+      = f.label :answer
+      = f.text_area :answer
+
+    .form-actions
+      = f.button :submit, class: [:btn, 'btn-primary']
+
+  :javascript
+    $("form", "#clarification_new_wrapper").ajaxForm({
+      target: "#clarification_new_wrapper",
+      replaceTarget: true
+    });
+
+

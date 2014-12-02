@@ -1,0 +1,30 @@
+= form_for @clarification, html: { class: 'form-horizontal', id: 'whatever' } do |f|
+
+  - if @clarification.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@clarification.errors.count, "error")
+        prohibited this clarification from being saved:
+      %ul
+        - @clarification.errors.full_messages.each do |message|
+          %li= message
+
+  %p.mod-created
+    = f.label :created_at
+    = f.text_field :created_at, readonly: true
+  %p.mod-author
+    = f.label :author
+    = f.text_field :author, readonly: true
+  %p.mod-subject
+    = f.label :subject
+    = f.text_field :subject, readonly: @clarification.subject.present?
+  %p.mod-question
+    = f.label :question
+    = f.text_field :question, readonly: @clarification.question.present?
+  %p.mod-answer
+    = f.label :answer
+    = f.text_area :answer, readonly: @clarification.answer.present?
+
+  .form-actions
+    = f.button :submit, class: [:btn, 'btn-primary']
+

@@ -1,0 +1,10 @@
+%div{id: "site_visit_edit_wrapper_#{@site_visit.id}"}
+
+  %h5.modal-header Edit Site Visit
+  = render 'form'
+
+  :javascript
+    $("form", "#site_visit_edit_wrapper_#{@site_visit.id}").ajaxForm({
+      target: "#site_visit_edit_wrapper_#{@site_visit.id}",
+      replaceTarget: true
+    });

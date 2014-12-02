@@ -1,0 +1,32 @@
+= form_for @site_visit, html: { class: 'form-horizontal', id: 'whatever' } do |f|
+
+  - if @site_visit.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@site_visit.errors.count, "error")
+        prohibited this site visit from being saved:
+      %ul
+        - @site_visit.errors.full_messages.each do |message|
+          %li= message
+
+  %p.mod-created
+    = f.label :created_at
+    = f.text_field :created_at, readonly: true
+  %p.mod-name
+    = f.label :site_visit_name
+    = f.text_field :site_visit_name, readonly: true
+  %p.mod-appointment-date
+    = f.label :appointment_date
+    = f.text_field :appointment_date, readonly: @site_visit.appointment_date.present?
+  %p.mod-appointment-time
+    = f.label :appointment_time
+    = f.text_field :appointment_time, readonly: @site_visit.appointment_time.present?
+  %p.mod-requested-by
+    = f.label :author, 'Appointment Requested By'
+    = f.text_field :author, readonly: true
+  %p.mod-confirmed-by
+    = f.label :confirmed_by, 'Confirmed By'
+    = f.text_field :confirmed_by, readonly: true
+
+  .form-actions
+    = f.button :submit, class: [:btn, 'btn-primary']

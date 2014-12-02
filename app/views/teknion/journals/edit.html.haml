@@ -1,0 +1,12 @@
+%div{id: "journal_edit_wrapper_#{@journal.id}"}
+
+  %h5.modal-header Edit Journal
+  = render 'form'
+
+  :javascript
+    $("form", "#journal_edit_wrapper_#{@journal.id}").ajaxForm({
+      target: "#journal_edit_wrapper_#{@journal.id}",
+      replaceTarget: true
+    });
+
+

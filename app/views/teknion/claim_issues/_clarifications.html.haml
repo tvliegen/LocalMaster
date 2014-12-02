@@ -1,0 +1,53 @@
+#claim_content
+  .col-md-12
+    .btn-group
+      %button#new_clarification.btn.btn-default New
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th
+              Date
+            %th
+              Subject
+            %th
+              From
+            %th
+              Status
+        %tbody.rowlink
+          - @claim_issue.clarifications.each do |clarification|
+            %tr
+              %td
+                %a{href: 'javascript:;', id: "clarification_modal_#{clarification.id}"}
+                  = clarification.created_at
+              %td
+                = clarification.subject
+              %td
+                = clarification.author
+              %td
+                = clarification.status
+
+            %div.jqmWindow{id: "clarification_modal_#{clarification.id}"}
+              Please wait...
+
+            :javascript
+              $(function() {
+                $('#clarification_modal_#{clarification.id}').jqm({
+                  ajax: "/clarifications/#{clarification.id}/edit",
+                  trigger: 'a#clarification_modal_#{clarification.id}'
+                });
+              });
+
+
+
+      #new_clarification_modal.jqmWindow
+        Please wait...
+
+:javascript
+  $(function() {
+    $('#new_clarification_modal').jqm({
+      ajax: "/claim_issues/#{@claim_issue.id}/clarifications/new",
+      trigger: '#new_clarification'
+    });
+  });

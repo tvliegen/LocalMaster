@@ -1,6 +1,7 @@
 
 class Login::AuthenticatesController < ApplicationController
-
+  layout false
+  
   def login
     @login_authenticate = Login::Authenticate.new
     @errCode=nil
@@ -19,7 +20,8 @@ class Login::AuthenticatesController < ApplicationController
 
 if @idp.errors.eql?nil
 
-	
+	session.clear
+	session[:session_date]=DateTime.current
 	idp_id=loginResults["userId"]
 	session[:session_cookie]=loginResults["cookieTokenUrl"]
 	
@@ -40,6 +42,11 @@ end
 
 end
 
+def login_fotonotes
+  @fn=Login::FotonotesLogin.new
+  session[:fntoken]=@fn.login["token"]
+  redirect_to params["redirect"]
+end
  
 def set_session
 	@idp=Login::IdpLogin.new
@@ -66,15 +73,8 @@ end
  end
  
  def logout
- 	  	 session[:userid] = nil
-    
-	session[:FirstName] =nil
-	session[:LastName] = nil
-	session[:Language] = nil
-	session[:Groups]= nil
-	session[:session_cookie]=nil
-	session[:session_id]=nil
-	session[:idp_id]=nil
+ 	session.clear
+
   	  redirect_to "/"	 
 end
 

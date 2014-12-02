@@ -29,7 +29,11 @@ module ApplicationHelper
 							@temp_menu_item.push(menu_item.application_title)
 						end
 						sub_menu_item_temp.push(sub_menu_item.application_title)
-						sub_menu_item_temp.push(sub_menu_item.application_url)
+						if !sub_menu_item.externauthurl.nil?
+						  sub_menu_item_temp.push(sub_menu_item.externauthurl + "?redirect=" + sub_menu_item.application_url)
+						else
+						  sub_menu_item_temp.push(sub_menu_item.application_url)
+						end
 						@temp_menu_item.push(sub_menu_item_temp)
 					end
 				end
@@ -56,6 +60,8 @@ module ApplicationHelper
 		return @dealerAccounts
 	end
 	
+	
+	   
 end
 
 

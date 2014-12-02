@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <meta content="" name="description" />
   <meta content="" name="author" />
-  <link href="../../assets/ico/favicon.ico" rel="shortcut icon" />
+  <%= favicon_link_tag %>
   <title>Teknionline</title>
            
   <%= csrf_meta_tags %>
@@ -23,48 +23,58 @@
 <iframe style="display: none" src="<%= session[:session_cookie] %>">
 </iframe>
 <% end %>
+
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
    <div class="container-fluid">
     <div class="navbar-header">
      <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation </span></button><a class="navbar-brand" href="\"><%= image_tag("teklogo-green.jpg", :width => "50", :height => "50") %> TekniOnline </a></div>
     <div class="navbar-collapse collapse">
      
-          <% if session[:FirstName] != nil %> 
  
-    <ul class="nav navbar-nav navbar-left main_top_menu">
-<% create_menu %>
-
- <% @main_menu.each do |menu_item| %>
+ 
+ 
 
 
- <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-      
-           
-<%= menu_item[0] %> 
-<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            
-           <% for i in 1..menu_item.length-1 %>
-          
-        
-          <li><a href="<%= menu_item[i][1] %>"> <%= menu_item[i][0] %> </a></li> 
-          <% end %> 
-               
-          </ul>
-        </li>
-  <% end %>    
- </ul>
- <% end %>
-    <ul class="nav navbar-nav navbar-right main_top_menu">
-
+ 
+  <ul class="nav navbar-nav navbar-right main_top_menu">
+ 
+ 
  <% if session[:FirstName] == nil %> 
 
-      <li><a href="/login/authenticates/login">Login</a></li>      
+      <li><a href="#" id="login" data-target="/login/authenticates/login">Login</a></li>      
 <% else %>
+  <% create_menu %>
+  <li>
+    <li class="dropdown"><a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span>  <span class="caret"></span></a>
+            <ul class="dropdown-menu scrollable-menu">
+                
+                
+          <li class="dropdown-header">Applications</li>           
+    
+        <% @main_menu.each do |menu_item| %>
+        
+	  <li class="divider"></li>
+	  <li class="dropdown-header"> <%= menu_item[0] %></li>
+       
+                   <% for i in 1..menu_item.length-1 %>
+		      <li>
+        
+		      <a href="<%= menu_item[i][1] %>">  <img class="image" src="http://lorempixel.com/g/400/200/people" alt="placeholder image" height="20" width="20">  <%= menu_item[i][0] %></a>
+		      </li>
+		  <% end %> 
+               
+	<% end %>    
+  </li>
 
+                
+   
+              
+            </ul>
+        </li>
+       
 <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+         <span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span> 
 <%= render :text => session[:FirstName]  %> 
 <%= render :text => session[:LastName]  %>
 
@@ -104,7 +114,7 @@
    
   <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-Tools
+<span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span>  Tools
 <b class="caret"></b></a>
           <ul class="dropdown-menu">
 
@@ -117,7 +127,11 @@ Tools
         </li>    
       <% end %>
  <% end %>
+ 
+ 
+ 
     <li>   <a href="#">Help</a></li>
+   
   </ul></div>
   </div>
   </div>
@@ -127,11 +141,17 @@ Tools
 </body>
 
 <script>
-/*$('#login').click(function (e) {
+// Wire up the events as soon as the DOM tree is ready
+$(document).ready(function() {
+ wireUpEvents();  
+ 
+}); 
+
+$('#login').click(function (e) {
    e.preventDefault();
                 var target_issue=$(this).attr('data-target');
                 $('#modal_content').load(target_issue);
                  $('#contentModal').modal('show');
-});*/
+});
 </script>
 </html>

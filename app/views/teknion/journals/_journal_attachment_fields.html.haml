@@ -1,0 +1,5 @@
+%p
+  = link_to f.object.attachment_file_name, f.object.attachment_file_name
+  = f.file_field :attachment
+  -# TODO: determine how to remove attachment -CS
+  %a{href: true} Remove Attachment

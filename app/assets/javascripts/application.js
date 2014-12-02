@@ -15,3 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+//= require lodash
+//= require jqModal
+//= require closebrowser
+//= require jquery.form

@@ -1,4 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "dashboard.css"; 
-@import "carousel.css"; 
+
+@import "shared/jq_modal.scss";
+@import "claims.scss";
+@import "global.scss";
+@import "carousel.css";
+@import "dashboard.css";

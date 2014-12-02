@@ -1,0 +1,108 @@
+ <ul class="nav">
+     
+          <% if session[:FirstName] != nil %> 
+	      <% create_menu %>
+
+	      <% @main_menu.each do |menu_item| %>
+
+
+		  <li class="dropdown">
+		    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      
+			<%= menu_item[0] %> <b class="caret"></b>
+		    </a>
+		    <ul class="dropdown-menu">
+            
+		      <% for i in 1..menu_item.length-1 %>
+			<li>
+			  <a href="<%= menu_item[i][1] %>"> 
+			    <%= menu_item[i][0] %> 
+			  </a>
+			</li> 
+		      <% end %> 
+	      <% end %>
+	  <% end %>
+        </ul>  
+  
+    <ul class="nav navbar-nav navbar-right main_top_menu">
+
+ <% if session[:FirstName] == nil %> 
+
+      <li><a href="/login/authenticates/login">Login</a></li>      
+<% else %>
+   <li class="dropdown"><a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Action <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li class="gb_C">
+                    <span class="gb_E gb_E_usr"></span>
+                    <span class="gb_D gb_D_usr"></span>
+                </li>
+                <li><a href="#">Action</a>
+                </li>
+                <li><a href="#">Another action</a>
+                </li>
+                <li><a href="#">Something else here</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a>
+                </li>
+            </ul>
+        </li>
+<li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+         <span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span> 
+<%= render :text => session[:FirstName]  %> 
+<%= render :text => session[:LastName]  %>
+
+<b class="caret"></b></a>
+          <ul class="dropdown-menu" role="menu">
+          
+  <li class="dropdown-header">Accounts</li>
+	<% @userAccounts=getAccounts(session[:Groups]) %>    
+          <% @userAccounts.each do |account_number| %>
+            <li role="presentation">
+            <a role="menuitem" href="/teknionline/profiles/switch/<%= account_number.split('|')[1] %> ">
+            
+            
+            <% if account_number.match(/#{session[:DealerCode]}/) !=nil %>
+            
+            <i class="glyphicon glyphicon glyphicon-ok icon-action" > </i>
+            <% end %>
+          <%= account_number.split('|')[0] + ' ('+account_number.split('|')[1] +')' %>
+          </a></li>
+          <% end %>
+       <li class="divider"></li>
+       <li class="dropdown-header">Settings</li>
+          <li><a role="menuitem"  href="/teknionline/profiles/edit">Profile</a></li> 
+           <li><a role="menuitem" href="/teknionline/profiles/edit">Change Password</a></li> 
+            <li class="divider"></li>
+            <li><a role="menuitem" href="/login/authenticates/logout">Log Out</a></li>
+       
+        
+          </ul>
+        </li>
+     
+   <% end %>
+   <% @mygroups=Array.new %>
+   <% @mygroups=session[:Groups] %>
+   <% if @mygroups !=nil %>
+   <% if !@mygroups.grep(/admin/).empty? %>
+   
+  <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span>  Tools
+<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+
+   <li><a href="/usermanagement/users/">User Admin</a></li>  
+<% if !@mygroups.grep(/portal/).empty? %>
+            <li>   <a href="/portalmanager/appdefs">Portal Admin</a></li>
+    <% end %>
+        
+          </ul>
+        </li>    
+      <% end %>
+ <% end %>
+    <li>   <a href="#">Help</a></li>
+  </ul></div>
+  </div>
+  </div>

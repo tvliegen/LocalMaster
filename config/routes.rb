@@ -20,6 +20,7 @@ Teknion::Application.routes.draw do
     post 'authenticates/idpLogin', to: 'authenticates#idpLogin'
     get 'authenticates/setsession', to: 'authenticates#set_session'
     get 'authenticates/validatesession', to: 'authenticates#validate_session'
+    get 'authenticates/loginfn', to: 'authenticates#login_fotonotes'
   end
 
 
@@ -35,7 +36,6 @@ Teknion::Application.routes.draw do
   end
   root 'teknionline/mains#index'
 
-  
    # Teknion API mocks
   namespace :api do
     resources :claims, only: [:index, :show] do
@@ -43,16 +43,39 @@ Teknion::Application.routes.draw do
       resources :claim_issues, only: :index
     end
     resources :claim_issues, only: :show do
-      resources :clarifications, only: [:index, :show]
+      resources :clarifications, shallow: true
+      resources :journals, only: [:index, :new, :create]
+      resources :site_visits, shallow: true
+      resources :action_plan, only: :index
+    end
+    resources :action_plans, only: :show do
+      resources :replacement_orders, only: :index
+    end
+    resources :journals, only: [:show, :edit, :update] do
+      resources :journal_attachments, shallow: true
     end
   end
 
   # Tekcare routes
-  resources :claims, only: [:index, :show] do
-    delete :cancel, on: :member
-    resources :claim_issues, only: :show
+  scope module: 'teknion', as: 'teknion' do
+    resources :claims, only: [:index, :show] do
+      delete :cancel, on: :member
+      resources :claim_issues, only: :index
+    end
+    resources :claim_issues, only: :show do
+      resources :clarifications, shallow: true
+      resources :journals, only: [:index, :new, :create]
+      resources :site_visits, shallow: true
+      #resources :action_plan, shallow: true
+    end
+    resources :journals, only: [:show, :edit, :update, :destroy]
   end
   
+scope module: 'teknion', as: 'teknion' do
+
+    get 'claimsrequests', to: 'claim_requests#index'
+ end
+
   match '/oe', :to => redirect('/public/os/index.html'), via: [:get, :post]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

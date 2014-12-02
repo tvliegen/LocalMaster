@@ -1,6 +1,7 @@
 
   <div id="main_content">
-
+   
+<% if session[:FirstName] == nil %> 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
    
       <ol class="carousel-indicators">
@@ -47,7 +48,36 @@
 <div aria-hidden="true" aria-labelledby="Issue" class="modal fade" id="contentModal" role="dialog" tabindex="-1">
       <div id="modal_content">
        &nbsp;</div>
+       <% else %>
+       <% create_menu %>
+       
+       
+       <div class="container-fluid">
+    <h2>Applications</h2><br>
+        <% @main_menu.each do |menu_item| %>
+            <table class="table">
+            <tbody><h4>
+        <%= menu_item[0] %></h4> 
+        <tr>
+                   <% for i in 1..menu_item.length-1 %>
+          <td class="">
+        
+          <a href="<%= menu_item[i][1] %>">  <img class="image" src="http://lorempixel.com/g/400/200/people" alt="placeholder image" height="100" width="200"><br><%= menu_item[i][0] %> </a>
+          </td> 
+          
+          <% end %> 
+               
+          </tr>
+   </tbody>
+ </table>
+  <% end %>    
 
+
+                
+    </div> 
+       
+       
+<% end if %>
  </div>
    
 

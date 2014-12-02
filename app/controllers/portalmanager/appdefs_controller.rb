@@ -83,7 +83,7 @@ class Portalmanager::AppdefsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def portalmanager_appdef_params
     	    
-    	      params.require(:portalmanager_appdef).permit(:application_title, :application_description, :application_url, :application_groups, :application_parent_menu)
+    	      params.require(:portalmanager_appdef).permit(:application_title, :application_description, :application_url, :application_groups, :application_parent_menu, :externauthurl)
 
     end
     

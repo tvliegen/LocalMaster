@@ -1,0 +1,55 @@
+#claim_content
+  .col-md-12
+    .btn-group
+      %button#new_journal.btn.btn-default New
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th
+              Date Posted
+            %th
+              Type
+            %th
+              Title
+            %th
+              Author
+        %tbody.rowlink
+          - @claim_issue.journals.each do |journal|
+            %tr
+              %td
+                %a{href: 'javascript:;', id: "journal_modal_#{journal.id}"}
+                  = journal.created_at
+              %td
+                Documentation
+              %td
+                = journal.title
+              %td
+                = journal.author
+
+            %div.jqmWindow{id: "journal_modal_#{journal.id}"}
+              Please wait...
+
+            :javascript
+              $(function() {
+                $('#journal_modal_#{journal.id}').jqm({
+                  ajax: "/journals/#{journal.id}/edit",
+                  trigger: 'a#journal_modal_#{journal.id}'
+                });
+              });
+
+
+   
+
+  #new_journal_modal.jqmWindow
+    Please wait...
+
+
+:javascript
+  $(function() {
+    $('#new_journal_modal').jqm({
+      ajax: "/claim_issues/#{@claim_issue.id}/journals/new",
+      trigger: '#new_journal'
+    });
+  });

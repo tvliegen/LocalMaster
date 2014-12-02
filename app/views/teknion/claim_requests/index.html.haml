@@ -1,0 +1,23 @@
+/ = render 'shared/sidebar'
+
+.tek-bar
+  .container-fluid
+    %p.breadcrumb
+      %span.last='Tekcare'
+    %button.btn.btn-default.btn-xs.to-submit
+      = link_to "To Submit  100", teknion_claims_path(status: 'to_submit')
+    .claim-filters.btn-group.btn-group-xs
+      %button.btn.btn-default.in-progress
+        = link_to "In Progress  20", teknion_claims_path
+      %button.btn.btn-default.clairfication
+        = link_to "Clarification  30", teknion_claims_path(status: 'clarification')
+      %button.btn.btn-default.resolved
+        = link_to "Resolved  40", teknion_claims_path(status: 'resolved')
+      %button.btn.btn-default.closed
+        = link_to "Closed  100", teknion_claims_path(status: 'closed')
+    .claim-filters.btn
+      %i.glyphicon.glyphicon.glyphicon-edit=' New'
+.container-fluid.claims-list
+  .col-sm-12.main
+    %iframe{:src => "http://teknion.fotonotes.com/tkn/?token=#{session[:fntoken]}/#/project/list",:height => 400, :width => "100%",:allowfullscreen => nil,:frameborder =>0}
+    

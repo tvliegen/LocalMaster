@@ -2,7 +2,9 @@ class CreateClarifications < ActiveRecord::Migration
   def change
     create_table :clarifications do |t|
       t.string :author
-      t.string :text
+      t.string :subject
+      t.string :question
+      t.string :answer
       t.references :claim_issue, index: true
 
       t.timestamps

@@ -1,0 +1,2 @@
+module Teknion::ClaimRequestsHelper
+end
