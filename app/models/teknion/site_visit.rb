@@ -1,6 +1,6 @@
 class Teknion::SiteVisit
-  include Her::Model
+  #include Her::Model
 
-  belongs_to :claim_issue, class_name: "Teknion::ClaimIssue"
+  #belongs_to :claim_issue, class_name: "Teknion::ClaimIssue"
 end
 

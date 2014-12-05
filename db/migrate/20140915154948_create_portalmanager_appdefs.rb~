@@ -1,9 +1,0 @@
-class CreatePortalmanagerAppdefs < ActiveRecord::Migration
-  def change
- drop_table :portalmanager_appdefs
-    create_table :portalmanager_appdefs do |t|
-
-      t.timestamps
-    end
-  end
-end

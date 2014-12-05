@@ -5,7 +5,7 @@ class Usermanagement::UsersController < ApplicationController
   # GET /usermanagement/users.json
   def index
   	  @usermanagement_users = Usermanagement::User.all
-  	  @idp=Login::IdpLogin.new
+  	  @idp=IdpLogin.new
   	  @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
   	  dealerCode=session[:DealerCode]
   	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
@@ -45,7 +45,7 @@ class Usermanagement::UsersController < ApplicationController
   def create
   	  @usermanagement_user = Usermanagement::User.new(usermanagement_user_params)
   	  @user_profile = Usermanagement::User.new(usermanagement_user_params)
-  	  @idp=Login::IdpLogin.new
+  	  @idp=IdpLogin.new
   	  profileHash=JSON.parse('{
   	  	  "profile": {
   	  	  "firstName": "",
@@ -84,7 +84,7 @@ class Usermanagement::UsersController < ApplicationController
   	idp_id=params["id"]
   	
   	
-  	@idp=Login::IdpLogin.new
+  	@idp=IdpLogin.new
   	user_profile_raw=@idp.getProfile(idp_id)
   	profileHash=JSON.parse(user_profile_raw.to_json)
   	
@@ -96,7 +96,7 @@ class Usermanagement::UsersController < ApplicationController
   	profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
   	profileHash["credentials"]["password"]["value"]=params[:usermanagement_user]["password"]
   	
-  	@idp=Login::IdpLogin.new
+  	
   	@updateResults=@idp.updateProfile(idp_id,profileHash)
   	@all_groups=@idp.getAllGroups('names')
   	@AccessibleGroups=@all_groups.grep(/#{session[:DealerCode]}/)
@@ -142,7 +142,7 @@ class Usermanagement::UsersController < ApplicationController
   	  idp_id=params["id"]
   	  
   	  
-  	  @idp=Login::IdpLogin.new
+  	  @idp=IdpLogin.new
   	  user_profile_raw=@idp.getProfile(idp_id)
   	  
   	  @user_profile = Usermanagement::User.new(usermanagement_user_params)

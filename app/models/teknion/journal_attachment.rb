@@ -1,7 +1,7 @@
 class Teknion::JournalAttachment
-  include Her::Model
+  #include Her::Model
 
-  belongs_to :journal, class_name: "Teknion::Journal"
+  #belongs_to :journal, class_name: "Teknion::Journal"
 end
 
 

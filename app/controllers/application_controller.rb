@@ -5,8 +5,21 @@ class ApplicationController < ActionController::Base
   helper :all	
  # before_action :checkLogin
    
+private
+  
+ def tekcare_connection
+    conn ||= Faraday.new('http://api.corp.teknion.com/', ssl: {verify: false} ) do |faraday|
+      faraday.use TekcareTokenAuthentication
+      faraday.use Faraday::Request::UrlEncoded
 
-     
+      # Response
+      faraday.response :json
+
+      # Adapter
+      faraday.use Faraday::Adapter::NetHttp
+    end
+    return conn
+  end
      
    def checkLogin
      logger.info "Controller: #{controller_name}"

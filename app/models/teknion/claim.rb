@@ -1,9 +1,21 @@
 class Teknion::Claim
-  include Her::Model
+  include ActiveModel::Model
+  include Virtus.model
+  include HTTParty
 
-  #def cancel
-    #self.delete(:cancel)
-  #end
+  # used for claim_details call
+  attribute :header, Hash
+  attribute :customer, Hash
+  attribute :ship_replacement_to, Hash
+  attribute :claim_issues, Array[Teknion::ClaimIssue]
 
-  has_many :claim_issues, class_name: "Teknion::ClaimIssue"
+  # used for index call
+  attribute :incident_id, String
+  attribute :claim_description, String
+  attribute :dealer_name, String
+  attribute :contact_name, String
+  attribute :shipto_name, String
+  attribute :incident_date, String
+  attribute :incident_time, String
+  attribute :incident_status, String
 end

@@ -5,10 +5,8 @@
     %p.breadcrumb
       %a{:href => "/claims"}='Tekcare'
       %span /
-      %span.last Incident: #{@claim.tekcare_number}
+      %span.last Claim: #{@claim.header['tekcare_number']}
 .claim
-  .h3
-    Tekcare Incident: #{@claim.tekcare_number}
   .claim-details
     .container-fluid
       .row
@@ -27,29 +25,29 @@
           .col-sm-2
             %label Dealer Name
           .col-sm-3
-            = @claim.dealer_name
+            = @claim.customer['dealer_name']
           .col-sm-2
             %label Dealer Number
           .col-sm-3
-            = @claim.dealer_code
+            = @claim.customer['dealer_code']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Dealer Contact Name
           .col-sm-3
-            = @claim.dealer_contact_name
+            = @claim.customer['dealer_contact_name']
           .col-sm-2
             %label Dealer Contact Number
           .col-sm-3
-            = @claim.dealer_contact_number
+            = @claim.customer['dealer_contact_number']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Dealer Contact Email
           .col-sm-7
-            = @claim.dealer_contact_email
+            = @claim.customer['dealer_contact_email']
           .col-sm-1
         .row
           .col-sm-12.dealer-section
@@ -59,45 +57,50 @@
           .col-sm-2
             %label Universal Number
           .col-sm-3
-            = @claim.universal
+            = @claim.header['universal']
           .col-sm-2
             %label PO Number
           .col-sm-3
-            = @claim.original_po
-          .col-sm-1  
+            = @claim.header['original_po']
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label SQ Number
           .col-sm-3
-            = @claim.original_sq
+            = @claim.header['original_sq']
           .col-sm-2
             %label SQ Rev Number
           .col-sm-3
-            = @claim.original_po_rev
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.original_po_rev
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label End Customer
           .col-sm-3
-            = @claim.end_customer_name
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.end_customer_name
           .col-sm-2
             %label Received Dated
           .col-sm-3
-            = @claim.shipment_received_date
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.shipment_received_date
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Product Storage
           .col-sm-3
-            = @claim.product_in_storage
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.product_in_storage
           .col-sm-2
             %label Project Name
           .col-sm-3
-            = @claim.project_name
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.project_name
+          .col-sm-1
         .row
           .col-sm-12.dealer-section
             %legend.dealer-heading Installation Information
@@ -106,52 +109,60 @@
           .col-sm-2
             %label Installation Status
           .col-sm-3
-            In Progress: #{@claim.installation_in_progress}
+            %div{style: 'color:red'}MISSING_IN_API
+            -#In Progress: #{@claim.installation_in_progress}
           .col-sm-2
             %label Estimated Completion
           .col-sm-3
-            = @claim.scheduled_install_completion
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.scheduled_install_completion
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Installation Company
           .col-sm-3
-            = @claim.installation_company
+            = @claim.header['installation_company']
           .col-sm-2
             %label Installer Lead
           .col-sm-3
-            = @claim.installer_name
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.installer_name
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Lead Contact Number
           .col-sm-3
-            = @claim.installer_number
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.installer_number
           .col-sm-2
             %label Lead Contact E-mail
           .col-sm-3
-            = @claim.installer_email
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.installer_email
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Site Contact Name
           .col-sm-7
-            = @claim.site_visit_contact_name
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.site_visit_contact_name
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Site Contact Number
           .col-sm-3
-            = @claim.site_visit_contact_number
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.site_visit_contact_number
           .col-sm-2
             %label Site Contact E-mail
           .col-sm-3
-            = @claim.site_visit_contact_email
-          .col-sm-1  
+            %div{style: 'color:red'}MISSING_IN_API
+            -#= @claim.site_visit_contact_email
+          .col-sm-1
         .row
           .col-sm-12.dealer-section
             %legend.dealer-heading Replacement Order Information
@@ -160,40 +171,40 @@
           .col-sm-2
             %label Ship To Name
           .col-sm-8
-            = @claim.replacement_shipto_name
-          .col-sm-1  
+            = @claim.ship_replacement_to['shipto_name']
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Address
           .col-sm-3
-            = @claim.replacement_shipto_address
+            = @claim.ship_replacement_to['address1']
           .col-sm-2
             %label City
           .col-sm-3
-            = @claim.replacement_shipto_city
-          .col-sm-1  
+            -#= @claim.ship_replacement_to['city']
+          .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label State/Province
           .col-sm-3
-            = @claim.replacement_shipto_state_prov
+            = @claim.ship_replacement_to['state_prov']
           .col-sm-2
             %label Postal/Zip Code
           .col-sm-3
-            = @claim.replacement_shipto_zip_pc
+            = @claim.ship_replacement_to['postal_zip']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Call Before Name
           .col-sm-3
-            = @claim.site_visit_contact_name
+            = @claim.ship_replacement_to['cb_name']
           .col-sm-2
             %label Call Before Number
           .col-sm-3
-            = @claim.site_visit_contact_number
+            = @claim.ship_replacement_to['cb_number']
           .col-sm-1
         .row
           .col-md-12.dealer-section
@@ -206,13 +217,13 @@
                 %thead
                   %tr
                     %th
-                      Issue Number
+                      Issue Num
                     %th
-                      Shipment Number
+                      Shipment Num
                     %th
                       Item Code
                     %th
-                      CR Number
+                      CR Num
                     %th
                       Item Description
                     %th
@@ -225,21 +236,23 @@
                   - @claim.claim_issues.each do |claim_issue|
                     %tr
                       %td
-                        -#/ <a data-target="#issueModal" data-toggle="modal" href="#">2014-000001-001</a></td>
-                        -#%a{"data-target" => "active-issue.html", :href => "#"}
-                          -#= claim_issue.issue_id
-                        = link_to claim_issue.issue_id, teknion_claim_issue_path(claim_issue)
+                        %a{:href => ""}
+                          = claim_issue.issue_id
                       %td
-                        = claim_issue.shipment_number
+                        %div{style: 'color:red'}MISSING_IN_API
+                        -#= claim_issue.shipment_number
                       %td
                         = claim_issue.item_code
                       %td
-                        = claim_issue.cr
+                        %div{style: 'color:red'}MISSING_IN_API
+                        -#= claim_issue.cr
                       %td
                         = claim_issue.item_description
                       %td
-                        = claim_issue.line_text
+                        %div{style: 'color:red'}MISSING_IN_API
+                        -#= claim_issue.line_text
                       %td
-                        = claim_issue.tag
+                        %div{style: 'color:red'}MISSING_IN_API
+                        -#= claim_issue.tag
                       %td
-                        = claim_issue.status
+                        = claim_issue.issue_status

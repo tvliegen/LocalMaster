@@ -10,20 +10,18 @@
       %button.btn.btn-default.in-progress{class: ('active' if params[:status].nil?)}
         = link_to "In Progress  20", teknion_claims_path
       %button.btn.btn-default.clairfication{class: ('active' if params[:status] == 'clairfication')}
-        = link_to "Clarification  30", teknion_claims_path(status: 'clarification')
+        = link_to "Clairfication  30", teknion_claims_path(status: 'clairfication')
       %button.btn.btn-default.resolved{class: ('active' if params[:status] == 'resolved')}
         = link_to "Resolved  40", teknion_claims_path(status: 'resolved')
       %button.btn.btn-default.closed{class: ('active' if params[:status] == 'closed')}
         = link_to "Closed  100", teknion_claims_path(status: 'closed')
-    .claim-filters.btn
-      %i.glyphicon.glyphicon.glyphicon-edit=' New'
 .container-fluid.claims-list
   .col-sm-12.main
     %h2.page-header.claim-status=t('claims')
     %table.table.table-striped.table-hover
       %thead
         %tr
-          %th Incident Number
+          %th Issue Number
           %th Title
           %th Project
           %th Created By
@@ -34,10 +32,11 @@
         - @claims.each do |claim|
           %tr
             %td
-              = link_to claim.tekcare_number, teknion_claim_path(claim)
-            %td= claim.claim_title
-            %td= claim.project_name
+              = link_to claim.incident_id, teknion_claim_path(claim.incident_id)
+            %td= claim.claim_description
+            %td= claim.contact_name
             %td= claim.dealer_name
-            %td= claim.updated_at
-            %td= claim.status
-            %td= button_to "Cancel", cancel_teknion_claim_path(claim), method: :delete
+            %td= claim.incident_date
+            %td= claim.incident_status
+            %td
+            -#%td= button_to "Cancel", cancel_teknion_claim_path(claim), method: :delete

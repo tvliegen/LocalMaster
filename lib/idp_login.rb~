@@ -1,5 +1,0 @@
-class idp_login
-	def initialize()
-	end
-	
-end

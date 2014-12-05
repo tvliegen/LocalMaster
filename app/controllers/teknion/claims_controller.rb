@@ -1,12 +1,8 @@
 class Teknion::ClaimsController < ApplicationController
   before_action :set_claim, only: [:show, :cancel]
-  
+  before_action :set_claims, only: :index
+
   def index
-    if params[:status].present?
-      @claims = Teknion::Claim.where(status: params[:status])
-    else
-      @claims = Teknion::Claim.all
-    end
   end
 
   def show
@@ -19,11 +15,17 @@ class Teknion::ClaimsController < ApplicationController
 
   private
     def set_claim
-      @claim = Teknion::Claim.find(params[:id])
+      json_response = tekcare_connection.get "tekcare/claims/#{params[:id]}/claimdetail", {dealer_code: "190017"}
+      return if json_response.body.nil?
+
+      @claim = Teknion::Claim.new(json_response.body)
     end
 
-    # Only allow a trusted parameter "white list" through.
-    #def claim_params
-      #params[:claim].permit(:tekcare_number, :title, :project, :created_by, :status)
-    #end
+    def set_claims
+      @claims = []
+      json_response = tekcare_connection.get "tekcare/claims/OPEN/listbystatus", {dealer_code: "190017"}
+      return if json_response.body['claims'].nil?
+
+      @claims = json_response.body['claims'].map {|claim| Teknion::Claim.new(claim) }
+    end
 end

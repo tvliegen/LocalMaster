@@ -11,7 +11,7 @@ class Login::AuthenticatesController < ApplicationController
   def idpLogin
   	  @login_authenticate = Login::Authenticate.new(login_authenticate_params)
      
-	@idp=Login::IdpLogin.new
+	@idp=IdpLogin.new
 	@errCode = nil
 	loginResults=@idp.login(@login_authenticate.username, @login_authenticate.password)
 
@@ -49,7 +49,7 @@ def login_fotonotes
 end
  
 def set_session
-	@idp=Login::IdpLogin.new
+	@idp=IdpLogin.new
 	idp_id=session[:idp_id]
 	@user_profile_raw=@idp.getProfile(idp_id)
 	session[:FirstName] =@user_profile_raw["profile"]["firstName"]
@@ -66,7 +66,7 @@ def set_session
 end
 
  def validate_session
- @idp=Login::IdpLogin.new
+ @idp=IdpLogin.new
 	@errCode = nil	 
 	session_result=@idp.validate_session(session[:idp_session_id])
 	redirect_to "/"

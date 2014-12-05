@@ -7,7 +7,7 @@ class Teknionline::ProfilesController < ApplicationController
  idp_id=session["idp_id"]
 
   	 	
-  	   	   @idp=Login::IdpLogin.new
+  	   	   @idp=IdpLogin.new
 user_profile_raw=@idp.getProfile(idp_id)
 
        @user_profile = Teknionline::Profile.new(user_profile_params)
@@ -34,7 +34,7 @@ user_profile_raw=@idp.getProfile(idp_id)
   	     idp_id=session["idp_id"]
 
   	 	
-  	   	   @idp=Login::IdpLogin.new
+  	   	   @idp=IdpLogin.new
 user_profile_raw=@idp.getProfile(idp_id)
   profileHash=JSON.parse(user_profile_raw.to_json)
   
@@ -46,7 +46,7 @@ user_profile_raw=@idp.getProfile(idp_id)
     #  profileHash["profile"]["mobilePhone"]=params[:teknionline_profile]["login"]
        idp_id=session["idp_id"]
 
-         @idp=Login::IdpLogin.new
+         @idp=IdpLogin.new
      @updateResults=@idp.updateProfile(idp_id,profileHash)
    	
 redirect_to "/login/authenticates/setsession"

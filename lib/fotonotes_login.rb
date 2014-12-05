@@ -1,4 +1,4 @@
-class Login::FotonotesLogin
+class FotonotesLogin
 	
 	@@errCode=nil
 	
