@@ -15,7 +15,7 @@ class Teknion::ClaimsController < ApplicationController
 
   private
     def set_claim
-      json_response = tekcare_connection.get "tekcare/claims/#{params[:id]}/claimdetail", {dealer_code: "190017"}
+      json_response = tekcare_connection.get "tekcare/claims/#{params[:id]}/claimdetail", {dealer_code: "200188"}
       return if json_response.body.nil?
 
       @claim = Teknion::Claim.new(json_response.body)
@@ -23,7 +23,7 @@ class Teknion::ClaimsController < ApplicationController
 
     def set_claims
       @claims = []
-      json_response = tekcare_connection.get "tekcare/claims/OPEN/listbystatus", {dealer_code: "190017"}
+      json_response = tekcare_connection.get "tekcare/claims/OPEN/listbystatus", {dealer_code: "200188"}
       return if json_response.body['claims'].nil?
 
       @claims = json_response.body['claims'].map {|claim| Teknion::Claim.new(claim) }

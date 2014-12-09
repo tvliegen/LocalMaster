@@ -9,30 +9,30 @@
             %th
               Type
             %th
-              Subject
+              Title
             %th
               Author
         %tbody.rowlink
           - @claim_issue.journals.each do |journal|
             %tr
               %td
-                %a{href: 'javascript:;', id: "journal_modal_#{journal.journal_id}"}
-                  = journal.timestamp
+                %a{href: 'javascript:;', id: "journal_modal_#{journal.id}"}
+                  = journal.created_at
               %td
                 Documentation
               %td
-                = journal.subject
+                = journal.title
               %td
-                = journal.created_by
+                = journal.author
 
-            %div.jqmWindow{id: "journal_modal_#{journal.journal_id}"}
+            %div.jqmWindow{id: "journal_modal_#{journal.id}"}
               Please wait...
 
             :javascript
               $(function() {
-                $('#journal_modal_#{journal.journal_id}').jqm({
-                  ajax: "/journals/#{journal.journal_id}/edit",
-                  trigger: 'a#journal_modal_#{journal.journal_id}'
+                $('#journal_modal_#{journal.id}').jqm({
+                  ajax: "/journals/#{journal.id}/edit",
+                  trigger: 'a#journal_modal_#{journal.id}'
                 });
               });
 
@@ -48,7 +48,7 @@
 :javascript
   $(function() {
     $('#new_journal_modal').jqm({
-      ajax: "/claim_issues/#{@claim_issue.issue_id}/journals/new",
+      ajax: "/claim_issues/#{@claim_issue.id}/journals/new",
       trigger: '#new_journal'
     });
   });

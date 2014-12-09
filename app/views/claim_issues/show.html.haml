@@ -1,65 +1,74 @@
-.col-md-12
-  .claim_heading
-    = t('claim_issues_heading')
-    = @claim_issue.issue_id
-     
-.clearfix
-  .col-md-12
-    .col-md-5
-      .col-md-6
-        %label= t('claim_issues_item_code')
-      .col-md-6
-        = @claim_issue.item_code
-    .col-md-5
-      .col-md-6
-        %label= t('claim_issues_quantity_ordered')
-      .col-md-6
-        = @claim_issue.quantity
+.tek-bar
+  .container-fluid
+    %p.breadcrumb
+      %a{:href => "#{}"}=t('claims')
+      %span /
+      %a{:href => "#{}"} Tekcare Claim
+      %span /
+      %span.last  Issue: #{@claim_issue.issue_id}
+.container-fluid.issue-details
+  .row
+    .col-sm-3.issue-heading
+      Issue: #{@claim_issue.issue_id}
+    .col-sm-2
+      %label Item Code
     .col-md-2
-       
-  .col-md-12
-    .col-md-5
-      .col-md-6
-        %label= t('claim_issues_quantity_affected')
-      .col-md-6
-        = @claim_issue.affected_quantity
-    .col-md-5
-      .col-md-6
-        %label= t('claim_issues_reason')
-      .col-md-6
-        = @claim_issue.reason_code
+      = @claim_issue.item_code
     .col-md-2
-       
-  .col-md-12
-    .col-md-5
-      .col-md-6
-        %label= t('claim_issues_problem_description')
-      .col-md-6
-        = @claim_issue.claim_description
-    .col-md-5
-      .col-md-6
-        = t('claim_issues_status')
-      .col-md-6
-        = @claim_issue.status
+      %label Quantity Ordered
     .col-md-2
-       
-  .col-md-12.box_top
-    %br/
-  .col-md-12
+      = @claim_issue.quantity
+    .col-md-1
+  .row
+    .col-sm-3
+    .col-sm-2
+      %label Quantity Affected
     .col-md-2
-      %ul.nav.nav-sidebar
-        %li#default.active{:doc_type => "view", :docname => "clarifications", :target => "claim_content"}
-          %a{:href => "#"}
-            = t('claim_issues_clarifications')
-        %li#menu1{:doc_type => "view", :docname => "otherinfo", :target => "claim_content"}
-          %a{:href => "#"}= t('claim_issues_other_information')
-        %li{:doc_type => "view", :docname => "actions", :target => "claim_content"}
-          %a{:href => "#"}= t('claim_issues_actions')
-        %li{:doc_type => "view", :docname => "backcharges", :target => "claim_content"}
-          %a{:href => "#"}= t('claim_issues_back_charges')
-        %li{:doc_type => "view", :docname => "rgas", :target => "claim_content"}
-          %a{:href => "#"}= t('claim_issues_rgas')
-        %li{:doc_type => "view", :docname => "site_visits", :target => "claim_content"}
-          %a{:href => "#"}= t('claim_issues_site_visits')
-
-    = render 'clarifications'
+      = @claim_issue.affected_quantity
+    .col-md-2
+      %label Reason
+    .col-md-2
+      %div{style: 'color:red'}MISSING_IN_API
+      -#= @claim_issue.reason_code
+    .col-md-1
+  .row
+    .col-sm-3
+    .col-sm-2
+      %label Problem Description
+    .col-md-2
+      %div{style: 'color:red'}MISSING_IN_API
+      -#= @claim_issue.claim_description
+    .col-md-2
+      %label Status
+    .col-md-2
+      = @claim_issue.issue_status
+    .col-md-1
+.container-fluid.issue-tasks
+  .row
+    .col-md-3
+      %ul.nav.issue-nav
+        %li#default.active
+          = link_to 'Clarifications', teknion_claim_issue_path(@claim_issue.issue_id, section: 'clarifications')
+        %li
+          = link_to 'Other Information', teknion_claim_issue_path(@claim_issue.issue_id, section: 'other_information')
+        %li
+          = link_to 'Actions', teknion_claim_issue_path(@claim_issue.issue_id, section: 'actions')
+        %li
+          = link_to 'Back Charges', teknion_claim_issue_path(@claim_issue.issue_id, section: 'back_charges')
+        %li
+          = link_to 'RGAs', teknion_claim_issue_path(@claim_issue.issue_id, section: 'rgas')
+        %li.last
+          = link_to 'Site Visit', teknion_claim_issue_path(@claim_issue.issue_id, section: 'site_visit')
+    .col-md-9
+      - if @section.nil? || @section == 'clarifications'
+        = render 'clarifications'
+      -#- elsif @section == 'other_information'
+        -#= render 'other_information'
+      -#- elsif @section == 'actions'
+        -#= render 'actions'
+      -#- elsif @section == 'back_charges'
+        -#= render 'back_charges'
+      -#- elsif @section == 'rgas'
+        -#= render 'rgas'
+      -#- elsif @section == 'site_visit'
+        -#= render 'site_visit'

@@ -1,9 +1,9 @@
 .tek-bar
   .container-fluid
     %p.breadcrumb
-      %a{:href => "/claims"}='Tekcare'
+      %a{:href => "#{}"}=t('claims')
       %span /
-      %a{:href => "/claims/#{@claim_issue.claim_id}"} Incident: #{@claim_issue.claim_id}
+      %a{:href => "#{}"} Tekcare Claim
       %span /
       %span.last  Issue: #{@claim_issue.issue_id}
 .container-fluid.issue-details
@@ -28,45 +28,47 @@
     .col-md-2
       %label Reason
     .col-md-2
-      = @claim_issue.reason_code
+      %div{style: 'color:red'}MISSING_IN_API
+      -#= @claim_issue.reason_code
     .col-md-1
   .row
     .col-sm-3
     .col-sm-2
       %label Problem Description
     .col-md-2
-      = @claim_issue.claim_description
+      %div{style: 'color:red'}MISSING_IN_API
+      -#= @claim_issue.claim_description
     .col-md-2
       %label Status
     .col-md-2
-      = @claim_issue.status
+      = @claim_issue.issue_status
     .col-md-1
 .container-fluid.issue-tasks
   .row
     .col-md-3
       %ul.nav.issue-nav
         %li#default.active
-          = link_to 'Clarifications', teknion_claim_issue_path(@claim_issue, section: 'clarifications')
+          = link_to 'Clarifications', teknion_claim_issue_path(@claim_issue.issue_id, section: 'clarifications')
         %li
-          = link_to 'Other Information', teknion_claim_issue_path(@claim_issue, section: 'other_information')
+          = link_to 'Other Information', teknion_claim_issue_path(@claim_issue.issue_id, section: 'other_information')
         %li
-          = link_to 'Actions', teknion_claim_issue_path(@claim_issue, section: 'actions')
+          = link_to 'Actions', teknion_claim_issue_path(@claim_issue.issue_id, section: 'actions')
         %li
-          = link_to 'Back Charges', teknion_claim_issue_path(@claim_issue, section: 'back_charges')
+          = link_to 'Back Charges', teknion_claim_issue_path(@claim_issue.issue_id, section: 'back_charges')
         %li
-          = link_to 'RGAs', teknion_claim_issue_path(@claim_issue, section: 'rgas')
+          = link_to 'RGAs', teknion_claim_issue_path(@claim_issue.issue_id, section: 'rgas')
         %li.last
-          = link_to 'Site Visit', teknion_claim_issue_path(@claim_issue, section: 'site_visit')
+          = link_to 'Site Visit', teknion_claim_issue_path(@claim_issue.issue_id, section: 'site_visit')
     .col-md-9
       - if @section.nil? || @section == 'clarifications'
         = render 'clarifications'
       - elsif @section == 'other_information'
         = render 'other_information'
-      - elsif @section == 'actions'
-        = render 'actions'
-      - elsif @section == 'back_charges'
-        = render 'back_charges'
-      - elsif @section == 'rgas'
-        = render 'rgas'
-      - elsif @section == 'site_visit'
-        = render 'site_visit'
+      -#- elsif @section == 'actions'
+        -#= render 'actions'
+      -#- elsif @section == 'back_charges'
+        -#= render 'back_charges'
+      -#- elsif @section == 'rgas'
+        -#= render 'rgas'
+      -#- elsif @section == 'site_visit'
+        -#= render 'site_visit'

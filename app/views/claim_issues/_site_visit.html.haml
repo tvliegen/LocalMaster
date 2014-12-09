@@ -1,0 +1,61 @@
+#claim_content
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th
+              Date
+            %th
+              Reason
+            %th
+              Appointment Requested By
+            %th
+              Appointment Date
+            %th
+              Appointment Time
+            %th
+              Confirmed By
+        %tbody.rowlink
+          - @claim_issue.site_visits.each do |site_visit|
+            %tr
+              %td
+                %a{href: 'javascript:;', id: "site_visit_modal_#{site_visit.id}"}
+                  = site_visit.created_at
+              %td
+                Reason
+              %td
+                = site_visit.author
+              %td
+                = site_visit.appointment_date
+              %td
+                = site_visit.appointment_time
+              %td
+                = site_visit.confirmed_by
+
+            %div.jqmWindow{id: "site_visit_modal_#{site_visit.id}"}
+              Please wait...
+
+            :javascript
+              $(function() {
+                $('#site_visit_modal_#{site_visit.id}').jqm({
+                  ajax: "/site_visits/#{site_visit.id}/edit",
+                  trigger: 'a#site_visit_modal_#{site_visit.id}'
+                });
+              });
+
+  .col-md-12
+    .btn-group
+      %button#site_visit_response.btn.btn-default Respond
+
+  #site_visit_response_modal.jqmWindow
+    Please wait...
+
+
+:javascript
+  $(function() {
+    $('#site_visit_response_modal').jqm({
+      ajax: "/claim_issues/#{@claim_issue.id}/site_visits/new",
+      trigger: '#site_visit_response'
+    });
+  });

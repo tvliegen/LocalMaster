@@ -1,59 +1,55 @@
-.col-md-10
-  #claim_content
-    .col-md-12
-      .table-responsive
-        %table.table.table-striped.table-hover
-          %thead
-            %tr
-              %th
-                = t('claim_issues_date')
-              %th
-                = t('claim_issues_subject')
-              %th
-                = t('claim_issues_from')
-              %th
-                = t('claim_issues_status')
-          %tbody.rowlink{"data-link" => "row"}
-            - @claim_issue.clarifications.each do |clarification|
-              %tr
-                %td
-                  %a{:href => "#"}
-                    = clarification.created_at
-                %td=clarification.text
-                %td=clarification.author
-                %td
-
-    .col-md-12
-      .btn-group
-        %button#new.btn.btn-default{:doc_type => "doc", :docname => "clarification_new", :target => "clarification_area", :type => "button"}
-          = t('claim_issues_new')
-        %button.btn.btn-default.disabled{:type => "button"}
-          = t('claim_issues_send')
-        %button.btn.btn-default.disabled{:type => "button"}
-          = t('claim_issues_respond')
-        %button.btn.btn-default{:type => "button"}
-          = t('claim_issues_cancel')
-
+#claim_content
+  .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
-        %tbody
+        %thead
           %tr
-            %td
-              = t('clarification_date')
-            %td
-              2014-01-09
-          %tr
-            %td
-              = t('clarification_subject')
-            %td
-              Require more pictures
-          %tr
-            %td
-              = t('clarification_text')
-            %td
-              Can you attach more pictures outlining the issue?
-          %tr
-            %td
-              = t('clarification_response')
-            %td
-              I have attached the pictures.
+            %th
+              Date
+            %th
+              Subject
+            %th
+              From
+            %th
+              Status
+        %tbody.rowlink
+          - @claim_issue.clarifications.each do |clarification|
+            %tr
+              %td
+                %a{href: 'javascript:;', id: "clarification_modal_#{clarification.clarification_id}"}
+                  = clarification.timestamp
+              %td
+                = clarification.subject
+              %td
+                = clarification.sent_by
+              %td
+                = clarification.status
+
+            %div.jqmWindow{id: "clarification_modal_#{clarification.clarification_id}"}
+              Please wait...
+
+            :javascript
+              $(function() {
+                $('#clarification_modal_#{clarification.clarification_id}').jqm({
+                  ajax: "/clarifications/#{clarification.clarification_id}/edit?claim_issue_id=#{clarification.issue_id}",
+                  trigger: 'a#clarification_modal_#{clarification.clarification_id}'
+                });
+              });
+
+  .col-md-12
+    .btn-group
+      %button#new_clarification.btn.btn-default New
+      %button.btn.btn-default.disabled Send
+      %button.btn.btn-default.disabled Respond
+      %button.btn.btn-default Cancel
+
+      #new_clarification_modal.jqmWindow
+        Please wait...
+
+:javascript
+  $(function() {
+    $('#new_clarification_modal').jqm({
+      ajax: "/claim_issues/#{@claim_issue.issue_id}/clarifications/new",
+      trigger: '#new_clarification'
+    });
+  });

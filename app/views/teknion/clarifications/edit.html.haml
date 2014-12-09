@@ -1,11 +1,11 @@
-%div{id: "clarification_edit_wrapper_#{@clarification.id}"}
+%div{id: "clarification_edit_wrapper_#{@clarification.clarification_id}"}
 
   %h5.modal-header Edit Clarification
   = render 'form'
 
   :javascript
-    $("form", "#clarification_edit_wrapper_#{@clarification.id}").ajaxForm({
-      target: "#clarification_edit_wrapper_#{@clarification.id}",
+    $("form", "#clarification_edit_wrapper_#{@clarification.clarification_id}").ajaxForm({
+      target: "#clarification_edit_wrapper_#{@clarification.clarification_id}",
       replaceTarget: true
     });
 

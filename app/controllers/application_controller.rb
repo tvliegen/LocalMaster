@@ -18,6 +18,8 @@ private
       # Adapter
       faraday.use Faraday::Adapter::NetHttp
     end
+    
+    logger.info conn.params
     return conn
   end
      

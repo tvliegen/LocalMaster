@@ -1,8 +1,5 @@
 #claim_content
   .col-md-12
-    .btn-group
-      %button#new_clarification.btn.btn-default New
-  .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
         %thead
@@ -19,27 +16,32 @@
           - @claim_issue.clarifications.each do |clarification|
             %tr
               %td
-                %a{href: 'javascript:;', id: "clarification_modal_#{clarification.id}"}
-                  = clarification.created_at
+                %a{href: 'javascript:;', id: "clarification_modal_#{clarification.clarification_id}"}
+                  = clarification.timestamp
               %td
                 = clarification.subject
               %td
-                = clarification.author
+                = clarification.sent_by
               %td
                 = clarification.status
 
-            %div.jqmWindow{id: "clarification_modal_#{clarification.id}"}
+            %div.jqmWindow{id: "clarification_modal_#{clarification.clarification_id}"}
               Please wait...
 
             :javascript
               $(function() {
-                $('#clarification_modal_#{clarification.id}').jqm({
-                  ajax: "/clarifications/#{clarification.id}/edit",
-                  trigger: 'a#clarification_modal_#{clarification.id}'
+                $('#clarification_modal_#{clarification.clarification_id}').jqm({
+                  ajax: "/clarifications/#{clarification.clarification_id}/edit?claim_issue_id=#{clarification.issue_id}",
+                  trigger: 'a#clarification_modal_#{clarification.clarification_id}'
                 });
               });
 
-
+  .col-md-12
+    .btn-group
+      %button#new_clarification.btn.btn-default New
+      %button.btn.btn-default.disabled Send
+      %button.btn.btn-default.disabled Respond
+      %button.btn.btn-default Cancel
 
       #new_clarification_modal.jqmWindow
         Please wait...
@@ -47,7 +49,7 @@
 :javascript
   $(function() {
     $('#new_clarification_modal').jqm({
-      ajax: "/claim_issues/#{@claim_issue.id}/clarifications/new",
+      ajax: "/claim_issues/#{@claim_issue.issue_id}/clarifications/new",
       trigger: '#new_clarification'
     });
   });

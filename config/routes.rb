@@ -36,25 +36,7 @@ Teknion::Application.routes.draw do
   end
   root 'teknionline/mains#index'
 
-   # Teknion API mocks
-  namespace :api do
-    resources :claims, only: [:index, :show] do
-      delete :cancel, on: :member
-      resources :claim_issues, only: :index
-    end
-    resources :claim_issues, only: :show do
-      resources :clarifications, shallow: true
-      resources :journals, only: [:index, :new, :create]
-      resources :site_visits, shallow: true
-      resources :action_plan, only: :index
-    end
-    resources :action_plans, only: :show do
-      resources :replacement_orders, only: :index
-    end
-    resources :journals, only: [:show, :edit, :update] do
-      resources :journal_attachments, shallow: true
-    end
-  end
+ 
 
   # Tekcare routes
   scope module: 'teknion', as: 'teknion' do

@@ -3,9 +3,9 @@
 .tek-bar
   .container-fluid
     %p.breadcrumb
-      %a{:href => "/claims"}='Tekcare'
+      %a{:href => "#{}"}=t('claims')
       %span /
-      %span.last Claim: #{@claim.header['tekcare_number']}
+      %span.last Tekcare Claim: #{@claim.header['tekcare_number']}
 .claim
   .claim-details
     .container-fluid
@@ -236,7 +236,7 @@
                   - @claim.claim_issues.each do |claim_issue|
                     %tr
                       %td
-                        %a{:href => ""}
+                        %a{:href => "/claim_issues/#{claim_issue.issue_id}"}
                           = claim_issue.issue_id
                       %td
                         %div{style: 'color:red'}MISSING_IN_API
