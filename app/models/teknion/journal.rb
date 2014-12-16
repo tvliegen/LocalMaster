@@ -8,13 +8,12 @@ class Teknion::Journal
   attribute :subject, String
   attribute :content, String
   attribute :created_by, String
-  attribute :timestamp, String
+  attribute :timestamp, DateTime
 
   #has_many :journal_attachments, class_name: "Teknion::JournalAttachment"
 
-  #attributes :created_at, :author, :title, :information
-  #validates :title, presence: true
-  #validates :information, presence: true
+  validates :subject, presence: true
+  validates :content, presence: true
 
   #accepts_nested_attributes_for :journal_attachments
 end

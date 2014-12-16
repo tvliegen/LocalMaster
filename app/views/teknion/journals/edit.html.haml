@@ -1,11 +1,11 @@
-%div{id: "journal_edit_wrapper_#{@journal.id}"}
+%div{id: "journal_edit_wrapper_#{@journal.journal_id}"}
 
   %h5.modal-header Edit Journal
   = render 'form'
 
   :javascript
-    $("form", "#journal_edit_wrapper_#{@journal.id}").ajaxForm({
-      target: "#journal_edit_wrapper_#{@journal.id}",
+    $("form", "#journal_edit_wrapper_#{@journal.journal_id}").ajaxForm({
+      target: "#journal_edit_wrapper_#{@journal.journal_id}",
       replaceTarget: true
     });
 

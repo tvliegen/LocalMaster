@@ -1,7 +1,7 @@
 #journal_new_wrapper
 
   %h5.modal-header New Journal
-  = form_for @journal, url: teknion_claim_issue_journals_path(@journal.claim_issue_id), html: { class: 'form-horizontal', id: 'whatever' } do |f|
+  = form_for @journal, url: teknion_claim_issue_journals_path(@journal.issue_id), html: { class: 'form-horizontal' } do |f|
 
     - if @journal.errors.any?
       #error_explanation
@@ -13,26 +13,26 @@
             %li= message
 
     %p.mod-author
-      = f.label :author
-      = f.text_field :author
+      = f.label :created_by
+      = f.text_field :created_by
     %p.mod-title
-      = f.label :title
-      = f.text_field :title
+      = f.label :subject
+      = f.text_field :subject
     %p.mod-information
-      = f.label :information
-      = f.text_area :information, placeholder: 'Type your information here'
+      = f.label :content
+      = f.text_area :content, placeholder: 'Type your information here'
 
-    = f.fields_for :journal_attachments do |journal_attachment_form|
-      = journal_attachment_form.file_field :attachment
+    -#= f.fields_for :journal_attachments do |journal_attachment_form|
+      -#= journal_attachment_form.file_field :attachment
 
     .form-actions
       = f.button :submit, class: [:btn, 'btn-primary']
 
-  :javascript
-    $("form", "#journal_new_wrapper").ajaxForm({
-      target: "#journal_new_wrapper",
-      replaceTarget: true
-    });
+  -#:javascript
+    -#$("form", "#journal_new_wrapper").ajaxForm({
+      -#target: "#journal_new_wrapper",
+      -#replaceTarget: true
+    -#});
 
 
 

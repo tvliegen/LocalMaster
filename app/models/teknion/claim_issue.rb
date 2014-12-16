@@ -11,9 +11,6 @@ class Teknion::ClaimIssue
   attribute :response_code, String
   attribute :comment, String
   attribute :actionplan_timestamp, String
-
-  attribute :replaced_products, Array
-
   attribute :issue_id, String
   attribute :incident_id, String
   attribute :issue_status, String
@@ -28,9 +25,6 @@ class Teknion::ClaimIssue
   attribute :images, Array
   attribute :clarifications, Array[Teknion::Clarification]
   attribute :journals, Array[Teknion::Journal]
-
-  #has_many :clarifications, class_name: "Teknion::Clarification"
-  #has_many :journals, class_name: "Teknion::Journal"
-  #has_many :site_visits, class_name: "Teknion::SiteVisit"
-  #has_one :action_plan, class_name: "Teknion::ActionPlan"
+  attribute :replaced_products, Array[Teknion::ReplacementOrder]
+  attribute :rgas, Array[Teknion::RGA]
 end

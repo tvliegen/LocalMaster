@@ -6,7 +6,7 @@
   .col-md-12
     %h5 Action plan summary
     %p
-      = @claim_issue.action_plan.text
+      = @claim_issue.comment
 
   .col-md-12
     %h5 Replacement Product Information
@@ -23,16 +23,15 @@
             %th
               Status
         %tbody.rowlink
-          - @claim_issue.action_plan.replacement_orders.each do |replacement_order|
+          - @claim_issue.replaced_products.each do |replaced_product|
             %tr
               %td
-                = replacement_order.product_code
+                = replaced_product.product_code
               %td
-                = replacement_order.cr
+                = replaced_product.cr_number
               %td
-                = replacement_order.product_desc
+                %div{style: 'color:red'}MISSING_IN_API
+                -#= replaced_product.product_desc
               %td
-                = replacement_order.status
-
-
-
+                %div{style: 'color:red'}MISSING_IN_API
+                -#= replaced_product.status

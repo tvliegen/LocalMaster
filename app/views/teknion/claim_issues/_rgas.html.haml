@@ -1,1 +1,33 @@
-rgas
+#claim_content
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th
+              RGA Number
+            %th
+              PO Number
+            %th
+              Original Shipment Number
+            %th
+              Original Invoice Number
+            %th
+              Claims Rep
+            %th
+              Created On
+        %tbody.rowlink
+          - @claim_issue.rgas.each do |rga|
+            %tr
+              %td
+                = rga.rga_id
+              %td
+                = rga.po_number
+              %td
+                = rga.original_shipment_no
+              %td
+                = rga.original_invoice_no
+              %td
+                = rga.claimsrep_id
+              %td
+                = rga.rga_timestamp

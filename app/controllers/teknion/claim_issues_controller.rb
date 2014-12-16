@@ -18,11 +18,14 @@ class Teknion::ClaimIssuesController < ApplicationController
 
       @section = params[:section]
       if @section.nil? || @section == 'clarifications'
-        clarifications_response = tekcare_connection.get "tekcare/claims/#{claim_issue_response.body['incident_id']}/clarificationlist", {dealer_code: "200188"}
+        clarifications_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/clarificationlist", {dealer_code: "200188"}
         merged_claim_issue_data['clarifications'] = clarifications_response.body['clarifications']
       elsif @section == 'other_information'
-        journal_response = tekcare_connection.get "tekcare/claims/#{claim_issue_response.body['incident_id']}/journallist", {dealer_code: "200188"}
+        journal_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/journallist", {dealer_code: "200188"}
         merged_claim_issue_data['journals'] = journal_response.body['journals']
+      elsif @section == 'rgas'
+        rga_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/rgalist", {dealer_code: "200188"}
+        merged_claim_issue_data['rgas'] = rga_response.body['rgas']
       end
       @claim_issue = Teknion::ClaimIssue.new(merged_claim_issue_data)
     end

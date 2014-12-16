@@ -1,13 +1,14 @@
 #claim_content
   .col-md-12
+    .btn-group
+      %button#new_journal.btn.btn-default New
+  .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
         %thead
           %tr
             %th
               Date Posted
-            %th
-              Type
             %th
               Subject
             %th
@@ -17,9 +18,7 @@
             %tr
               %td
                 %a{href: 'javascript:;', id: "journal_modal_#{journal.journal_id}"}
-                  = journal.timestamp
-              %td
-                Documentation
+                  = journal.timestamp.strftime("%F %T")
               %td
                 = journal.subject
               %td
@@ -31,15 +30,12 @@
             :javascript
               $(function() {
                 $('#journal_modal_#{journal.journal_id}').jqm({
-                  ajax: "/journals/#{journal.journal_id}/edit",
+                  ajax: "/claim_issues/#{journal.issue_id}/journals/#{journal.journal_id}/edit",
                   trigger: 'a#journal_modal_#{journal.journal_id}'
                 });
               });
 
-  .col-md-12
-    .btn-group
-      %button#new_journal.btn.btn-default New
-      %button.btn.btn-default Cancel
+  
 
   #new_journal_modal.jqmWindow
     Please wait...

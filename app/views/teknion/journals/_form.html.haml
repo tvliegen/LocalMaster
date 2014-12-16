@@ -1,4 +1,4 @@
-= nested_form_for @journal, html: { class: 'form-horizontal', id: 'whatever', multipart: true } do |f|
+= nested_form_for @journal, url: teknion_claim_issue_journals_path([params[:claim_issue_id], @journal]), html: { class: 'form-horizontal', id: 'whatever', multipart: true } do |f|
 
   - if @journal.errors.any?
     #error_explanation
@@ -10,14 +10,14 @@
           %li= message
 
   %p.mod-author
-    = f.label :author
-    = f.text_field :author
+    = f.label :created_by
+    = f.text_field :created_by
   %p.mod-title
-    = f.label :title
-    = f.text_field :title
+    = f.label :subject
+    = f.text_field :subject
   %p.mod-information
-    = f.label :information
-    = f.text_area :information, placeholder: 'Type your information here'
+    = f.label :content, "Information"
+    = f.text_area :content, placeholder: 'Type your information here'
 
   = f.fields_for :journal_attachments do |journal_attachment_form|
     = journal_attachment_form.file_field :attachment

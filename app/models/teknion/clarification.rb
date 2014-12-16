@@ -11,9 +11,7 @@ class Teknion::Clarification
   attribute :content, String
   attribute :sent_by, String
   attribute :sent_to, String
-  attribute :timestamp, String
-
-  #belongs_to :claim_issue, class_name: "Teknion::ClaimIssue"
+  attribute :timestamp, DateTime
 
   #attributes :created_at, :author, :subject, :question, :answer
   #validates :subject, presence: true

@@ -43,13 +43,7 @@ class Teknion::ClarificationsController < ApplicationController
 
   private
     def set_clarification
-      # get claim_issue data
-      claim_issue_response = tekcare_connection.get "tekcare/issues/#{params[:claim_issue_id]}/actionplandetail", {dealer_code: "200188"}
-      claim_issue_data = claim_issue_response.body
-      claim_id = claim_issue_data['incident_id']
-
-      # get the clarification data now that we have the claim_id
-      clarifications_response = tekcare_connection.get "tekcare/claims/#{claim_id}/clarificationlist", {dealer_code: "200188"}
+      clarifications_response = tekcare_connection.get "tekcare/issues/#{params[:claim_issue_id]}/clarificationlist", {dealer_code: "200188"}
       clarification_data = clarifications_response.body['clarifications'].select {|cl| cl['clarification_id'] == params[:id] }.first
       @clarification = Teknion::Clarification.new(clarification_data)
     end

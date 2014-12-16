@@ -46,11 +46,10 @@ Teknion::Application.routes.draw do
     end
     resources :claim_issues, only: :show do
       resources :clarifications, shallow: true
-      resources :journals, only: [:index, :new, :create]
+      resources :journals, only: [:index, :new, :create, :edit]
       resources :site_visits, shallow: true
-      #resources :action_plan, shallow: true
     end
-    resources :journals, only: [:show, :edit, :update, :destroy]
+    resources :journals, only: [:show, :update, :destroy]
   end
   
 scope module: 'teknion', as: 'teknion' do

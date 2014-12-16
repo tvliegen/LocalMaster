@@ -1,9 +1,9 @@
 .tek-bar
   .container-fluid
     %p.breadcrumb
-      %a{:href => "#{}"}=t('claims')
+      %a{:href => "/claims"}='Tekcare'
       %span /
-      %a{:href => "#{}"} Tekcare Claim
+      %a{:href => "/claims/#{@claim_issue.incident_id}"} #{@claim_issue.incident_id}
       %span /
       %span.last  Issue: #{@claim_issue.issue_id}
 .container-fluid.issue-details
@@ -64,11 +64,11 @@
         = render 'clarifications'
       - elsif @section == 'other_information'
         = render 'other_information'
-      -#- elsif @section == 'actions'
-        -#= render 'actions'
-      -#- elsif @section == 'back_charges'
-        -#= render 'back_charges'
-      -#- elsif @section == 'rgas'
-        -#= render 'rgas'
-      -#- elsif @section == 'site_visit'
-        -#= render 'site_visit'
+      - elsif @section == 'actions'
+        = render 'actions'
+      - elsif @section == 'back_charges'
+        = render 'back_charges'
+      - elsif @section == 'rgas'
+        = render 'rgas'
+      - elsif @section == 'site_visit'
+        = render 'site_visit'

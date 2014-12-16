@@ -1,5 +1,12 @@
 class Teknion::ReplacementOrder
-  #include Her::Model
+  include ActiveModel::Model
+  include Virtus.model
+  include HTTParty
 
-  #belongs_to :action_plan, class_name: "Teknion::ActionPlan"
+  attribute :replaceproduct_id, String
+  attribute :seqno, String
+  attribute :product_code, String
+  attribute :sq_number, String
+  attribute :qty_ordered, String
+  attribute :cr_number, String
 end

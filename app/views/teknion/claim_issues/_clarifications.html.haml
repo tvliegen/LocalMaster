@@ -1,4 +1,8 @@
 #claim_content
+ 
+  .col-md-12
+    .btn-group
+      %button#new_clarification.btn.btn-default New
   .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
@@ -17,7 +21,7 @@
             %tr
               %td
                 %a{href: 'javascript:;', id: "clarification_modal_#{clarification.clarification_id}"}
-                  = clarification.timestamp
+                  = clarification.timestamp.strftime("%F %T")
               %td
                 = clarification.subject
               %td
@@ -36,20 +40,6 @@
                 });
               });
 
-  .col-md-12
-    .btn-group
-      %button#new_clarification.btn.btn-default New
-      %button.btn.btn-default.disabled Send
-      %button.btn.btn-default.disabled Respond
-      %button.btn.btn-default Cancel
 
-      #new_clarification_modal.jqmWindow
-        Please wait...
 
-:javascript
-  $(function() {
-    $('#new_clarification_modal').jqm({
-      ajax: "/claim_issues/#{@claim_issue.issue_id}/clarifications/new",
-      trigger: '#new_clarification'
-    });
-  });
+
