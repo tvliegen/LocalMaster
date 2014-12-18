@@ -1,6 +1,10 @@
 Teknion::Application.routes.draw do
 
 
+  namespace :teknion do
+    resources :backcharges
+  end
+
   namespace :usermanagement do
     resources :users
   

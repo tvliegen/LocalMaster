@@ -34,4 +34,4 @@ gem 'aasm'
 gem 'virtus'
 gem 'faraday'
 gem 'faraday_middleware'
-
+gem 'newrelic_rpm'

@@ -4,6 +4,8 @@ class Teknion::ClaimIssue
   include HTTParty
 
   attribute :actionplan_id, String
+  attribute :original_line_tags, String
+  attribute :original_line_notes,String
   attribute :issue_id, String
   attribute :incident_id, String
   attribute :reason_teknion, String

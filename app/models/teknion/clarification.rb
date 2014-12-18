@@ -6,12 +6,13 @@ class Teknion::Clarification
   attribute :issue_id, String
   attribute :clarification_id, String
   attribute :clarification_type, String
+  attribute :type, String
   attribute :response_to_id, String
   attribute :subject, String
   attribute :content, String
   attribute :sent_by, String
   attribute :sent_to, String
-  attribute :timestamp, DateTime
+  attribute :timestamp, String
 
   #attributes :created_at, :author, :subject, :question, :answer
   #validates :subject, presence: true

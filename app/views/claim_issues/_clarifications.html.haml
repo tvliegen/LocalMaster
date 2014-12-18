@@ -1,8 +1,5 @@
 #claim_content
   .col-md-12
-    .btn-group
-      %button#new_clarification.btn.btn-default New
-  .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
         %thead
@@ -14,7 +11,7 @@
             %th
               From
             %th
-              Status
+              Statusx
         %tbody.rowlink
           - @claim_issue.clarifications.each do |clarification|
             %tr
@@ -39,7 +36,12 @@
                 });
               });
 
-  
+  .col-md-12
+    .btn-group
+      %button#new_clarification.btn.btn-default New
+      %button.btn.btn-default.disabled Send
+      %button.btn.btn-default.disabled Respond
+      %button.btn.btn-default Cancel
 
       #new_clarification_modal.jqmWindow
         Please wait...

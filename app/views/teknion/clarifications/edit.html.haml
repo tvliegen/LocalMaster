@@ -1,7 +1,55 @@
 %div{id: "clarification_edit_wrapper_#{@clarification.clarification_id}"}
 
-  %h5.modal-header Clarification
-  = render 'form'
+  %h5.modal-header Edit Clarification
+  = form_for @clarification, url: teknion_clarification_path(@clarification.clarification_id, claim_id: @claim_id), method: :put, html: { class: 'form-horizontal' } do |f|
+
+    - if @clarification.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@clarification.errors.count, "error")
+          prohibited this clarification from being saved:
+        %ul
+          - @clarification.errors.full_messages.each do |message|
+            %li= message
+
+    = f.hidden_field :type
+    %p.mod-author
+      = f.label :sent_by
+      = f.text_field :sent_by
+    %p.mod-author
+      = f.label :sent_to
+      = f.text_field :sent_to
+
+    - if @clarification.type == 'question'
+      %p.mod-subject
+        = f.label :subject
+        = f.text_field :subject
+      %p.mod-question
+        = f.label :content, "Question"
+        = f.text_field :content
+      %p.mod-answer
+        = label_tag :answer_content, "Answer"
+        = text_area_tag :answer_content, @answer.content
+        = hidden_field_tag :answer_issue_id, @answer.issue_id
+        = hidden_field_tag :answer_subject, @answer.subject
+        = hidden_field_tag :answer_response_to_id, @answer.response_to_id
+        = hidden_field_tag :answer_type, @answer.type
+        = hidden_field_tag :answer_sent_by, @answer.sent_by
+        = hidden_field_tag :answer_sent_to, @answer.sent_to
+
+    - if @clarification.type == 'answer'
+      %p.mod-subject
+        = f.label :subject
+        = f.text_field :subject
+      %p.mod-question
+        = label_tag :question, "Question"
+        = text_field_tag :question, @question.content
+      %p.mod-answer
+        = f.label :content, "Answer"
+        = f.text_area :content
+
+    .form-actions
+      = f.button :submit, class: [:btn, 'btn-primary']
 
   :javascript
     $("form", "#clarification_edit_wrapper_#{@clarification.clarification_id}").ajaxForm({

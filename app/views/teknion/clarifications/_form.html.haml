@@ -9,22 +9,34 @@
         - @clarification.errors.full_messages.each do |message|
           %li= message
 
-  %p.mod-created
-    = f.label :timestamp, "Created"
-    = f.text_field :timestamp, readonly: true
+  = f.hidden_field :type
   %p.mod-author
-    = f.label :sent_by, "Author"
-    = f.text_field :sent_by, readonly: true
+    = f.label :sent_by
+    = f.text_field :sent_by
+  %p.mod-author
+    = f.label :sent_to
+    = f.text_field :sent_to
   %p.mod-subject
     = f.label :subject
-    = f.text_field :subject, readonly: @clarification.subject.present?
-  %p.mod-question
-    = f.label :content
-    = f.text_field :content, readonly: @clarification.content.present?
-  -#%p.mod-answer
-    -#= f.label :answer
-    -#= f.text_area :answer, readonly: @clarification.answer.present?
+    = f.text_field :subject
+
+  - if @clarification.type == 'question'
+    %p.mod-question
+      = f.label :content, "Question"
+      = f.text_field :content
+    %p.mod-answer
+      = label_tag :answer, "Answer"
+      = text_area_tag :answer, @answer.content
+
+  - if @clarification.type == 'answer'
+    = f.hidden_field :response_to_id
+    %p.mod-question
+      = label_tag :question, "Question"
+      = text_field_tag :question, @question.content
+    %p.mod-answer
+      = f.label :content, "Answer"
+      = f.text_area :content
 
   .form-actions
-    = f.button :Close, class: [:btn, 'btn-primary']
+    = f.button :submit, class: [:btn, 'btn-primary']
 

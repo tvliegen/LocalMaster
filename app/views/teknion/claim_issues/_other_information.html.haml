@@ -1,14 +1,13 @@
 #claim_content
   .col-md-12
-    .btn-group
-      %button#new_journal.btn.btn-default New
-  .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
         %thead
           %tr
             %th
               Date Posted
+            %th
+              Type
             %th
               Subject
             %th
@@ -18,7 +17,9 @@
             %tr
               %td
                 %a{href: 'javascript:;', id: "journal_modal_#{journal.journal_id}"}
-                  = journal.timestamp.strftime("%F %T")
+                  = journal.timestamp
+              %td
+                Documentation
               %td
                 = journal.subject
               %td
@@ -35,7 +36,10 @@
                 });
               });
 
-  
+  .col-md-12
+    .btn-group
+      %button#new_journal.btn.btn-default New
+      %button.btn.btn-default Cancel
 
   #new_journal_modal.jqmWindow
     Please wait...

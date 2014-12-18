@@ -1,9 +1,9 @@
 .tek-bar
   .container-fluid
     %p.breadcrumb
-      %a{:href => "/claims"}='Tekcare'
+      = link_to t('claims'), teknion_claims_path
       %span /
-      %a{:href => "/claims/#{@claim_issue.incident_id}"} #{@claim_issue.incident_id}
+      = link_to "Tekcare Claim", teknion_claim_path(id: @claim_id)
       %span /
       %span.last  Issue: #{@claim_issue.issue_id}
 .container-fluid.issue-details
@@ -48,17 +48,17 @@
     .col-md-3
       %ul.nav.issue-nav
         %li#default.active
-          = link_to 'Clarifications', teknion_claim_issue_path(@claim_issue.issue_id, section: 'clarifications')
+          = link_to 'Clarifications', teknion_claim_issue_path(@claim_issue.issue_id, section: 'clarifications', claim_id: @claim_id)
         %li
-          = link_to 'Other Information', teknion_claim_issue_path(@claim_issue.issue_id, section: 'other_information')
+          = link_to 'Other Information', teknion_claim_issue_path(@claim_issue.issue_id, section: 'other_information', claim_id: @claim_id)
         %li
-          = link_to 'Actions', teknion_claim_issue_path(@claim_issue.issue_id, section: 'actions')
+          = link_to 'Actions', teknion_claim_issue_path(@claim_issue.issue_id, section: 'actions', claim_id: @claim_id)
         %li
-          = link_to 'Back Charges', teknion_claim_issue_path(@claim_issue.issue_id, section: 'back_charges')
+          = link_to 'Back Charges', teknion_claim_issue_path(@claim_issue.issue_id, section: 'back_charges', claim_id: @claim_id)
         %li
-          = link_to 'RGAs', teknion_claim_issue_path(@claim_issue.issue_id, section: 'rgas')
+          = link_to 'RGAs', teknion_claim_issue_path(@claim_issue.issue_id, section: 'rgas', claim_id: @claim_id)
         %li.last
-          = link_to 'Site Visit', teknion_claim_issue_path(@claim_issue.issue_id, section: 'site_visit')
+          = link_to 'Site Visit', teknion_claim_issue_path(@claim_issue.issue_id, section: 'site_visit', claim_id: @claim_id)
     .col-md-9
       - if @section.nil? || @section == 'clarifications'
         = render 'clarifications'

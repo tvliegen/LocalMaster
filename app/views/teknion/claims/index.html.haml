@@ -3,9 +3,9 @@
 .tek-bar
   .container-fluid
     %p.breadcrumb
-      %span.last='Tekcare'
+      %span.last=t('claims')
     %button.btn.btn-default.btn-xs.to-submit{class: ('active' if params[:status] == 'to_submit')}
-      = link_to "To Submit","/claimsrequests"
+      = link_to "To Submit  100", teknion_claims_path(status: 'to_submit')
     .claim-filters.btn-group.btn-group-xs
       %button.btn.btn-default.in-progress{class: ('active' if params[:status].nil?)}
         = link_to "In Progress  20", teknion_claims_path

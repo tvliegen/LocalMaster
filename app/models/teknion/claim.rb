@@ -18,4 +18,5 @@ class Teknion::Claim
   attribute :incident_date, String
   attribute :incident_time, String
   attribute :incident_status, String
+  attribute :tekcare_number, String
 end

@@ -1,7 +1,7 @@
 #clarification_new_wrapper
 
   %h5.modal-header New Clarification
-  = form_for @clarification, url: teknion_claim_issue_clarifications_path(@clarification.claim_issue_id), html: { class: 'form-horizontal', id: 'whatever' } do |f|
+  = form_for @clarification, url: teknion_claim_issue_clarifications_path(@clarification.issue_id, claim_id: @claim_id), html: { class: 'form-horizontal', id: 'whatever' } do |f|
 
     - if @clarification.errors.any?
       #error_explanation
@@ -15,26 +15,38 @@
           %a.btn.btn-default.btn-sm
             OK
 
+    = f.hidden_field :type
     %p.mod-author
-      = f.label :author
-      = f.text_field :author
+      = f.label :sent_by
+      = f.text_field :sent_by
+    %p.mod-author
+      = f.label :sent_to
+      = f.text_field :sent_to
     %p.mod-subject
       = f.label :subject
       = f.text_field :subject
-    %p.mod-question
-      = f.label :question
-      = f.text_field :question
-    %p.mod-answer
-      = f.label :answer
-      = f.text_area :answer
+
+    - if @clarification.type == 'question'
+      %p.mod-question
+        = f.label :content, "Question"
+        = f.text_field :content
+
+    - if @clarification.type == 'answer'
+      = f.hidden_field :response_to_id
+      %p.mod-question
+        = label_tag :question, "Question"
+        = text_field_tag :question, @question.content
+      %p.mod-answer
+        = f.label :content, "Answer"
+        = f.text_area :content
 
     .form-actions
       = f.button :submit, class: [:btn, 'btn-primary']
 
-  :javascript
-    $("form", "#clarification_new_wrapper").ajaxForm({
-      target: "#clarification_new_wrapper",
-      replaceTarget: true
-    });
+  -#:javascript
+    -#$("form", "#clarification_new_wrapper").ajaxForm({
+      -#target: "#clarification_new_wrapper",
+      -#replaceTarget: true
+    -#});
 
 
