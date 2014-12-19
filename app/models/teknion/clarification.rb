@@ -12,13 +12,17 @@ class Teknion::Clarification
   attribute :content, String
   attribute :sent_by, String
   attribute :sent_to, String
-  attribute :timestamp, String
+  attribute :timestamp, DateTime
 
   #attributes :created_at, :author, :subject, :question, :answer
   #validates :subject, presence: true
   #validates :question, presence: true
 
   def status
-    response_to_id.empty? ? "Awaiting Response" : "Responded"
+    if response_to_id.eql? "0" then 
+	"Awaiting Response" 
+	else
+	 "Responded"
+    end
   end
 end

@@ -1,7 +1,7 @@
 #journal_new_wrapper
 
   %h5.modal-header New Journal
-  = form_for @journal, url: teknion_claim_issue_journals_path(@journal.issue_id), html: { class: 'form-horizontal' } do |f|
+  = form_for @journal, url: teknion_claim_issue_journals_path(@journal.issue_id, claim_id: @claim_id), html: { class: 'form-horizontal' } do |f|
 
     - if @journal.errors.any?
       #error_explanation

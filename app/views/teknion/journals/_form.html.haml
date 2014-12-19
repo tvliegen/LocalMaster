@@ -1,4 +1,4 @@
-= nested_form_for @journal, url: teknion_claim_issue_journals_path([params[:claim_issue_id], @journal]), html: { class: 'form-horizontal', id: 'whatever', multipart: true } do |f|
+= nested_form_for @journal, url: teknion_claim_issue_journals_path(@journal.issue_id, @journal, claim_id: @claim_id), html: { class: 'form-horizontal', id: 'whatever', multipart: true } do |f|
 
   - if @journal.errors.any?
     #error_explanation

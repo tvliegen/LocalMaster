@@ -13,16 +13,11 @@ class Teknion::JournalsController < ApplicationController
   end
 
   def new
-    #@journal = Teknion::ClaimIssue.find(params[:claim_issue_id]).journals.build
-    #@journal.journal_attachments = 2.times.map { @journal.journal_attachments.build }
-
-    # get claim_issue data, set the journals claim_issue_id
-    claim_issue_response = tekcare_connection.get "tekcare/issues/#{params[:claim_issue_id]}/actionplandetail", {dealer_code: "200188"}
-    @journal = Teknion::Journal.new(issue_id: claim_issue_response.body["issue_id"])
+    @claim_id = params[:claim_id]
+    @journal = Teknion::Journal.new(issue_id: params[:claim_issue_id])
   end
 
   def create
-    # get claim_issue data, set the journals claim_issue_id
     journal_data = params[:teknion_journal].merge!({issue_id: params[:claim_issue_id]})
     @journal = Teknion::Journal.new(journal_data)
 
@@ -39,7 +34,7 @@ class Teknion::JournalsController < ApplicationController
         flash[:notice] = 'There was a problem creating your Journal.'
       end
 
-      render inline: "<script> window.location.href = '#{teknion_claim_issue_path(@journal.issue_id, section: :other_information)}'; </script>"
+      render inline: "<script> window.location.href = '#{teknion_claim_issue_path(@journal.issue_id, section: :other_information, claim_id: params[:claim_id])}'; </script>"
     else
       render :new, layout: false
     end
@@ -52,7 +47,7 @@ class Teknion::JournalsController < ApplicationController
       # TODO: catch HTTMultiParty response code to determine success/failure -CS
       HTTMultiParty.put("http://localhost:3001/api/journals/#{params[:id]}", {body: params})
       flash[:notice] = 'Journal was successfully updated.'
-      render inline: "<script> window.location.href = '#{teknion_claim_issue_path(@journal.claim_issue_id, section: :other_information)}'; </script>"
+      render inline: "<script> window.location.href = '#{teknion_claim_issue_path(@journal.claim_issue_id, section: :other_information, claim_id: params[:claim_id])}'; </script>"
     else
       render :edit, layout: false
     end
@@ -63,10 +58,8 @@ class Teknion::JournalsController < ApplicationController
 
   private
     def set_journal
-      journal_response = tekcare_connection.get "tekcare/issues/#{params[:claim_issue_id]}/journallist", {dealer_code: "200188"}
-      journal_data = journal_response.body['journals'].find {|journal| journal["journal_id"] == params[:id] }
-
-      @journal ||= Teknion::Journal.new(journal_data)
+      @claim_id = params[:claim_id]
+      @journal ||= Teknion::Journal.find(params[:id], params[:claim_issue_id], {delear_code})
     end
 
     def journal_params

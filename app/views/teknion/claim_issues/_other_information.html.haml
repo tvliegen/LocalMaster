@@ -31,7 +31,7 @@
             :javascript
               $(function() {
                 $('#journal_modal_#{journal.journal_id}').jqm({
-                  ajax: "/claim_issues/#{journal.issue_id}/journals/#{journal.journal_id}/edit",
+                  ajax: "/claim_issues/#{@claim_issue.issue_id}/journals/#{journal.journal_id}/edit?claim_id=#{@claim_id}",
                   trigger: 'a#journal_modal_#{journal.journal_id}'
                 });
               });
@@ -48,7 +48,7 @@
 :javascript
   $(function() {
     $('#new_journal_modal').jqm({
-      ajax: "/claim_issues/#{@claim_issue.issue_id}/journals/new",
+      ajax: "/claim_issues/#{@claim_issue.issue_id}/journals/new?claim_id=#{@claim_id}",
       trigger: '#new_journal'
     });
   });

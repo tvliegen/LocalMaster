@@ -1,6 +1,6 @@
 %div{id: "clarification_edit_wrapper_#{@clarification.clarification_id}"}
 
-  %h5.modal-header Edit Clarification
+  %h5.modal-header Clarification
   = form_for @clarification, url: teknion_clarification_path(@clarification.clarification_id, claim_id: @claim_id), method: :put, html: { class: 'form-horizontal' } do |f|
 
     - if @clarification.errors.any?

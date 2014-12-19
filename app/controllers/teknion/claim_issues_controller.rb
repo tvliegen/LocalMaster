@@ -20,11 +20,13 @@ class Teknion::ClaimIssuesController < ApplicationController
         # filter out only those clarifications that are questions
         merged_claim_issue_data['clarifications'] = clarifications_response.body['clarifications'].select {|cl| cl['clarification_type'] == 'question' }
       elsif @section == 'other_information'
-        journal_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/journallist", {dealer_code: "200188"}
-        merged_claim_issue_data['journals'] = journal_response.body['journals']
+        merged_claim_issue_data['journals'] = Teknion::Journal.all(params[:id], "200188")
       elsif @section == 'rgas'
         rga_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/rgalist", {dealer_code: "200188"}
         merged_claim_issue_data['rgas'] = rga_response.body['rgas']
+      elsif @section == 'back_charges'
+        back_charge_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/backchargelist", {dealer_code: "200188"}
+        merged_claim_issue_data['back_charges'] = back_charge_response.body['backcharges']
       end
       @claim_issue = Teknion::ClaimIssue.new(merged_claim_issue_data)
     end

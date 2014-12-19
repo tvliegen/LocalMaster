@@ -1,1 +1,34 @@
-back_charges
+#claim_content
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th
+              Back Charge ID
+            %th
+              Type
+            %th
+              Date
+            %th
+              Requested Amount
+            %th
+              Approved Amount
+            %th
+              Status
+        %tbody.rowlink
+          - @claim_issue.back_charges.each do |back_charge|
+            %tr
+              %td
+                = back_charge.bc_id
+              %td
+                = back_charge.bc_type_code
+              %td
+                = back_charge.create_date
+              %td
+                = back_charge.estimate_amount
+              %td
+                = back_charge.authorized_amount
+              %td
+                = back_charge.bc_status
+
