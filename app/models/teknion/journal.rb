@@ -14,7 +14,7 @@ class Teknion::Journal
 
   validates :subject, presence: true
   validates :content, presence: true
-
+ 
   def self.all(claim_id, dealer_code)
     journal_response = client.get "tekcare/issues/#{claim_id}/journallist", {dealer_code: dealer_code}
     
