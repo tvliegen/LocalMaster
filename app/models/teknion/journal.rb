@@ -16,7 +16,7 @@ class Teknion::Journal
   validates :content, presence: true
 
   def self.all(claim_id, dealer_code)
-    journal_response = client.get "tekcare/issues/#{claim_id}/journallist", {dealer_code: "200188"}
+    journal_response = client.get "tekcare/issues/#{claim_id}/journallist", {dealer_code: {dealer_code}}
     
     unless journal_response.nil?
    #   journal_json = JSON.parse journal_response.body.gsub!(/\n/, '')
