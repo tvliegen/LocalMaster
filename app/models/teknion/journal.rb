@@ -27,11 +27,11 @@ class Teknion::Journal
   end
 
   def self.find(journal_id, claim_id, dealer_code)
-    all(claim_id, dealer_code).find {|journal| journal.journal_id == journal_id }
+    all(claim_id, dealer_code).find {|journal| journal.journal_id == journal_id }  
   end
 
   def self.client
-    @client ||= Faraday.new('http:s//devapi.teknion.com/', ssl: {verify: false} ) do |faraday|
+    @client ||= Faraday.new('https://devapi.teknion.com/', ssl: {verify: false} ) do |faraday|
       faraday.use TekcareTokenAuthentication
       faraday.use Faraday::Request::UrlEncoded
 
