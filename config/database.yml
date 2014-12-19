@@ -11,9 +11,7 @@
 
 development:
   adapter: postgresql
-  encoding: unicode
-  database: teknion 
-  pool: 5
-  username: apps 
-  password: teknion 
+  host: localhost
+  username: ltsrxnbbyrlvyr
+  database: daqef17jbnqbdu
 

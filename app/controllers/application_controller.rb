@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 private
   
  def tekcare_connection
-    conn ||= Faraday.new('http://api.corp.teknion.com/', ssl: {verify: false} ) do |faraday|
+    conn ||= Faraday.new('https://devapi.teknion.com/', ssl: {verify: false} ) do |faraday|
       faraday.use TekcareTokenAuthentication
       faraday.use Faraday::Request::UrlEncoded
 
