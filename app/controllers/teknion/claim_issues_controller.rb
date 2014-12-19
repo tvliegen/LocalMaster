@@ -18,7 +18,10 @@ class Teknion::ClaimIssuesController < ApplicationController
       if @section.nil? || @section == 'clarifications'
         clarifications_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/clarificationlist", {dealer_code: "200188"}
         # filter out only those clarifications that are questions
-        merged_claim_issue_data['clarifications'] = clarifications_response.body['clarifications'].select {|cl| cl['clarification_type'] == 'question' }
+	
+	unless clarifications_response.body['clarifications'].nil?
+	  merged_claim_issue_data['clarifications'] = clarifications_response.body['clarifications'].select {|cl| cl['clarification_type'] == 'question' }
+	end
       elsif @section == 'other_information'
         merged_claim_issue_data['journals'] = Teknion::Journal.all(params[:id], "200188")
       elsif @section == 'rgas'
