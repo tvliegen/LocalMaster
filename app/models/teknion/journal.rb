@@ -18,10 +18,11 @@ class Teknion::Journal
   def self.all(claim_id, dealer_code)
     journal_response = client.get "tekcare/issues/#{claim_id}/journallist", {dealer_code: dealer_code}
     
-    unless journal_response.nil?
+
    #   journal_json = JSON.parse journal_response.body.gsub!(/\n/, '')
 
   journal_json = JSON.parse journal_response.body
+    unless journal_json['journals'].nil?
   journal_json['journals'].map {|j| new(j) }
     end
   end
