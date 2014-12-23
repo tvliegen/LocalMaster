@@ -1,0 +1,179 @@
+= form_for @back_charge, url: teknion_claim_issue_back_charges_path(@claim_issue_id, @back_charge, claim_id: @claim_id), html: { class: 'form-horizontal', id: 'whatever', multipart: true } do |f|
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-hover
+        %tbody
+          %tr
+            %td
+              Date
+            %td
+              = @back_charge.create_date
+            %td
+              Back Charge Type
+            %td
+              %select{:name => "field_back_charge_type"}
+                %option{:selected => "selected", :value => ""} For Product
+                %option{:selected => "selected", :value => ""} Without Product
+          %tr
+            %td
+              Back Charge Summary
+            %td
+              %textarea{:cols => "40", :name => "field_clarification_question", :rows => "5"}
+            %td
+              Currency
+            %td
+              = f.radio_button(:currency, "CAD")
+              = f.label :currency, "CAD"
+              = f.radio_button(:currency, "USD")
+              = f.label :currency, "USD"
+          %tr
+            %td
+              Cost Summary
+            %td
+              \
+            %td
+              \
+            %td
+              \
+          %tr
+            %td
+              Labour
+            %td
+              \
+            %td
+              \
+            %td
+              \
+          %tr
+            %td
+              Other Costs
+            %td
+              \
+            %td
+              \
+            %td
+              \
+          %tr
+            %td
+              Total Amount Requested
+            %td
+              \
+            %td
+              \
+            %td
+              \
+          %tr
+            %td
+              Related Claims
+            %td
+              \
+            %td
+              \
+            %td
+              \
+        %table.table.table-striped.table-hover
+          %tbody
+            %tr
+              %td
+                Labour Type
+              %td
+                %select{:name => "field_back_charge_type"}
+                  %option{:selected => "selected", :value => ""} Union
+                  %option{:selected => "selected", :value => ""} Non Union
+              %td
+                \
+              %td
+                \
+              %td
+                \
+            %tr
+              %td
+                \
+              %td
+                Hours
+              %td
+                Rate
+              %td
+                %span{:_fck_bookmark => "1", :style => "display: none;"}>
+                \ Sub-Total
+              %td
+                \
+            %tr
+              %td
+                Regular
+              %td
+                %input{:name => "field_regular_hours", :type => "text"}/
+              %td
+                %input{:name => "field_regular_rate", :type => "text"}/
+              %td
+                \
+              %td
+                \
+            %tr
+              %td
+                Overtime
+              %td
+                %input{:name => "field_overtime_hours", :type => "text"}/
+              %td
+                %input{:name => "field_overtime_rate", :type => "text"}/
+              %td
+                \
+              %td
+                \
+            %tr
+              %td
+                Travel
+              %td
+                %input{:name => "field_travel_hours", :type => "text"}/
+              %td
+                %input{:name => "field_travel_rate", :type => "text"}/
+              %td
+                \
+              %td
+                \
+            %tr
+              %td
+                \
+              %td
+                Description
+              %td
+                Cost
+              %td
+                Sub-Total
+              %td
+                \
+            %tr
+              %td
+                Other Cost
+              %td
+                %input{:name => "field_othercost_1", :type => "text"}/
+              %td
+                %input{:name => "field_othercost_1_cost", :type => "text"}/
+              %td
+                \
+              %td
+                \
+            %tr
+              %td
+                Other Cost
+              %td
+                %input{:name => "field_othercost_2", :type => "text"}/
+              %td
+                %input{:name => "field_othercost_2_cost", :type => "text"}/
+              %td
+                \
+              %td
+                \
+            %tr
+              %td
+                Other Cost
+              %td
+                %input{:name => "field_othercost_3", :type => "text"}/
+              %td
+                %input{:name => "field_other_cost_3_cost", :type => "text"}/
+              %td
+                \
+              %td
+                \
+  .actions
+    = f.submit 'Save'

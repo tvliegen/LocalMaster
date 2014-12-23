@@ -28,7 +28,7 @@ class Teknion::Journal < Teknion::Base
 
   # override the base class as we'll parse the json manually
   def self.client
-    @client ||= Faraday.new('https://devapi.teknion.com/', ssl: {verify: false} ) do |faraday|
+    @client ||= Faraday.new('http://api.corp.teknion.com/', ssl: {verify: false} ) do |faraday|
       faraday.use TekcareTokenAuthentication
       faraday.use Faraday::Request::UrlEncoded
 
