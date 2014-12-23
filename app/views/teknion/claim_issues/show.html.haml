@@ -17,27 +17,25 @@
     .col-md-2
       %label Quantity Ordered
     .col-md-2
-      = @claim_issue.quantity
+      = @claim_issue.order_qty
     .col-md-1
   .row
     .col-sm-3
     .col-sm-2
       %label Quantity Affected
     .col-md-2
-      = @claim_issue.affected_quantity
+      = @claim_issue.affected_qty
     .col-md-2
       %label Reason
     .col-md-2
-      %div{style: 'color:red'}MISSING_IN_API
-      -#= @claim_issue.reason_code
+      = @claim_issue.problem_category
     .col-md-1
   .row
     .col-sm-3
     .col-sm-2
       %label Problem Description
     .col-md-2
-      %div{style: 'color:red'}MISSING_IN_API
-      -#= @claim_issue.claim_description
+      = @claim_issue.problem_description
     .col-md-2
       %label Status
     .col-md-2

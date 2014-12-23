@@ -43,7 +43,7 @@ Teknion::Application.routes.draw do
  
 
   # Tekcare routes
-  scope module: 'teknion', as: 'teknion' do
+   scope module: 'teknion', as: 'teknion' do
     resources :claims, only: [:index, :show] do
       delete :cancel, on: :member
       resources :claim_issues, only: :index
@@ -51,9 +51,11 @@ Teknion::Application.routes.draw do
     resources :claim_issues, only: :show do
       resources :clarifications, shallow: true
       resources :journals, only: [:index, :new, :create, :edit]
+      resources :back_charges, only: [:index, :new, :create, :edit]
       resources :site_visits, shallow: true
     end
     resources :journals, only: [:show, :update, :destroy]
+    resources :back_charges, only: [:show, :update, :destroy]
   end
   
 scope module: 'teknion', as: 'teknion' do

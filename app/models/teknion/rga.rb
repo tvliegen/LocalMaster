@@ -1,7 +1,4 @@
-class Teknion::RGA
-  include ActiveModel::Model
-  include Virtus.model
-  include HTTParty
+class Teknion::RGA < Teknion::Base
 
   attribute :rga_id, String
   attribute :issue_id, String
@@ -11,4 +8,16 @@ class Teknion::RGA
   attribute :original_invoice_no, String
   attribute :claimsrep_id, String
   attribute :rga_timestamp, String
+
+  def self.all(claim_issue_id, dealer_code)
+    response = client.get "tekcare/issues/#{claim_issue_id}/rgalist", {dealer_code: dealer_code}
+    unless response.body['rgas'].nil?
+      response.body['rgas'].map {|item| new(item) }
+    end
+  end
+
+  def self.find(id, claim_issue_id, dealer_code)
+    all(claim_issue_id, dealer_code).find {|item| item.rga_id == id }
+  end
+
 end

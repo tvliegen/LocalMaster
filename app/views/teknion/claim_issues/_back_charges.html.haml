@@ -20,7 +20,8 @@
           - @claim_issue.back_charges.each do |back_charge|
             %tr
               %td
-                = back_charge.bc_id
+                %a{href: 'javascript:;', id: "back_charge_modal_#{back_charge.bc_id}"}
+                  = back_charge.bc_id
               %td
                 = back_charge.bc_type_code
               %td
@@ -32,3 +33,13 @@
               %td
                 = back_charge.bc_status
 
+            %div.jqmWindow{id: "back_charge_modal_#{back_charge.bc_id}"}
+              Please wait...
+
+            :javascript
+              $(function() {
+                $('#back_charge_modal_#{back_charge.bc_id}').jqm({
+                  ajax: "/claim_issues/#{@claim_issue.issue_id}/back_charges/#{back_charge.bc_id}/edit?claim_id=#{params[:claim_id]}",
+                  trigger: 'a#back_charge_modal_#{back_charge.bc_id}'
+                });
+              });

@@ -1,5 +1,8 @@
 #claim_content
   .col-md-12
+    .btn-group
+      %button#new_clarification.btn.btn-default New
+  .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
         %thead
@@ -35,17 +38,6 @@
                   trigger: 'a#clarification_modal_#{clarification.clarification_id}'
                 });
               });
-
-  .col-md-12
-    .btn-group
-      %button#new_clarification.btn.btn-default New
-      %button.btn.btn-default.disabled Send
-      %button.btn.btn-default.disabled Respond
-      %button.btn.btn-default Cancel
-
-      #new_clarification_modal.jqmWindow
-        Please wait...
-
 :javascript
   $(function() {
     $('#new_clarification_modal').jqm({

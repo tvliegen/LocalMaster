@@ -9,7 +9,7 @@ class FotonotesLogin
 	def initialize()
 	end
 
- 
+
 	
 	
 def login

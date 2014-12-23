@@ -72,8 +72,7 @@
           .col-sm-2
             %label SQ Rev Number
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.original_po_rev
+            = @claim.header['original_sq_revision']
           .col-sm-1
         .row
           .col-sm-1
@@ -83,10 +82,9 @@
             %div{style: 'color:red'}MISSING_IN_API
             -#= @claim.end_customer_name
           .col-sm-2
-            %label Received Dated
+            %label Claim Received Dated
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.shipment_received_date
+            = @claim.header['submission_date']
           .col-sm-1
         .row
           .col-sm-1
@@ -98,8 +96,7 @@
           .col-sm-2
             %label Project Name
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.project_name
+            =@claim.header['project_name']
           .col-sm-1
         .row
           .col-sm-12.dealer-section
@@ -107,15 +104,13 @@
         .row
           .col-sm-1
           .col-sm-2
-            %label Installation Status
+            %label Installation in Progress
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#In Progress: #{@claim.installation_in_progress}
+            =@claim.header['installation_in_progress']
           .col-sm-2
             %label Estimated Completion
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.scheduled_install_completion
+            = @claim.header['est_install_complete_date']
           .col-sm-1
         .row
           .col-sm-1
@@ -147,21 +142,18 @@
           .col-sm-2
             %label Site Contact Name
           .col-sm-7
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.site_visit_contact_name
+            = @claim.header['site_contact_name']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Site Contact Number
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.site_visit_contact_number
+            = @claim.header['site_contact_number']
           .col-sm-2
             %label Site Contact E-mail
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.site_visit_contact_email
+            = @claim.header['site_contact_email']
           .col-sm-1
         .row
           .col-sm-12.dealer-section
@@ -182,7 +174,7 @@
           .col-sm-2
             %label City
           .col-sm-3
-            -#= @claim.ship_replacement_to['city']
+            = @claim.ship_replacement_to['city']
           .col-sm-1
         .row
           .col-sm-1
@@ -243,15 +235,12 @@
                       %td
                         = claim_issue.item_code
                       %td
-                        %div{style: 'color:red'}MISSING_IN_API
-                        -#= claim_issue.cr
+                        = claim_issue.original_cr_number
                       %td
                         = claim_issue.item_description
                       %td
-                        %div{style: 'color:red'}MISSING_IN_API
-                        -#= claim_issue.line_text
+                        = claim_issue.original_line_notes
                       %td
-                        %div{style: 'color:red'}MISSING_IN_API
-                        -#= claim_issue.tag
+                        = claim_issue.original_line_tags
                       %td
                         = claim_issue.issue_status

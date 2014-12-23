@@ -1,10 +1,6 @@
 class Teknion::JournalsController < ApplicationController
   before_action :set_journal, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @journals = Teknion::ClaimIssue.find(params[:claim_issue_id]).journals
-  end
-
   def show
   end
 
@@ -20,10 +16,11 @@ class Teknion::JournalsController < ApplicationController
   def create
     journal_data = params[:teknion_journal].merge!({issue_id: params[:claim_issue_id]})
     @journal = Teknion::Journal.new(journal_data)
+    dealer_code=session[:DealerCode]
 
     if @journal.valid?
       journal_response = tekcare_connection.post do |req|
-        req.url 'tekcare/journals?dealer_code=200188'
+        req.url 'tekcare/journals?dealer_code=#{dealer_code}'
         req.headers['Content-Type'] = 'application/json'
         req.body = @journal.to_json(only: [:issue_id, :subject, :content, :created_by])
       end
@@ -58,8 +55,9 @@ class Teknion::JournalsController < ApplicationController
 
   private
     def set_journal
+      dealer_code=session[:DealerCode]
       @claim_id = params[:claim_id]
-      @journal ||= Teknion::Journal.find(params[:id], params[:claim_issue_id], {delear_code})
+      @journal ||= Teknion::Journal.find(params[:id], params[:claim_issue_id], dealer_code)
     end
 
     def journal_params

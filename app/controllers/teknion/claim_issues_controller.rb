@@ -7,31 +7,23 @@ class Teknion::ClaimIssuesController < ApplicationController
 
   private
     def set_claim_issue
+       dealer_code=session[:DealerCode]
       @claim_id = params[:claim_id]
 
-      # get the claim again
-      claim_response = tekcare_connection.get "tekcare/claims/#{@claim_id}/claimdetail", {dealer_code: "200188"}
-      claim_issue_data = claim_response.body['claim_issues'].select {|ci| ci['issue_id'] == params[:id] }.first
-      merged_claim_issue_data = claim_issue_data
+      claim = Teknion::Claim.find(@claim_id, dealer_code)
+      @claim_issue = claim.claim_issues.find {|ci| ci.issue_id == params[:id] }
 
       @section = params[:section]
       if @section.nil? || @section == 'clarifications'
-        clarifications_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/clarificationlist", {dealer_code: "200188"}
         # filter out only those clarifications that are questions
-	
-	unless clarifications_response.body['clarifications'].nil?
-	  merged_claim_issue_data['clarifications'] = clarifications_response.body['clarifications'].select {|cl| cl['clarification_type'] == 'question' }
-	end
+        @claim_issue.clarifications = Teknion::Clarification.all(params[:id], dealer_code).select {|cl| cl.clarification_type == 'question' }
       elsif @section == 'other_information'
-        merged_claim_issue_data['journals'] = Teknion::Journal.all(params[:id], "200188")
+        @claim_issue.journals = Teknion::Journal.all(params[:id], dealer_code)
       elsif @section == 'rgas'
-        rga_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/rgalist", {dealer_code: "200188"}
-        merged_claim_issue_data['rgas'] = rga_response.body['rgas']
+        @claim_issue.rgas = Teknion::RGA.all(params[:id], dealer_code)
       elsif @section == 'back_charges'
-        back_charge_response = tekcare_connection.get "tekcare/issues/#{params[:id]}/backchargelist", {dealer_code: "200188"}
-        merged_claim_issue_data['back_charges'] = back_charge_response.body['backcharges']
+        @claim_issue.back_charges = Teknion::BackCharge.all(params[:id], dealer_code)
       end
-      @claim_issue = Teknion::ClaimIssue.new(merged_claim_issue_data)
     end
 end
 

@@ -43,8 +43,8 @@ end
 end
 
 def login_fotonotes
-  @fn=FotonotesLogin.new
-  session[:fntoken]=@fn.login["token"]
+#  @fn=FotonotesLogin.new
+#  session[:fntoken]=@fn.login["token"]
   redirect_to params["redirect"]
 end
  

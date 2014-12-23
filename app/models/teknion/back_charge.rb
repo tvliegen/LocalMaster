@@ -1,7 +1,4 @@
-class Teknion::BackCharge
-  include ActiveModel::Model
-  include Virtus.model
-  include HTTParty
+class Teknion::BackCharge < Teknion::Base
 
   attribute :bc_id, String
   attribute :create_date, String
@@ -29,5 +26,15 @@ class Teknion::BackCharge
   attribute :facility_declined, String
   attribute :bc_origin, String
   attribute :bc_copied_from_bcid, String
+
+  def self.all(claim_issue_id, dealer_code)
+    response = client.get "tekcare/issues/#{claim_issue_id}/backchargelist", {dealer_code: dealer_code}
+    return [] if response.body['backcharges'].nil?
+    response.body['backcharges'].map {|item| new(item) }
+  end
+
+  def self.find(id, claim_issue_id, dealer_code)
+    all(claim_issue_id, dealer_code).find {|item| item.bc_id == id }
+  end
 
 end

@@ -1,5 +1,5 @@
 class Teknion::SiteVisitsController < ApplicationController
-  before_action :set_site_visit, only: [:show, :edit, :update, :destroy]
+  before_action :set_site_visit, only: [:show, :edit, :update]
 
   def index
     @site_visits = Teknion::ClaimIssue.find(params[:claim_issue_id]).site_visits
@@ -38,12 +38,8 @@ class Teknion::SiteVisitsController < ApplicationController
     end
   end
 
-  def destroy
-  end
-
   private
     def set_site_visit
-     @site_visit ||= Teknion::SiteVisit.find(params[:id])
     end
 
     def site_visit_params

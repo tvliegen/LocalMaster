@@ -1,7 +1,4 @@
-class Teknion::Clarification
-  include ActiveModel::Model
-  include Virtus.model
-  include HTTParty
+class Teknion::Clarification < Teknion::Base
 
   attribute :issue_id, String
   attribute :clarification_id, String
@@ -12,17 +9,25 @@ class Teknion::Clarification
   attribute :content, String
   attribute :sent_by, String
   attribute :sent_to, String
-  attribute :timestamp, DateTime
+  attribute :timestamp, String
 
   #attributes :created_at, :author, :subject, :question, :answer
   #validates :subject, presence: true
   #validates :question, presence: true
 
   def status
-    if response_to_id.eql? "0" then 
-	"Awaiting Response" 
-	else
-	 "Responded"
-    end
+    response_to_id.empty? ? "Awaiting Response" : "Responded"
   end
+
+  def self.all(claim_issue_id, dealer_code)
+    response = client.get "tekcare/issues/#{claim_issue_id}/clarificationlist", {dealer_code: dealer_code}
+    return [] if response.body['clarifications'].nil?
+
+    response.body['clarifications'].map {|item| new(item) }
+  end
+
+  def self.find(id, claim_issue_id, dealer_code)
+    all(claim_issue_id, dealer_code).find {|cl| cl.clarification_id == id }
+  end
+
 end
