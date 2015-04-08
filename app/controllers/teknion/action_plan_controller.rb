@@ -3,9 +3,12 @@ class Teknion::ActionPlanController < ApplicationController
 
   def index
     @action_plan = Teknion::ClaimIssue.find(params[:claim_issue_id]).action_plan
+   
+   
   end
 
   def show
+    
   end
 
   def edit

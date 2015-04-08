@@ -1,12 +1,13 @@
-class Teknion::ReplacementOrder
-  include ActiveModel::Model
-  include Virtus.model
-  include HTTParty
+class Teknion::ReplacementOrder < Teknion::Base
 
-  attribute :replaceproduct_id, String
-  attribute :seqno, String
-  attribute :product_code, String
-  attribute :sq_number, String
-  attribute :qty_ordered, String
-  attribute :cr_number, String
+  attribute :order_header, Hash
+  attribute :ship_header, Hash
+  attribute :order_lines, Array[Hash]
+  
+  
+  def self.find(po_number, dealer_code)
+    response = client.get "/tekcare/orders/#{po_number}/orderdetail", {dealer_code: dealer_code, type: 'p'}
+    new(response.body)
+  end
 end
+

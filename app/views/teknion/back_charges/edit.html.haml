@@ -1,179 +1,142 @@
-= form_for @back_charge, url: teknion_claim_issue_back_charges_path(@claim_issue_id, @back_charge, claim_id: @claim_id), html: { class: 'form-horizontal', id: 'whatever', multipart: true } do |f|
-  .col-md-12
+%h5.modal-header 
+  Back Charge ID: 
+  = @back_charge.bc_header['bc_id']
+= form_for @back_charge, url: teknion_back_charge_path, method: :put, html: { class: 'form-horizontal', id: 'whatever', multipart: true } do |f|
+  = hidden_field_tag 'claim_issue_id', @claim_issue_id
+  .div
     .table-responsive
-      %table.table.table-striped.table-hover
+      %table.back-charge-details
         %tbody
-          %tr
+          %tr 
             %td
-              Date
-            %td
-              = @back_charge.create_date
-            %td
-              Back Charge Type
-            %td
-              %select{:name => "field_back_charge_type"}
-                %option{:selected => "selected", :value => ""} For Product
-                %option{:selected => "selected", :value => ""} Without Product
-          %tr
-            %td
-              Back Charge Summary
-            %td
-              %textarea{:cols => "40", :name => "field_clarification_question", :rows => "5"}
-            %td
-              Currency
-            %td
-              = f.radio_button(:currency, "CAD")
-              = f.label :currency, "CAD"
-              = f.radio_button(:currency, "USD")
-              = f.label :currency, "USD"
-          %tr
-            %td
-              Cost Summary
-            %td
-              \
-            %td
-              \
-            %td
-              \
-          %tr
-            %td
-              Labour
-            %td
-              \
-            %td
-              \
-            %td
-              \
-          %tr
-            %td
-              Other Costs
-            %td
-              \
-            %td
-              \
-            %td
-              \
-          %tr
-            %td
-              Total Amount Requested
-            %td
-              \
-            %td
-              \
-            %td
-              \
-          %tr
-            %td
-              Related Claims
-            %td
-              \
-            %td
-              \
-            %td
-              \
-        %table.table.table-striped.table-hover
+              .field-wrapper
+                %label Date
+                = @back_charge.bc_header['create_date']
+              .field-wrapper
+                %label Currency
+                %span.currency-radio
+                  = @back_charge.bc_header['currency']
+              .field-wrapper
+                %label Type
+                = @back_charge.bc_header['bc_type_code']
+            %td.summary
+              .field-wrapper
+                %label Summary
+                = @back_charge.bc_header['description']
+           
+        %table.table
           %tbody
             %tr
-              %td
-                Labour Type
-              %td
-                %select{:name => "field_back_charge_type"}
-                  %option{:selected => "selected", :value => ""} Union
-                  %option{:selected => "selected", :value => ""} Non Union
-              %td
-                \
-              %td
-                \
-              %td
-                \
+              %td{colspan: 2}
+                %label Labour Type
+                = @back_charge.bc_shared_costs['vc_reg_labour_type']
             %tr
               %td
-                \
+                
+                %table.hours-table
+                  %tr
+                    %th
+                      \
+                    %th.top.hrs
+                      Hours
+                    %th.top.rate
+                      Rate
+                    %th.top.subtotal
+                      %span{:_fck_bookmark => "1", :style => "display: none;"}>
+                      \ Sub-Total
+                    
+                    %tr
+                      %th.left-labels
+                        Regular
+                      %td.hrs
+                        = @back_charge.bc_shared_costs['vc_reg_labour_hours']
+                      %td.rate
+                        = number_to_currency(@back_charge.bc_shared_costs['vc_reg_labour_rate'])
+                      %td
+                        = number_to_currency(@reg_labour)
+                      
+                    %tr
+                      %th.left-labels
+                        Overtime
+                      %td.hrs
+                        = @back_charge.bc_shared_costs['vc_ot_labour_hours']
+                      %td.rate
+                        = number_to_currency(@back_charge.bc_shared_costs['vc_ot_labour_rate'])
+                      %td
+                        = number_to_currency(@ot_labour)
+                      
+                    %tr
+                      %th.left-labels
+                        Travel
+                      %td.hrs
+                        -
+                      %td.rate
+                        -
+                      %td
+                        = number_to_currency(@travel_labour)
+                     
               %td
-                Hours
-              %td
-                Rate
-              %td
-                %span{:_fck_bookmark => "1", :style => "display: none;"}>
-                \ Sub-Total
-              %td
-                \
-            %tr
-              %td
-                Regular
-              %td
-                %input{:name => "field_regular_hours", :type => "text"}/
-              %td
-                %input{:name => "field_regular_rate", :type => "text"}/
-              %td
-                \
-              %td
-                \
-            %tr
-              %td
-                Overtime
-              %td
-                %input{:name => "field_overtime_hours", :type => "text"}/
-              %td
-                %input{:name => "field_overtime_rate", :type => "text"}/
-              %td
-                \
-              %td
-                \
-            %tr
-              %td
-                Travel
-              %td
-                %input{:name => "field_travel_hours", :type => "text"}/
-              %td
-                %input{:name => "field_travel_rate", :type => "text"}/
-              %td
-                \
-              %td
-                \
-            %tr
-              %td
-                \
-              %td
-                Description
-              %td
-                Cost
-              %td
-                Sub-Total
-              %td
-                \
-            %tr
-              %td
-                Other Cost
-              %td
-                %input{:name => "field_othercost_1", :type => "text"}/
-              %td
-                %input{:name => "field_othercost_1_cost", :type => "text"}/
-              %td
-                \
-              %td
-                \
-            %tr
-              %td
-                Other Cost
-              %td
-                %input{:name => "field_othercost_2", :type => "text"}/
-              %td
-                %input{:name => "field_othercost_2_cost", :type => "text"}/
-              %td
-                \
-              %td
-                \
-            %tr
-              %td
-                Other Cost
-              %td
-                %input{:name => "field_othercost_3", :type => "text"}/
-              %td
-                %input{:name => "field_other_cost_3_cost", :type => "text"}/
-              %td
-                \
-              %td
-                \
-  .actions
-    = f.submit 'Save'
+                %table.hours-table.other-cost
+                  %tr
+                    %th
+                      \
+                    %th.top.desc
+                      Description
+                    %th.top
+                      Cost
+                    %th.top.subtotal
+                      Sub-Total
+                    
+                  %tr
+                    %th.left-labels
+                      Other Cost
+                    %td.desc
+                      = @back_charge.bc_shared_costs['field_othercost_1']
+                    %td.rate
+                      = @back_charge.bc_shared_costs['field_othercost_1_cost']
+                    %td
+                      \
+                    
+                  %tr
+                    %th.left-labels
+                      Other Cost
+                    %td.desc
+                      = @back_charge.bc_shared_costs['field_othercost_2']
+                    %td.rate
+                      = @back_charge.bc_shared_costs['field_othercost_2_cost']
+                    %td
+                      \
+                    
+                  %tr
+                    %th.left-labels
+                      Other Cost
+                    %td.desc
+                      = @back_charge.bc_shared_costs['field_othercost_3']
+                    %td.rate
+                      = @back_charge.bc_shared_costs['field_othercost_3_cost']
+                    %td
+                      \
+        %table.table
+        %tbody
+          %tr
+            %th{colspan: 4}
+              %h5 Cost Summary
+          %tr
+            %td.cost-summary-info
+              .field-wrapper
+                %label Labour
+                = number_to_currency(@total_labour)
+              .field-wrapper
+                %label Other Costs
+                = number_to_currency(@total_other)
+              .field-wrapper
+                %label Total Amount Requested
+                = number_to_currency(@total_request)
+            %td.related-claims
+              .field-wrapper
+                %label Related Claims
+                %span= @back_charge.bc_cost_splits.first['issue_id']
+
+                  
+  .form-actions
+    = button_tag "Close", :class => [:btn, 'btn-primary', 'jqmClose']

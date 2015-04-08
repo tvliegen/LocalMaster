@@ -3,18 +3,21 @@
 .tek-bar
   .container-fluid
     %p.breadcrumb
-      = link_to t('claims'), teknion_claims_path
+      = link_to 'Tekcare', teknion_claims_path
       %span /
-      %span.last Tekcare Claim: #{@claim.header['tekcare_number']}
+      %span.last Claim: #{@claim.header['tekcare_number']}
 .claim
   .claim-details
     .container-fluid
       .row
-        .col-sm-12
-          %legend.info-toggle
-            General Claim Information
-            %a{:href => "#", :sect => "General_Info"} Hide/Show
-
+        %h2
+          %u
+            Claim Title:
+            = @claim.header['project_name']
+    %legend
+      General Claim Information 
+      %a{:href => "#", :sect => "General_Info", :id=>"claiminfo"}
+        %span.glyphicon.glyphicon-triangle-top
     #General_Info{:name => "General_Info"}
       .container-fluid
         .row
@@ -57,7 +60,7 @@
           .col-sm-2
             %label Universal Number
           .col-sm-3
-            = @claim.header['universal']
+            = @claim.header['original_universal']
           .col-sm-2
             %label PO Number
           .col-sm-3
@@ -79,8 +82,7 @@
           .col-sm-2
             %label End Customer
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.end_customer_name
+            = @claim.header['end_customer_name']
           .col-sm-2
             %label Claim Received Dated
           .col-sm-3
@@ -89,10 +91,7 @@
         .row
           .col-sm-1
           .col-sm-2
-            %label Product Storage
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.product_in_storage
           .col-sm-2
             %label Project Name
           .col-sm-3
@@ -106,7 +105,7 @@
           .col-sm-2
             %label Installation in Progress
           .col-sm-3
-            =@claim.header['installation_in_progress']
+            = @claim.header['installation_in_progress']=='false' ? 'No' : 'Yes'
           .col-sm-2
             %label Estimated Completion
           .col-sm-3
@@ -121,39 +120,18 @@
           .col-sm-2
             %label Installer Lead
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.installer_name
+            = @claim.header['installation_lead_contact_name']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
             %label Lead Contact Number
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.installer_number
+            = @claim.header['installation_lead_contact_phone']
           .col-sm-2
             %label Lead Contact E-mail
           .col-sm-3
-            %div{style: 'color:red'}MISSING_IN_API
-            -#= @claim.installer_email
-          .col-sm-1
-        .row
-          .col-sm-1
-          .col-sm-2
-            %label Site Contact Name
-          .col-sm-7
-            = @claim.header['site_contact_name']
-          .col-sm-1
-        .row
-          .col-sm-1
-          .col-sm-2
-            %label Site Contact Number
-          .col-sm-3
-            = @claim.header['site_contact_number']
-          .col-sm-2
-            %label Site Contact E-mail
-          .col-sm-3
-            = @claim.header['site_contact_email']
+            = @claim.header['installation_lead_contact_email']
           .col-sm-1
         .row
           .col-sm-12.dealer-section
@@ -199,48 +177,94 @@
             = @claim.ship_replacement_to['cb_number']
           .col-sm-1
         .row
-          .col-md-12.dealer-section
-            %legend.dealer-heading
-              Issues
-        .row
-          .col-md-12
-            .table-responsive
-              %table.table.table-striped.table-hover
-                %thead
+          .col-sm-1
+          .col-sm-2
+            %label After Hours Contact Name
+          .col-sm-3
+            = @claim.ship_replacement_to['ah_name']
+          .col-sm-2
+            %label After Hours Contact Number
+          .col-sm-3
+            = @claim.ship_replacement_to['ah_number']
+          .col-sm-1
+    .container-fluid
+      .row
+        .col-md-12.dealer-section
+    %legend
+      Issues    
+    #IssueInfo{:name => "Issue_Info"}
+      .row
+        .col-md-12
+          .table-responsive
+            %table.table.table-striped.table-hover
+              %thead
+                %tr
+                  %th
+                    Issue Number
+                  %th
+                    Shipment Number
+                  %th
+                    Item Code
+                  %th
+                    CR Number
+                  %th
+                    Problem Description
+                  %th
+                    Line Notes
+                  %th
+                    Tags
+                  %th
+                    Issue Status
+                  %th
+                    Action
+              %tbody.rowlink{"data-link" => "row"}
+                - @claim.claim_issues.each do |claim_issue|
                   %tr
-                    %th
-                      Issue Num
-                    %th
-                      Shipment Num
-                    %th
-                      Item Code
-                    %th
-                      CR Num
-                    %th
-                      Item Description
-                    %th
-                      Line Notes
-                    %th
-                      Tags
-                    %th
-                      Status
-                %tbody.rowlink{"data-link" => "row"}
-                  - @claim.claim_issues.each do |claim_issue|
-                    %tr
-                      %td
-                        = link_to claim_issue.issue_id, teknion_claim_issue_path(claim_issue.issue_id, claim_id: @claim.header['tekcare_number'])
-                      %td
-                        %div{style: 'color:red'}MISSING_IN_API
-                        -#= claim_issue.shipment_number
-                      %td
-                        = claim_issue.item_code
-                      %td
-                        = claim_issue.original_cr_number
-                      %td
-                        = claim_issue.item_description
-                      %td
-                        = claim_issue.original_line_notes
-                      %td
-                        = claim_issue.original_line_tags
-                      %td
-                        = claim_issue.issue_status
+                    %td
+                      = link_to claim_issue.issue_id, teknion_claim_issue_path(claim_issue.issue_id, claim_id: @claim.header['tekcare_number'])
+                    %td
+                      = claim_issue.original_shipment
+                    %td
+                      = claim_issue.item_code
+                    %td
+                      = claim_issue.original_cr_number
+                    %td
+                      = claim_issue.problem_description
+                    %td
+                      = claim_issue.original_line_notes
+                    %td
+                      = claim_issue.original_line_tags
+                    %td
+                      = claim_issue.issue_status_desc
+                    %td
+                      %a{:href => "#",:id=>"request_close_#{claim_issue.issue_id}", :class => ['glyphicon','glyphicon-folder-close'], :title => 'Request Close'}
+                    %div.jqmWindow.closeReqWindow{id: "request_close_#{claim_issue.issue_id}_modal"}
+                    :javascript
+                      $('#request_close_#{claim_issue.issue_id}_modal').jqm({
+                      ajax: "/claim_issues/#{claim_issue.issue_id}/closereq/new?claim_id=#{claim_issue.issue_id}&incident_id=#{@claim.header['tekcare_number']}",
+                      trigger: '#request_close_#{claim_issue.issue_id}',
+                      modal: true
+                      });
+                      
+:javascript
+
+  function hide_element(obj_name) {
+
+  var tbl=$('#'+obj_name);
+  
+  
+  if ($('#'+obj_name).css('display')=='block')
+  {
+    $('#'+obj_name).hide();
+    }
+    else {
+  $('#'+obj_name).show();
+  }
+  }
+
+  $('#claiminfo').click(function (e){
+        e.preventDefault();
+      
+        hide_element($(this).attr('sect'));
+        });
+ 

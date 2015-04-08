@@ -7,7 +7,7 @@ class Teknion::RGA < Teknion::Base
   attribute :original_shipment_no, String
   attribute :original_invoice_no, String
   attribute :claimsrep_id, String
-  attribute :rga_timestamp, String
+  attribute :rga_timestamp, Date
 
   def self.all(claim_issue_id, dealer_code)
     response = client.get "tekcare/issues/#{claim_issue_id}/rgalist", {dealer_code: dealer_code}

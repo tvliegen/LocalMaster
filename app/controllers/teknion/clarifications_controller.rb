@@ -15,28 +15,56 @@ class Teknion::ClarificationsController < ApplicationController
   end
 
   def create
+     if params['teknion_clarification'].key?('file_uploaded')
+   
+    if !params['teknion_clarification']['file_uploaded'].nil?
+       attach=Attachments.new
+      results=attach.process_file(params['teknion_clarification']['file_uploaded'],['Tekcare',params[:claim_issue_id]],'None')
+       logger.info results
+    end
+     end
     clarification_data = clarification_params.merge!({issue_id: params[:claim_issue_id]})
+
     @clarification = Teknion::Clarification.new(clarification_data)
 
     if @clarification.valid?
-      clarification_response = tekcare_connection.post do |req|
-        req.url 'tekcare/clarifications?dealer_code=200188'
-        req.headers['Content-Type'] = 'application/json'
-        req.body = @clarification.to_json
-      end
+      
+      @new_clarification = { :issue_id => @clarification.issue_id, :type => 'QUESTION', :subject => @clarification.subject, :content => @clarification.content,:sent_by => session[:FirstName] + ' ' + session[:LastName], :sent_to => "ANYONE"  }
+      
 
+      clarification_response = tekcare_connection.post do |req|
+        req.url "tekcare/clarifications?dealer_code=#{session[:DealerCode]}"
+        req.headers['Content-Type'] = 'application/json'
+        req.body = @new_clarification.to_json
+      end
+      logger.info "Clarification Response: #{clarification_response.status}"
+      logger.info "Clarification Body: #{@new_clarification.to_json}"
+     
       if clarification_response.status == 201
         flash[:notice] = 'Clarification was successfully created.'
+	
       else
         flash[:notice] = 'There was a problem creating your Clarification.'
       end
+      
       render inline: "<script> window.location.href = '#{teknion_claim_issue_path(@clarification.issue_id, claim_id: params[:claim_id])}'; </script>"
     else
+     
       render :new, layout: false
     end
+    
   end
 
   def update
+
+     if params.key?('teknion_clarification')
+    if !params['teknion_clarification']['file_uploaded'].nil?
+   attach=Attachments.new
+      results=attach.process_file(params['teknion_clarification']['file_uploaded'],['Tekcare',params[:answer_issue_id]],'None')
+       logger.info results
+    
+    end
+     end
     @answer = Teknion::Clarification.new({
       issue_id:       answer_params[:answer_issue_id],
       subject:        answer_params[:answer_subject],
@@ -49,11 +77,11 @@ class Teknion::ClarificationsController < ApplicationController
 
     if @answer.valid?
       clarification_response = tekcare_connection.post do |req|
-        req.url 'tekcare/clarifications?dealer_code=200188'
+        req.url "tekcare/clarifications?dealer_code=#{session[:DealerCode]}"
         req.headers['Content-Type'] = 'application/json'
         req.body = @answer.to_json
       end
-
+ 
       if clarification_response.status == 201
         flash[:notice] = 'Clarification was successfully updated.'
       else
@@ -63,6 +91,7 @@ class Teknion::ClarificationsController < ApplicationController
     else
       render :edit, layout: false
     end
+
   end
 
   private
@@ -73,21 +102,12 @@ class Teknion::ClarificationsController < ApplicationController
       clarifications = clarifications_response.body['clarifications']
       clarification_data = clarifications.find {|cl| cl['clarification_id'] == params[:id] }
       @clarification = Teknion::Clarification.new(clarification_data)
-
-      if @clarification.clarification_type == 'answer'
-        question = clarifications.find {|cl| cl['clarification_id'] == @clarification.response_to_id }
-        @question = Teknion::Clarification.new(question)
-        @clarification.type = 'answer'
-      else
-        @clarification.type = 'question'
-
-        # when the question already has an answer, we'll need to find it for display.
-        # otherwise, we'll just create a new answer for the view.
-        answer_data = clarifications.find {|cl| cl['response_to_id'] == @clarification.clarification_id }
+      answer_data = clarifications.find {|cl| cl['response_to_id'] == @clarification.clarification_id }
+      logger.info "Answer Found: #{answer_data.present?}"
         if answer_data.present?
           @answer = Teknion::Clarification.new(answer_data)
-        else
-          @answer = Teknion::Clarification.new({
+	else
+	  @answer = Teknion::Clarification.new({
             issue_id: params[:claim_issue_id],
             subject: "RE: #{@clarification.subject}",
             response_to_id: @clarification.clarification_id,
@@ -95,10 +115,36 @@ class Teknion::ClarificationsController < ApplicationController
             clarification_type: 'answer',
             content: '',
             sent_to: @clarification.sent_by,
-            sent_by: 'MISSING_FROM_SESSION'
+            sent_by: @clarification.sent_by
           })
-        end
-      end
+	end
+	
+	
+     # if @clarification.clarification_type == 'answer'
+     #   question = clarifications.find {|cl| cl['clarification_id'] == @clarification.response_to_id }
+     #   @question = Teknion::Clarification.new(question)
+     #   @clarification.type = 'answer'
+     # else
+     #   @clarification.type = 'question'
+
+        # when the question already has an answer, we'll need to find it for display.
+        # otherwise, we'll just create a new answer for the view.
+     #   answer_data = clarifications.find {|cl| cl['response_to_id'] == @clarification.clarification_id }
+     #   if answer_data.present?
+     #     @answer = Teknion::Clarification.new(answer_data)
+     #   else
+      #    @answer = Teknion::Clarification.new({
+      #      issue_id: params[:claim_issue_id],
+      #      subject: "RE: #{@clarification.subject}",
+      #      response_to_id: @clarification.clarification_id,
+      #      type: 'answer',
+      #      clarification_type: 'answer',
+      #      content: '',
+      #      sent_to: @clarification.sent_by,
+      #      sent_by: @clarification.sent_by
+      #   })
+      #  end
+     # end
     end
 
     def clarification_params

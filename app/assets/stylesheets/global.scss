@@ -4,6 +4,12 @@
 #notice {
 	z-index: 1010;
 }
+a:link {
+   outline:none 
+}
+button::-moz-focus-inner {
+  border: 0;
+}
 table {
 	th {
 	font-size:11px;
@@ -13,22 +19,33 @@ table {
 	}
 }
 .tek-bar {
-	background: none repeat scroll 0 0 whitesmoke;
+	
+	background: none repeat scroll 0 0 #ffffff;
 	#background: rgba(244, 244, 244, 0.95); 
-	background: rgba(255, 255, 255, 0.95); 
-    height:45px;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-    top: 80px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: gray;
+	#background: rgba(255, 255, 255, 0.95); 
+	height:60px;
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+	top: 80px;
+	border-style: solid;
+	border-width: 0px 0;
+	border-color: #e5e5e5;
+	padding-right: 40px;
+	padding-left: 40px;
 	p {
 		float:left;
 		font-weight:bold;
 	}
-	.breadcrumb	{
+.searchbar	{
+   background: none repeat scroll 0 0 #ffffff;
+   height: 50px;
+   text-align: right;
+   float:right;
+   margin-top: 7px;
+}
+	
+.breadcrumb	{
 		color:#999;	
 		margin-bottom: 0;
 		background:transparent;
@@ -89,7 +106,7 @@ table {
     box-shadow: none;
     outline: 0 none;
 }
-.claims-list {padding-top:50px;}
+.claims-list {padding-top:20px;}
 
 .claim {padding:40px;}
 .claim-details {
@@ -142,6 +159,18 @@ table {
 .issue-nav li {
 	border-bottom:1px solid #ccc;
 }
+.issue-nav li.active, 
+.issue-nav li.active:hover {
+	border-bottom:1px solid #ccc;
+	
+	a {
+	background-color: #fff;
+    color: #000000;
+    font-weight: bold;
+	}
+}
+
+
 .issue-nav li.last {
 	border-bottom:1px solid #fff;
 }
@@ -176,7 +205,7 @@ table {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	min-height:600px;
-
+	top:-200px;
 	.modal-header {
 		@include modal-inputBorder;
     	margin-top: 0;
@@ -186,6 +215,12 @@ table {
 	p {
 		margin-bottom: 7px;
     	padding-bottom: 3px;
+    	width: 100%;
+    	font-weight: normal;
+    	span {
+    		display: inline-block;
+    		margin:2px;
+    	}
 	}
 	label	{
 		color: #999;
@@ -197,7 +232,19 @@ table {
 	}
 	input {
 		border:0;
+		padding:2px;
+		font-weight: normal;
 		@include modal-fontSize;
+	}
+	input:focus {
+		background:#d1e5ff;
+	}
+	textarea {
+		border:1px solid #eee;
+	}
+	textarea:focus {
+		background:#d1e5ff;
+		
 	}
 	.form-actions {
 		border-top: 1px solid #e5e5e5;
@@ -207,6 +254,9 @@ table {
     	position: absolute;
     	text-align: right;
     	width: 580px;
+	}
+	.form-actions input {
+		padding: 5px 12px 2px;
 	}
 }
 .mod-created {
@@ -267,6 +317,313 @@ table {
 		padding-left: 5px;
 	}
 }
+#new_clarification_modal.jqmWindow {
+	min-height: 454px;
+	.mod-author {
+    	border-bottom: 1px solid #e5e5e5;
+    	font-weight: normal;
+	}
+	.mod-question {
+		border:none;
+		textarea {
+    		// background: none repeat scroll 0 0 #fff;
+    		border: 1px solid #eee;
+    		float: right;
+    		font-weight: normal;
+    		margin-bottom: 8px;
+    		overflow: auto;
+    		padding: 1px 4px;
+    		width: 100%;	
+		}
+	}
+}
+.clarification_edit_modal {
+	table tr:first-child td {
+			border:none;
+		}
+}
+.journal-additional-info {
+	.labels {
+		width: 80px; 
+	}
+	td span {
+		display: inline-block;
+		padding-top:2px;
+	}
+	tr:first-child td {
+			border:none;
+		}
+}
+.back_charge_modal.jqmWindow {
+	width: 920px;
+	margin-left: -460px;
+	.field-wrapper {
+		margin: 6px 0;
+	}
+	.back-charge-details {
+		width: 100%;
+		margin-bottom: 10px;
+		label {
+			width: 80px;
+		}
+		.currency-radio {
+			display: inline-block;
+			label {
+				width: auto;
+				margin-right: 30px;
+			}
+		}
+		.summary {
+			width: 560px;
+			textarea {
+				width: 470px;
+			}
+		}
+	}
+	select {
+	display: inline-block;
+    font-size: 12px;
+    min-width: 150px;
+    padding: 3px 0 1px;
+
+	} 
+	input {
+		background:#f0f0f0;
+	}
+	input:focus {
+		background:#d1e5ff;
+	}
+	.related-claims {
+		label {
+			width:120px;
+		}
+		span {
+			display: inline-block;
+			padding:2px;
+		}
+	}
+	.other-cost.hours-table {
+		margin-left: 40px;
+    	width: 480px;
+	}
+	.hours-table {
+		margin-top: 10px;
+		width:340px;
+		tr:first-child th {
+			border:none;
+		}
+		td {
+			padding:4px 0;
+			// outline: 1px dotted pink;
+			text-align: right; 
+			border-top: 1px solid #eee;
+		}
+		th {
+			padding:4px 0;
+			text-align: right;
+			border-top: 1px solid #eee;
+			
+			}
+		th.top {
+			color: #999999;
+    		font-size: 12px;
+    		font-weight: normal;
+    		vertical-align: middle;
+    		width: 100px;
+		}
+		th.left-labels {
+			color: #999999;
+    		font-size: 12px;
+    		font-weight: normal;
+    		vertical-align: middle;
+    		width: 20%;
+    		text-align: left;
+    		width: 100px;
+		}
+		th.subtotal {
+			width: 80px;
+		}
+		.desc {
+			width: 220px;
+			text-align: left;
+			input {
+				width: 100%;
+			}
+		}
+		td.hrs {
+			width:80px;
+			
+			input {
+				width: 4em;
+				text-align: right;
+			}
+		}
+		td.rate {
+			width:80px;
+			
+			input {
+				width: 4em;
+				text-align: right;
+			}
+		}
+	}
+	.cost-summary-info {
+		label {
+			width:180px;
+		}
+	}
+	.other-cost	{
+		
+		th.left-side {
+			padding-left:20px;
+		}
+	}
+	.form-actions {
+		width: 900px;
+	}
+}
+
+.closeReqWindow {
+	width: 620px;
+	margin-left: 100px;
+	margin-top: 100px;
+	min-height: 404px;
+	
+}
+#new_backcharge_modal.jqmWindow {
+	width: 920px;
+	margin-left: -460px;
+	.field-wrapper {
+		margin: 6px 0;
+	}
+	.back-charge-details {
+		width: 100%;
+		margin-bottom: 10px;
+		label {
+			width: 80px;
+		}
+		.currency-radio {
+			display: inline-block;
+			label {
+				width: auto;
+				margin-right: 30px;
+			}
+		}
+		.summary {
+			width: 560px;
+			textarea {
+				width: 470px;
+			}
+		}
+	}
+	select {
+	display: inline-block;
+    font-size: 12px;
+    min-width: 150px;
+    padding: 3px 0 1px;
+
+	} 
+	input {
+		//background:#f0f0f0;
+		text-align: right;
+	}
+	input:focus {
+		background:#d1e5ff;
+	}
+	.related-claims {
+		label {
+			width:120px;
+		}
+		span {
+			display: inline-block;
+			padding:2px;
+		}
+	}
+	.other-cost.hours-table {
+		margin-left: 40px;
+    	width: 340px;
+	}
+	.hours-table {
+		margin-top: 10px;
+		width:340px;
+		tr:first-child th {
+			border:none;
+		}
+		td {
+			padding:4px 0;
+			// outline: 1px dotted pink;
+			text-align: left; 
+			border-top: 1px solid #eee;
+		}
+		th {
+			padding:4px 0;
+			text-align: left;
+			border-top: 1px solid #eee;
+			
+			}
+		th.top {
+			color: #999999;
+    		font-size: 12px;
+    		font-weight: normal;
+    		vertical-align: middle;
+    		width: 100px;
+		}
+		th.left-labels {
+			color: #999999;
+    		font-size: 12px;
+    		font-weight: normal;
+    		vertical-align: middle;
+    		width: 20%;
+    		text-align: left;
+    		width: 100px;
+		}
+		th.subtotal {
+			width: 80px;
+		}
+		.desc {
+			width: 220px;
+			text-align: left;
+			input {
+				width: 100%;
+			}
+		}
+		td.hrs {
+			width:80px;
+			
+			input {
+				width: 4em;
+				text-align: left;
+			}
+		}
+		td.rate {
+			width:80px;
+			
+			input {
+				width: 4em;
+				text-align: left;
+			}
+		}
+	}
+	.cost-summary-info {
+		label {
+			width:180px;
+		}
+	}
+	.other-cost	{
+		
+		th.left-side {
+			padding-left:20px;
+		}
+	}
+	.form-actions {
+		width: 900px;
+	}
+
+}
+
+#new_journal_modal.jqmWindow {
+	min-height: 404px;
+}
 #error_explanation {
 	background: none repeat scroll 0 0 #f7f7f7;
     border: 1px solid #ccc;
@@ -315,4 +672,74 @@ p {
 		color:#000;
 		}
 	}
+.fotoNotesParent {overflow: hidden;}
+
+.fotonotes-wrapper {
+    background: none repeat scroll 0 0 ivory;
+    bottom: 0;
+    left: 0;
+    /*outline: 1px dotted red;*/
+    /*padding-top: 128px;*/
+    position: absolute;
+    right: 0;
+    top: 125px;
+}
+
+.fotonotes-wrapper > iframe {
+    height: 100%;
+    width: 100%;
+}
+.jqmWindow .navbar.navbar-default.navbar-fixed-top {display:none;}
+.group:after {
+	content: ".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility: hidden;
+}
+#loginModal .modal-content {
+	height:350px;
+	.prompt {
+		padding:14px 14px 11px 14px;
+	}
+	label {
+		font-weight: normal;
+	}
+	.close {
+		margin:20px;
+	}
+	#login_authenticate_language {
+		margin-top: -3px;
+    	padding: 4px 1px 2px;
+    	width: 140px;}	
+	.form-controls {
+		text-align: right;
+		.btn-primary {
+			margin-right: -6px;
+		}
+	}
+}
+
+#helpModal {
+    	width: 900px;	
+}
+
+table.floatThead-table {
+    border-top: none;
+    border-bottom: none;
+    background-color: #FFF;
+}
+
+/* update the the rules in these selectors */
+.navbar-brand > img {
+    display: inline-block;
+}
+
+
+
+.carousel {
+
+  margin:auto;
+	
+}
 

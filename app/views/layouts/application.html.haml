@@ -1,0 +1,109 @@
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "TekniOnline"}/
+    %meta{:content => "", :name => "Teknion"}/
+    = favicon_link_tag
+    %title Tekcare
+    = csrf_meta_tags
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    = stylesheet_link_tag    "dashboard"
+  / Navbar Header
+ 
+ 
+  %body
+    - if session[:session_cookie] !=nil
+      %iframe{:style => "display: none"}
+        %img{:src => session[:session_cookie]}
+    .navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+      .container-fluid
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+          %a.navbar-brand{:href => "\\"}
+            = image_tag("teklogo-green.jpg", :width => "50", :height => "50")  
+            Tekcare
+        .navbar-collapse.collapse         
+          %ul.nav.navbar-nav.navbar-right.main_top_menu
+            - if session[:FirstName] == nil
+              %li
+                %a#login{"data-target" => "/login/authenticates/login", :href => "#"} Login
+            - else
+              - create_menu
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.glyphicon.glyphicon.glyphicon-user{"aria-hidden" => "true"}
+                  = render :text => session[:FirstName]
+                  = render :text => session[:LastName]
+                  %b.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  %li.dropdown-header Accounts
+                  - @userAccounts=getAccounts(session[:Groups])
+                  - @userAccounts.each do |account_number|
+                    %li{:role => "presentation"}
+                      %a{:href => "/teknionline/profiles/switch/#{account_number.split('|')[1]} ", :role => "menuitem"}
+                        - if account_number.match(/#{session[:DealerCode]}/) !=nil
+                          %i.glyphicon.glyphicon.glyphicon-ok.icon-action                     
+                        = account_number.split('|')[0] + ' ('+account_number.split('|')[1] +')'                
+                  %li.divider
+                  %li.dropdown-header Settings
+                  %li
+                    %a{:href => "/teknionline/profiles/edit", :role => "menuitem"} Profile
+                  %li.divider
+                  %li
+                    %a{:href => "/login/authenticates/logout", :role => "menuitem"} Log Out
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.glyphicon.glyphicon.glyphicon-wrench{"aria-hidden" => "true"}
+                  Tools
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "/usermanagement/users/"} User Admin
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.glyphicon.glyphicon-info-sign{"aria-hidden" => "true"}
+                  Help
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "#", "data-target" => "/tekcare_help/dealerhandbook.html", :id =>"help1"} Tekcare Handbook
+                  %li
+                    %a{:href => "#", "data-target" => "/tekcare_help/statusdef.html", :id =>"help2"} Tekcare Status Definition
+               
+                        
+  #contentModal.modal.login_modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Issue", :role => "dialog", :tabindex => "-1"}
+    #modal_content
+    
+  #helpModal.modal.help_modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Issue", :role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        #help_modal_content
+  = yield   
+  
+:javascript
+  $('#help1').click(function (e) {
+   e.preventDefault();
+   load_help(this);
+  });
+  $('#help2').click(function (e) {
+   e.preventDefault();
+   load_help(this);
+  });
+  
+  function load_login(focus_element) {
+   var target_issue=$(focus_element).attr('data-target');
+                $('#modal_content').load(target_issue);
+                 $('#contentModal').modal('show');
+  }
+  
+  function load_help(focus_element) {
+   var target_issue=$(focus_element).attr('data-target');
+               $('#help_modal_content').load(target_issue);
+               $('#helpModal').modal('show');
+  }

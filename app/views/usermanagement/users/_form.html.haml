@@ -1,0 +1,86 @@
+= form_for @user_profile, url: {action: "update"}, method: :put do |f|
+  %div{:clas => "row"}
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        = f.submit "Save", class: "btn btn-default btn-sm"
+        = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm"
+  %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:login, "User Name")
+            .col-md-9= @user_profile.login
+      %br
+        %br
+          .row
+            .col-md-12
+              .col-md-1
+              .col-md-11
+                .col-md-3= label_tag(:firstname, "First Name")
+                .col-md-9= @user_profile.firstname
+          %br
+            %br
+              .row
+                .col-md-12
+                  .col-md-1
+                  .col-md-11
+                    .col-md-3= label_tag(:lastname, "Last Name")
+                    .col-md-9= @user_profile.lastname
+              %br
+                %br
+                  .row
+                    .col-md-12
+                      .col-md-1
+                      .col-md-11
+                        .col-md-3= label_tag(:email, "E-Mail")
+                        .col-md-9= @user_profile.email
+                  %br
+                    %br
+                      .row
+                        .col-md-12
+                          .col-md-1
+                          .col-md-11
+                            .col-md-3= label_tag(:mobile, "Mobile")
+                            .col-md-9= @user_profile.mobile
+                      %br
+                        %br
+                          .row
+                            .col-md-12
+                              .col-md-1
+                              .col-md-11
+                                .col-md-3= label_tag(:language, "Language")
+                                .col-md-9
+                                  = @user_profile.language
+                          %br
+                            %br
+                              .row
+                                .col-md-12
+                                  .col-md-1
+                                  .col-md-11
+                                    .col-md-3= label_tag(:password, "New Password")
+                                    .col-md-9= f.password_field :password
+                              %br
+                                %br
+                                  .row
+                                    .col-md-12
+                                      .col-md-1
+                                      .col-md-11
+                                        .col-md-3= label_tag(:password_confirm, "Password Confirmation")
+                                        .col-md-9= f.password_field :password_confirm
+                                  %br
+                                    %br
+                                      .row
+                                        .col-md-12
+                                          .col-md-1
+                                          .col-md-11
+                                            - @user_profile.groups.each do |group_name|
+                                              - user_groups=group_name.split("|")
+                                              - if user_groups[3].eql?'true'
+                                                - def_checked=true
+                                              - else
+                                                - def_checked=false
+                                              = check_box("groups", "enabled", {:multiple => true, :checked => def_checked}, user_groups[2], nil)
+                                              = label_tag(:groups, user_groups[1])

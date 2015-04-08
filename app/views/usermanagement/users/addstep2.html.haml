@@ -1,0 +1,141 @@
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        %h3 New Profile
+        %h4 Step 2 - Complete Profile
+
+  %br
+  %br
+  = form_for @user_profile, url: {action: "create"} do |f|
+    %div{:clas => "row"}
+      .col-md-12
+        .col-md-1
+        .col-md-11
+          = f.submit "Save", class: "btn btn-default btn-sm disabled", id: "save_btn"
+          = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm"
+    %br
+      %br
+        .row
+          .col-md-12
+            .col-md-1
+            .col-md-11
+              .col-md-3= label_tag(:login, "User Name")
+              .col-md-9= f.text_field :login
+        %br
+          %br
+            .row
+              .col-md-12
+                .col-md-1
+                .col-md-11
+                  .col-md-3= label_tag(:firstname, "First Name")
+                  .col-md-9= f.text_field :firstname
+        %br
+          %br
+            .row
+              .col-md-12
+                .col-md-1
+                .col-md-11
+                  .col-md-3= label_tag(:lastname, "Last Name")
+                  .col-md-9= f.text_field :lastname
+        %br
+          %br
+            .row
+              .col-md-12
+                .col-md-1
+                .col-md-11
+                  .col-md-3= label_tag(:email, "E-Mail")
+                  .col-md-9= f.text_field :email
+        %br
+          %br
+            .row
+              .col-md-12
+                .col-md-1
+                .col-md-11
+                  .col-md-3= label_tag(:mobile, "Mobile")
+                  .col-md-9= f.text_field :mobile
+        %br
+          %br
+            .row
+              .col-md-12
+                .col-md-1
+                .col-md-11
+                  .col-md-3= label_tag(:language, "Language")
+                  .col-md-9= f.select :language, [['English','EN'],['French','FRC']]
+                                    
+        %br
+          %br
+            .row
+              .col-md-12
+                .col-md-1
+                .col-md-11
+                  .col-md-3= label_tag(:password, "Password")
+                  .col-md-9= f.password_field :password            
+                                    
+:javascript                                    
+  function check_mandatory() {
+     
+      if (($('#usermanagement_user_login').val()!="") && ($('#usermanagement_user_password').val()!="") && ($('#usermanagement_user_firstname').val()!="") && ($('#usermanagement_user_lastname').val()!="") && ($('#usermanagement_user_email').val()!=""))
+      {
+       $('#save_btn').removeClass( "disabled" );
+      }
+      else
+      {
+       $('#save_btn').addClass( "disabled" );
+      }
+  
+  }
+  $('#usermanagement_user_login').bind("keydown",function (e) {
+
+        if (e.which == 9)        {
+           check_mandatory();
+           
+           
+          }
+        if (e.which == 13)        {
+          e.preventDefault();
+          check_mandatory();
+          
+          }
+          });
+          
+  $('#usermanagement_user_firstname').bind("keydown",function (e) {
+
+        if (e.which == 9)        {
+           check_mandatory();
+           }
+        if (e.which == 13)        {
+          e.preventDefault();
+          check_mandatory();
+          }
+          });
+  $('#usermanagement_user_lastname').bind("keydown",function (e) {
+
+        if (e.which == 9)        {
+           check_mandatory();
+           }
+        if (e.which == 13)        {
+          e.preventDefault();
+          check_mandatory();
+          }
+          });
+  $('#usermanagement_user_email').bind("keydown",function (e) {
+
+        if (e.which == 9)        {
+           check_mandatory();
+           }
+        if (e.which == 13)        {
+          e.preventDefault();
+          check_mandatory();
+          }
+          });
+  $('#usermanagement_user_password').bind("keydown",function (e) {
+
+        if (e.which == 9)        {
+           check_mandatory();
+           }
+        if (e.which == 13)        {
+          e.preventDefault();
+          check_mandatory();
+          }
+          });

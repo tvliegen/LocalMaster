@@ -11,6 +11,8 @@ class Teknion::JournalsController < ApplicationController
   def new
     @claim_id = params[:claim_id]
     @journal = Teknion::Journal.new(issue_id: params[:claim_issue_id])
+    @journal.created_by=session[:FirstName] + ' ' + session[:LastName]
+    render layout: false
   end
 
   def create
@@ -18,9 +20,10 @@ class Teknion::JournalsController < ApplicationController
     @journal = Teknion::Journal.new(journal_data)
     dealer_code=session[:DealerCode]
 
+    @journal.created_by=session[:FirstName] + ' ' + session[:LastName]
     if @journal.valid?
       journal_response = tekcare_connection.post do |req|
-        req.url 'tekcare/journals?dealer_code=#{dealer_code}'
+        req.url "tekcare/journals?dealer_code=#{dealer_code}"
         req.headers['Content-Type'] = 'application/json'
         req.body = @journal.to_json(only: [:issue_id, :subject, :content, :created_by])
       end

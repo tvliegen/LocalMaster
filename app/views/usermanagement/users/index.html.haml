@@ -1,0 +1,66 @@
+.row
+  .col-md-12
+    .col-md-1
+    .col-md-11
+      %h3 All Users
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-10
+          .table-responsive
+            %table.table
+              %tbody
+                %tr
+                  %td
+                    = link_to "New User", "/usermanagement/users/new", class: "btn btn-default"
+                  %td
+                    Search for Existing User: 
+                  %td
+                
+                    = form_tag :controller => 'users', :action => 'search' do
+                      = text_field_tag :search, params[:search], :id => 'search_field'
+                      = submit_tag "Search", :name => nil
+                    
+                      
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-10
+          .table-responsive
+            %table.table.table-striped.table-hover
+              %thead
+                %tr
+                  %th
+                    Login Name
+                  %th
+                    First Name
+                  %th
+                    Last Name
+                  %th
+                    Last Login
+                  %th
+                    Delete
+              %tbody.rowlink{"data-link" => "row"}
+                - @raw_members.each do |user_profile|
+                  %tr
+                    %td
+                      %a{:href => "/usermanagement/users/#{user_profile.idpid}/edit"}= user_profile.login
+                    %td= user_profile.firstname
+                    %td
+                      = user_profile.lastname
+                    %td
+                      = user_profile.lastlogin.nil? ? "" : DateTime.parse(user_profile.lastlogin).strftime("%Y/%m/%d %H:%M:%S")
+                    %td                
+                      = link_to("/", method: :delete, data: {confirm: "Are you sure you want to delete this user?"}) do
+                        %i.glyphicon.glyphicon.glyphicon-trash.icon-action             
+  #contentModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Search", :role => "dialog", :tabindex => "-1"}
+  #modal_content
+  :javascript
+    $('#search').click(function (e) {
+      e.preventDefault();
+    
+      $('#modal_content').load('/usermanagement/users/search');
+      $('#contentModal').modal('show');
+      });

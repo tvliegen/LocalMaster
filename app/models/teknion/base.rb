@@ -6,15 +6,17 @@ class Teknion::Base
   include HTTParty
 
   def self.client
-    @client ||= Faraday.new('http://api.corp.teknion.com/', ssl: {verify: false} ) do |faraday|
+    api_endpoint = ENV['API_ENDPOINT'] ? ENV['API_ENDPOINT'] : 'http://api.corp.teknion.com/'
+    @client ||= Faraday.new(api_endpoint, ssl: {verify: false} ) do |faraday|
       faraday.use TekcareTokenAuthentication
       faraday.use Faraday::Request::UrlEncoded
+      faraday.response :logger 
 
       # Response
       faraday.response :json
 
       # Adapter
-      faraday.use Faraday::Adapter::NetHttp 
+      faraday.use Faraday::Adapter::NetHttp
     end
   end
 

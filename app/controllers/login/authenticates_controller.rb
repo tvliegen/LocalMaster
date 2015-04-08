@@ -10,58 +10,59 @@ class Login::AuthenticatesController < ApplicationController
 
   def idpLogin
   	  @login_authenticate = Login::Authenticate.new(login_authenticate_params)
-     
-	@idp=IdpLogin.new
-	@errCode = nil
-	loginResults=@idp.login(@login_authenticate.username, @login_authenticate.password)
 
+	loginResults=Idp::User.validate_user(@login_authenticate.username, @login_authenticate.password)
 
-	
-
-if @idp.errors.eql?nil
+if loginResults['errorCode'].nil?
 
 	session.clear
 	session[:session_date]=DateTime.current
+	session[:valid_session]="Validated"
 	idp_id=loginResults["userId"]
 	session[:session_cookie]=loginResults["cookieTokenUrl"]
 	
 	session[:idp_session_id]=loginResults["id"]
 	session[:idp_id]=idp_id
+	session[:username]=@login_authenticate.username
+	
 	set_session
 
 	
 else   
+#render inline: "hello"
 	respond_to do |format|
-	  format.html { render action: 'login' }
-    #    format.json { render json: @login_authenticate.errors, status: :unprocessable_entity }
+	  format.html { redirect_to "/" }
+   #    format.json { render json: @login_authenticate.errors, status: :unprocessable_entity }
 end
-      end
 
+      end
 
 
 
 end
 
 def login_fotonotes
-#  @fn=FotonotesLogin.new
-#  session[:fntoken]=@fn.login["token"]
-  redirect_to params["redirect"]
+  @fn=FotonotesLogin.new
+  
+  session[:fntoken]=@fn.login(session[:username],session[:DealerCode])
+ redirect_to params["redirect"]
+ 
 end
  
 def set_session
 	@idp=IdpLogin.new
 	idp_id=session[:idp_id]
-	@user_profile_raw=@idp.getProfile(idp_id)
+	@user_profile_raw=Idp::User.get_profile(idp_id)
 	session[:FirstName] =@user_profile_raw["profile"]["firstName"]
 	session[:LastName] = @user_profile_raw["profile"]["lastName"]
 	session[:Language] = @user_profile_raw["profile"]["language"]
 	
-	session[:Groups]=@idp.getGroups(idp_id,'names')
+	session[:Groups]=@idp.getGroups(idp_id,'names').select {|g| g.include? 'dealer'}
 	session[:DealerCode]=set_default_dealercode
 	
 	respond_to do |format|
       
-      	     format.html { redirect_to "/" }
+      	     format.html { redirect_to "/login/authenticates/loginfn?redirect=/claims" }
 	end
 end
 

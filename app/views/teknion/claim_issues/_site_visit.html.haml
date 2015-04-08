@@ -20,42 +20,25 @@
           - @claim_issue.site_visits.each do |site_visit|
             %tr
               %td
-                %a{href: 'javascript:;', id: "site_visit_modal_#{site_visit.id}"}
-                  = site_visit.created_at
+                %a{href: 'javascript:;', id: "site_visit_modal_#{site_visit.sitevisit_id}"}
+                  = site_visit.issue_date
               %td
-                Reason
-              %td
-                = site_visit.author
+                = site_visit.visit_reason
               %td
                 = site_visit.appointment_date
               %td
-                = site_visit.appointment_time
+                = site_visit.appointment_date.blank? ? "" : site_visit.appointment_time.strftime("%H:%M")
               %td
-                = site_visit.confirmed_by
+                %div{style: "color: red"} Coming Soon...
 
-            %div.jqmWindow{id: "site_visit_modal_#{site_visit.id}"}
+            %div.jqmWindow{id: "site_visit_modal_#{site_visit.sitevisit_id}"}
               Please wait...
 
             :javascript
               $(function() {
-                $('#site_visit_modal_#{site_visit.id}').jqm({
-                  ajax: "/site_visits/#{site_visit.id}/edit",
-                  trigger: 'a#site_visit_modal_#{site_visit.id}'
+                $('#site_visit_modal_#{site_visit.sitevisit_id}').jqm({
+                  ajax: "/site_visits/#{site_visit.sitevisit_id}/edit?claim_issue_id=#{site_visit.issue_id}&claim_id=#{@claim_id}",
+                  modal: true,
+                  trigger: 'a#site_visit_modal_#{site_visit.sitevisit_id}'
                 });
               });
-
-  .col-md-12
-    .btn-group
-      %button#site_visit_response.btn.btn-default Respond
-
-  #site_visit_response_modal.jqmWindow
-    Please wait...
-
-
-:javascript
-  $(function() {
-    $('#site_visit_response_modal').jqm({
-      ajax: "/claim_issues/#{@claim_issue.id}/site_visits/new",
-      trigger: '#site_visit_response'
-    });
-  });

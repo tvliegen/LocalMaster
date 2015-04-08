@@ -1,4 +1,4 @@
-= form_for @site_visit, html: { class: 'form-horizontal', id: 'whatever' } do |f|
+= form_for @site_visit, url: teknion_site_visit_path, method: :put, html: { class: 'form-horizontal', id: 'whatever' } do |f|
 
   - if @site_visit.errors.any?
     #error_explanation
@@ -8,25 +8,91 @@
       %ul
         - @site_visit.errors.full_messages.each do |message|
           %li= message
-
-  %p.mod-created
-    = f.label :created_at
-    = f.text_field :created_at, readonly: true
-  %p.mod-name
-    = f.label :site_visit_name
-    = f.text_field :site_visit_name, readonly: true
-  %p.mod-appointment-date
-    = f.label :appointment_date
-    = f.text_field :appointment_date, readonly: @site_visit.appointment_date.present?
-  %p.mod-appointment-time
-    = f.label :appointment_time
-    = f.text_field :appointment_time, readonly: @site_visit.appointment_time.present?
-  %p.mod-requested-by
-    = f.label :author, 'Appointment Requested By'
-    = f.text_field :author, readonly: true
-  %p.mod-confirmed-by
-    = f.label :confirmed_by, 'Confirmed By'
-    = f.text_field :confirmed_by, readonly: true
-
+  .table-responsive
+    %table.table.table-striped
+      %tbody.rowlink
+        %tr
+          %td
+            = f.label :issue_date, "Date Issued"
+          %td
+            = @site_visit.issue_date
+        %tr
+          %td
+            = f.label :reason, "Reason Requested"
+          %td
+            = @site_visit.visit_reason
+        - if @site_visit.appointment_date.blank?
+          %tr
+            %td
+              = f.label :site_visit_Contact_Name, "Contact Name"
+            %td
+              = text_field_tag 'site_visit_Contact_Name'
+          %tr
+            %td
+              = f.label :site_visit_Contact_Nunmber, "Contact Number"
+            %td
+              = text_field_tag 'site_visit_Contact_Number'
+          %tr
+            %td
+              = f.label :site_visit_Contact_Email, "Contact Email"
+            %td
+              = text_field_tag 'site_visit_Contact_Email'
+          %tr
+            %td
+              = f.label :site_visit_Site_Conditions, "Site Conditions"
+            %td
+              = text_area_tag 'site_visit_Site_Conditions'
+          %tr
+            %td
+              = f.label :appointment_date, "Appointment Date"
+            %td
+              = date_select 'appointment_date',:appointment_date
+          %tr
+            %td
+              = f.label :appointment_time, "Appointment Time"
+            %td
+              = time_select 'appointment_time', :appointment_time, {minute_step: 15}
+          %tr
+            %td
+              = f.label :reason, "Confirmed By"
+            %td
+              = session["FirstName"] + " " + session["LastName"]
+        -else
+          %tr
+            %td
+              = f.label :appointment_date, "Appointment Date"
+            %td
+              = @site_visit.appointment_date
+          %tr
+            %td
+              = f.label :appointment_time, "Appointment Time"
+            %td
+              =  @site_visit.appointment_time
+          %tr
+            %td
+              = f.label :reason, "Confirmed By"
+            %td
+              -# = session["FirstName"] + " " + session["LastName"]
+        %tr
+          %td
+            = f.label :postvisit_date, "Site Visit Performed On"
+          %td
+            = @site_visit.postvisit_date
+        %tr
+          %td
+            = f.label :resolution, "Findings"
+          %td
+            = @site_visit.resolution  
+            = hidden_field_tag :claim_id, @claim_id
+            = hidden_field_tag :issue_id, @issue_id
   .form-actions
-    = f.button :submit, class: [:btn, 'btn-primary']
+    - if @site_visit.appointment_date.blank?
+      %a{:href => "javascript:submit_form()", :class => [:btn, 'btn-primary'], :id => "send_btn"} Save
+      
+    %a{:href => "#", :class => [:btn, 'btn-primary', 'jqmClose'], :id => "close_btn"} Close 
+    
+:javascript
+  function submit_form(){
+      $('form#clarification').submit();
+    }   
+    

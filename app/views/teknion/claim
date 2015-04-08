@@ -1,0 +1,42 @@
+/ = render 'shared/sidebar'
+
+.tek-bar
+  .container-fluid
+    %p.breadcrumb
+      %span.last=t('claims')
+    %button.btn.btn-default.btn-xs.to-submit{class: ('active' if params[:status] == 'to_submit')}
+      = link_to "To Submit", "/claimsrequests"
+    .claim-filters.btn-group.btn-group-xs
+      %button.btn.btn-default.in-progress{class: ('active' if params[:status] == 'OPEN')}
+        = link_to "In Progress", teknion_claims_path
+      %button.btn.btn-default.clairfication{class: ('active' if params[:status] == 'COMM-QUE')}
+        = link_to "Clairfication", teknion_claims_path(status: 'COMM-QUE')
+      %button.btn.btn-default.resolved{class: ('active' if params[:status] == 'resolved')}
+        = link_to "Resolved  40", teknion_claims_path(status: 'resolved')
+      %button.btn.btn-default.closed{class: ('active' if params[:status] == 'closed')}
+        = link_to "Closed  100", teknion_claims_path(status: 'closed')
+.container-fluid.claims-list
+  .col-sm-12.main
+    %h2.page-header.claim-status=t('claims')
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th Issue Number
+          %th Title
+          %th Project
+          %th Created By
+          %th Last Modified
+          %th Status
+          %th Actions
+      %tbody.rowlink{"data-link" => "row"}
+        - @claims.each do |claim|
+          %tr
+            %td
+              = link_to claim.incident_id, teknion_claim_path(claim.incident_id)
+            %td= claim.claim_description
+            %td= claim.contact_name
+            %td= claim.dealer_name
+            %td= claim.incident_date
+            %td= claim.incident_status
+            %td
+            -#%td= button_to "Cancel", cancel_teknion_claim_path(claim), method: :delete

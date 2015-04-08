@@ -1,0 +1,2 @@
+module Dealermanager::ManagersHelper
+end

@@ -1,0 +1,41 @@
+= form_for @login_authenticate, url: {action: "idpLogin", id: "login_frm"} do |f|
+  %div
+    .col-md-12
+      %h4
+        - if @errCode==nil
+          Please login.
+        - else
+          = @errCode
+  %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:username, "Login")
+            .col-md-9= f.text_field :username
+      %br
+        .row
+          .col-md-12
+            .col-md-1
+            .col-md-11
+              .col-md-3= label_tag(:password, "Password")
+              .col-md-9= f.password_field :password
+        %br
+          .row
+            .col-md-12
+              .col-md-1
+              .col-md-11
+                .col-md-3= label_tag(:language, "Language")
+                .col-md-9
+                  = f.select :language, [['English','EN'],['French','FRC']]
+          %br
+            %br
+              .col-md-12
+                .col-md-1
+                .col-md-11
+                  %a{:href => "javascript:submit_form()", :class => [:btn, 'btn-primary'], :id => "send_btn"} Login
+                  %a{:href => "#", "data-dismiss" => "modal",:class => [:btn, 'btn-primary', 'jqmClose'], :id => "close_btn"} Close 
+
+ 
+              

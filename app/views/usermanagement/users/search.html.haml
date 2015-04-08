@@ -1,0 +1,49 @@
+.row
+  .col-md-12
+    .col-md-1
+    .col-md-11
+      %h3 Search Results                      
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-10
+          .table-responsive
+            %table.table.table-striped.table-hover
+              %thead
+                %tr
+                  %th
+                    Login Name
+                  %th
+                    First Name
+                  %th
+                    Last Name
+                  %th
+                    Last Login
+              %tbody.rowlink{"data-link" => "row"}
+                - @search_results.each do |user_profile|
+                  %tr
+                    %td
+                      %a{:href => "/usermanagement/users/#{user_profile["id"]}/edit"}
+                        = user_profile["profile"]["login"]
+                    %td
+                      = user_profile["profile"]["firstName"]
+                    %td
+                      = user_profile["profile"]["lastName"]
+                    %td
+                      = user_profile["lastLogin"]
+                    %td                 
+                      = link_to("/usermanagement/users/addotheruser", data: {confirm: "Are you sure you want to add this user?"}) do
+                        %i.glyphicon.glyphicon-play-circle            
+            #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                      %span{"aria-hidden" => "true"} &times;
+                    %h4#myModalLabel.modal-title Add User to Another Organization
+                  .modal-body
+                    \...
+                  .modal-footer
+                    %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+                    %button.btn.btn-primary{:type => "button"} Save changes

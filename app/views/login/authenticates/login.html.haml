@@ -1,0 +1,28 @@
+#loginModal.modal-dialog
+  .modal-content.modal-mu-content
+    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+      %span{"aria-hidden" => "true"} 
+        &times;
+    .main_top_menu_login
+      = image_tag("teklogo-green.jpg", :width => "50", :height => "50")
+      Tekcare
+      = render 'form'
+:javascript
+  function submit_form() {
+    $('form#new_login_authenticate').submit();
+  }
+  $('#login_authenticate_password').bind("keydown",function (e) {
+
+        if (e.which == 13)        {
+          e.preventDefault();
+          submit_form();
+          }
+          });
+          
+  $('#login_authenticate_username').bind("keydown",function (e) {
+
+        if (e.which == 13)        {
+          e.preventDefault();
+          $('#login_authenticate_password').focus();
+          }
+          });

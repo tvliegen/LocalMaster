@@ -1,9 +1,9 @@
 .tek-bar
   .container-fluid
     %p.breadcrumb
-      = link_to t('claims'), teknion_claims_path
+      = link_to 'Tekcare', teknion_claims_path
       %span /
-      = link_to "Tekcare Claim", teknion_claim_path(id: @claim_id)
+      = link_to "Claim: #{@claim_id}", teknion_claim_path(id: @claim_id)
       %span /
       %span.last  Issue: #{@claim_issue.issue_id}
 .container-fluid.issue-details
@@ -15,20 +15,20 @@
     .col-md-2
       = @claim_issue.item_code
     .col-md-2
-      %label Quantity Ordered
+      %label Item Description
     .col-md-2
-      = @claim_issue.order_qty
+      = @claim_issue.item_description
     .col-md-1
   .row
     .col-sm-3
     .col-sm-2
+      %label Quantity Ordered
+    .col-md-2
+      = @claim_issue.order_qty
+    .col-sm-2
       %label Quantity Affected
     .col-md-2
       = @claim_issue.affected_qty
-    .col-md-2
-      %label Reason
-    .col-md-2
-      = @claim_issue.problem_category
     .col-md-1
   .row
     .col-sm-3
@@ -37,26 +37,97 @@
     .col-md-2
       = @claim_issue.problem_description
     .col-md-2
-      %label Status
+      %label Reason
     .col-md-2
-      = @claim_issue.issue_status
+      = @claim_issue.problem_category
+    .col-md-1
+  .row
+    .col-sm-3
+    .col-sm-2
+      %label Product in Teknion Storage
+    .col-md-2
+      = @claim_issue.product_in_storage=='false' ? 'No' : 'Yes'
+    .col-md-2
+      %label Issue Status
+    .col-md-2
+      = @claim_issue.issue_status_desc
     .col-md-1
 .container-fluid.issue-tasks
   .row
     .col-md-3
       %ul.nav.issue-nav
-        %li#default.active
-          = link_to 'Clarifications', teknion_claim_issue_path(@claim_issue.issue_id, section: 'clarifications', claim_id: @claim_id)
-        %li
-          = link_to 'Other Information', teknion_claim_issue_path(@claim_issue.issue_id, section: 'other_information', claim_id: @claim_id)
-        %li
-          = link_to 'Actions', teknion_claim_issue_path(@claim_issue.issue_id, section: 'actions', claim_id: @claim_id)
-        %li
-          = link_to 'Back Charges', teknion_claim_issue_path(@claim_issue.issue_id, section: 'back_charges', claim_id: @claim_id)
-        %li
-          = link_to 'RGAs', teknion_claim_issue_path(@claim_issue.issue_id, section: 'rgas', claim_id: @claim_id)
-        %li.last
-          = link_to 'Site Visit', teknion_claim_issue_path(@claim_issue.issue_id, section: 'site_visit', claim_id: @claim_id)
+        - if @section=='clarifications' || @section.nil? then
+          %li.active
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'clarifications', claim_id: @claim_id)) do
+              Clarifications
+              %span.badge.pull-right 
+                =@clarification_count
+        - else
+          %li
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'clarifications', claim_id: @claim_id)) do
+              Clarifications
+              %span.badge.pull-right  
+                =@clarification_count
+        - if @section=='actions' then
+          %li.active
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'actions', claim_id: @claim_id)) do
+              Actions
+              %span.badge.pull-right 
+                =@action_plan_count
+        - else
+          %li
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'actions', claim_id: @claim_id)) do
+              Actions
+              %span.badge.pull-right 
+                =@action_plan_count
+        - if @section=='back_charges' then
+          %li.active
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'back_charges', claim_id: @claim_id)) do
+              Back Charges
+              %span.badge.pull-right 
+                =@back_charge_count
+        - else
+          %li
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'back_charges', claim_id: @claim_id)) do
+              Back Charges
+              %span.badge.pull-right 
+                =@back_charge_count
+        - if @section=='rgas' then
+          %li.active
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'rgas', claim_id: @claim_id)) do
+              RGAs
+              %span.badge.pull-right 
+                =@rga_count
+        - else
+          %li
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'rgas', claim_id: @claim_id)) do
+              RGAs
+              %span.badge.pull-right 
+                =@rga_count
+        - if @section=='site_visit' then
+          %li.active.last
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'site_visit', claim_id: @claim_id)) do
+              Site Visits
+              %span.badge.pull-right  
+                =@site_visit_count
+        - else
+          %li.last
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'site_visit', claim_id: @claim_id)) do
+              Site Visits
+              %span.badge.pull-right  
+                =@site_visit_count
+        - if @section=='attachments' then
+          %li.active.last
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'attachments', claim_id: @claim_id)) do
+              Attachments
+              %span.badge.pull-right  
+                =@attachment_count
+        - else
+          %li.last
+            = link_to (teknion_claim_issue_path(@claim_issue.issue_id, section: 'attachments', claim_id: @claim_id)) do
+              Attachments
+              %span.badge.pull-right  
+                =@attachment_count
     .col-md-9
       - if @section.nil? || @section == 'clarifications'
         = render 'clarifications'
@@ -70,3 +141,5 @@
         = render 'rgas'
       - elsif @section == 'site_visit'
         = render 'site_visit'
+      - elsif @section == 'attachments'
+        = render 'attachments'

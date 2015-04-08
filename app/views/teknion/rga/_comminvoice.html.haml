@@ -1,0 +1,154 @@
+%html
+  %head
+    %title [[PAGETITLE]]
+    %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}/
+    :css
+      <!--
+      .heading {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9pt; font-style: normal; line-height: normal; font-weight: bolder; font-variant: small-caps; letter-spacing: .15em; color: #0000FF; background-color: #CCCCCC}
+      .title {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: medium; font-style: normal; line-height: normal; font-weight: bolder; font-variant: normal}
+      .subtitle { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal }
+      .issuenumber { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; letter-spacing: .05em}
+      .labels { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; text-align: right; vertical-align: top}
+      .tableborder {  border-style: none; border-top-width: thin; border-right-width: thin; border-bottom-width: thin; border-left-width: thin; background-color: #FFFFFF}
+      .values { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal ; text-align: left; vertical-align: top }
+      .subheading { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt; font-style: normal; line-height: normal; font-weight: bold; font-variant: small-caps; letter-spacing: .15em; color: #000000; border-color: #FFFFFF #FFFFFF #000000; border-style: dashed; border-top-width: auto; border-right-width: auto; border-bottom-width: thin; border-left-width: auto}
+      .labelsSmall { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; text-align: right; vertical-align: top }
+      .columnlabel { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; text-align: left; vertical-align: top ; text-decoration: underline}
+      .valuesright { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal ; text-align: right; vertical-align: top }
+      .footertiny { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 6pt; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; text-align: center}
+      .columnlabelright { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; text-align: right; vertical-align: top ; text-decoration: underline }
+      .issuenumberlabel { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; letter-spacing: 0.05em; text-align: right}
+      .valuesrighttotal { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal ; text-align: right; vertical-align: top ; border-color: #000000 black black}
+      .valuescentre { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small; font-style: normal; line-height: normal; font-weight: bolder; font-variant: normal ; text-align: center; vertical-align: top ; color: #999999}
+      -->
+  %body{:bgcolor => "#FFFFFF", :leftmargin => "0", :marginwidth => "0"}
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :name => "MainTable", :width => "650"}
+      %tr
+        %td{:colspan => "3"}
+          %table{:border => "0", :bordercolordark => "#000000", :cellpadding => "2", :cellspacing => "2", :width => "100%"}
+            %tr.title
+              %td{:colspan => "5", :nowrap => "nowrap"} TEKNION - TEKCARE II
+            %tr.subtitle{:valign => "top"}
+              %td.issuenumber{:colspan => "5", :nowrap => "nowrap"}
+                RETURN GOODS AUTHORIZATION
+                \- COMMERCIAL INVOICE
+            %tr.subtitle{:valign => "top"}
+              %td{:colspan => "5", :nowrap => "nowrap"}
+                %hr/
+            %tr.subtitle{:valign => "top"}
+              %td.labelsSmall{:nowrap => "nowrap", :width => "24%"} RGA Date:
+              %td.values{:colspan => "4", :nowrap => "nowrap", :width => "76%"}
+                [[RGATIMESTAMP]]
+            %tr.subtitle{:valign => "top"}
+              %td.labelsSmall{:nowrap => "nowrap", :width => "24%"} RGA File #:
+              %td.values{:colspan => "4", :nowrap => "nowrap", :width => "76%"} [[FILENUMBER]]
+            %tr.subtitle{:valign => "top"}
+              %td.labelsSmall{:nowrap => "nowrap", :width => "24%"}  
+              %td.values{:colspan => "4", :nowrap => "nowrap", :width => "76%"}  
+      %tr
+        %td{:colspan => "3"}
+          %table.tableborder{:border => "0", :cellpadding => "2", :cellspacing => "2", :name => "OrigOrderInfo", :width => "100%"}
+            %tr
+              %td.columnlabel{:width => "33%"} SOLD TO
+              %td.columnlabel{:width => "33%"} SHIP TO
+            %tr
+              %td.values{:width => "33%"} [[DEALERNAME]]
+              %td.values{:width => "33%"} [[SHIPTONAME]]
+            %tr
+              %td.values{:width => "33%"} [[DEALERADDR1]]
+              %td.values{:width => "33%"} [[SHIPTOADDR1]]
+            %tr
+              %td.values{:width => "33%"} [[DEALERADDR2]]
+              %td.values{:width => "33%"} [[SHIPTOADDR2]]
+            %tr
+              %td.values{:width => "33%"} [[DEALERCITY]]
+              %td.values{:width => "33%"} [[SHIPTOCITY]]
+            %tr
+              %td.values{:height => "18", :width => "33%"} [[DEALERPROVST]]
+              %td.values{:height => "18", :width => "33%"} [[SHIPTOPROVST]]
+            %tr
+              %td.values{:width => "33%"} [[DEALERZIP]]
+              %td.values{:width => "33%"} [[SHIPTOZIP]]
+            %tr
+              %td.values{:width => "33%"} [[DEALERCOUNTRY]]
+              %td.values{:width => "33%"} [[SHIPTOCOUNTRY]]
+            %tr
+              %td.values{:width => "33%"} [[ATTN]]
+              %td.values{:width => "33%"}  
+            %tr
+              %td.values{:width => "33%"}  
+              %td.values{:width => "33%"}  
+      %tr
+        %td{:colspan => "3"}
+          %table{:border => "1", :cellpadding => "2", :cellspacing => "0", :width => "100%"}
+            %tr
+              %td.columnlabelright{:width => "7%"} Qty
+              %td.columnlabel{:colspan => "3"} Product
+              %td.columnlabel{:width => "21%"} Description
+              %td.columnlabel{:width => "19%"} Material of Chief Value
+              %td.columnlabelright{:width => "11%"} Unit Price
+              %td.columnlabelright{:width => "18%"} Extended Price
+            / SEQ 2
+            %tr
+              %td.valuesright{:width => "7%"} [[QTY]]
+              %td.values{:colspan => "3"} [[PRODUCT]]
+              %td.values{:width => "21%"} [[DESCRIPTION]]
+              %td.values{:width => "19%"} OFFICE FURNITURE
+              %td.valuesright{:width => "11%"} [[UNIT]]
+              %td.valuesright{:width => "18%"} [[EXTENDED]]
+            / SEQ 3
+            %tr
+              %td.valuescentre{:colspan => "8"}
+                C A N A D I A N    G
+                O O D S    R E T U R N I N G
+            %tr
+              %td.valuesright{:width => "7%"}  
+              %td.values{:colspan => "3"}  
+              %td.valuesrighttotal{:width => "21%"}  
+              %td.valuesright{:width => "19%"}  
+              %td.valuesrighttotal{:width => "11%"} [[CURR]]
+              %td.valuesrighttotal{:width => "18%"} [[@EXTENDED]]
+      %tr
+        %td{:colspan => "3"}  
+      %tr
+        %td{:colspan => "3"}
+          %table.tableborder{:border => "0", :cellpadding => "2", :cellspacing => "2", :width => "100%"}
+            %tr
+              %td.labelsSmall{:width => "23%"} Reason For Return:
+              %td.values{:width => "77%"} [[RETURNREASON]]
+            %tr
+              %td.labelsSmall{:width => "23%"} Notes:
+              %td.values{:width => "77%"}
+                \- The above items are being returned
+                on RGA#
+                %b [[FILENUMBER]]
+            %tr
+              %td.labelsSmall{:width => "23%"}  
+              %td.values{:width => "77%"}
+                \- Teknion products are Office Furniture
+                knocked down for shipping.
+            %tr
+              %td.labelsSmall{:width => "23%"}  
+              %td.values{:width => "77%"}
+                \- Teknion Furniture Systems' products
+                are made in Canada.
+            %tr
+              %td.labelsSmall{:width => "23%"}  
+              %td.values{:width => "77%"} - Consignee is the End User.
+            %tr
+              %td.labelsSmall{:width => "23%"}  
+              %td.values{:width => "77%"} - Duty and brokerage included.
+            %tr
+              %td.labelsSmall{:width => "23%"}  
+              %td.values{:width => "77%"}
+                \- For Canadian Customs clearance by
+                Welke Customs Brokers.
+      %tr
+        %td{:colspan => "2"}  
+      %tr
+        %td{:colspan => "3"}
+          %hr{:align => "center", :noshade => "noshade", :width => "50%"}/
+      %tr.footertiny
+        %td{:colspan => "3"} TEKNION - TekCare II
+      %tr.footertiny
+        %td{:colspan => "3"} Generated at [[GENERATEDAT]] by [[GENERATEDBY]]

@@ -1,0 +1,79 @@
+= form_for @user_profile, url: {action: "update"} do |f|
+  %div{:class => "row"}
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        = f.submit "Save", class: "btn btn-default btn-sm"
+        = link_to 'Cancel', "/", class: "btn btn-default btn-sm"
+  %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:login, "User Name")
+        .col-md-9= @user_profile.login
+  %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:firstname, "First Name")
+        .col-md-9= f.text_field :firstname
+  %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:lastname, "Last Name")
+        .col-md-9= f.text_field :lastname
+  %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:email, "E-Mail")
+        .col-md-9= f.text_field :email
+  %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:language, "Language")
+        .col-md-9
+          = f.select :language, [['English','EN'],['French','FRC']]
+          
+          
+  %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:changepassword, "Change Password")
+        .col-md-9
+          = check_box("changepassword", "accepted", {}, "yes", "no")
+  %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:currentpassword, "Current Password")
+        .col-md-9
+          = f.password_field :currentpassword
+          
+    %br/
+  %br/
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:newpassword, "New Password")
+        .col-md-9
+          = f.password_field :newpassword
+          

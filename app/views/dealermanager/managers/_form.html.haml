@@ -1,0 +1,10 @@
+= form_for @dealermanager_manager do |f|
+  - if @dealermanager_manager.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@dealermanager_manager.errors.count, "error")} prohibited this dealermanager_manager from being saved:"
+      %ul
+        - @dealermanager_manager.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

@@ -22,3 +22,7 @@
 en:
   hello: "Hello world"
   claims: "In Progress"
+  inprogress: "In Progress"
+  info: "Information Required"
+  actioned: "Actioned"
+  closed: "Closed"

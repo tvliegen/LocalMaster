@@ -1,45 +1,43 @@
 class Teknion::SiteVisitsController < ApplicationController
   before_action :set_site_visit, only: [:show, :edit, :update]
 
-  def index
-    @site_visits = Teknion::ClaimIssue.find(params[:claim_issue_id]).site_visits
-  end
-
   def show
   end
 
   def edit
+    @claim_id=params[:claim_id]
+    @issue_id=params[:claim_issue_id]
     render :edit, layout: false
   end
 
-  def new
-    @site_visit = Teknion::ClaimIssue.find(params[:claim_issue_id]).site_visits.build
-  end
-
-  def create
-    @site_visit = Teknion::ClaimIssue.find(params[:claim_issue_id]).site_visits.build(site_visit_params)
-
-    if @site_visit.valid? && @site_visit.save
-      flash[:notice] = 'Site Visit was successfully updated.'
-      render inline: "<script> window.location.href = '#{teknion_claim_issue_path(@site_visit.claim_issue_id, section: :site_visit)}'; </script>"
-    else
-      render :new, layout: false
-    end
-  end
-
   def update
-    @site_visit.assign_attributes(site_visit_params)
+   
+    site_visit_date=Hash.new
+    site_visit_date['appointment_date']=Date.civil(*params[:appointment_date].sort.map(&:last).map(&:to_i))
+    site_visit_date['appointment_time']=Time.parse(params[:appointment_time]['appointment_time(4i)']+":"+params[:appointment_time]['appointment_time(5i)']).strftime("%H:%M:%S")
+    dealer_code=session[:DealerCode]
 
-    if @site_visit.valid? && @site_visit.save
-      flash[:notice] = 'Site Visit was successfully updated.'
-      render inline: "<script> window.location.href = '#{teknion_claim_issue_path(@site_visit.claim_issue_id, section: :site_visit)}'; </script>"
-    else
-      render :edit, layout: false
+
+    if @site_visit.valid?
+      sitevisit_response = tekcare_connection.put do |req|
+        req.url "tekcare/sitevisits/#{params[:id]}?dealer_code=#{dealer_code}&action=schedule"
+        req.headers['Content-Type'] = 'application/json'
+        req.body = site_visit_date.to_json
+      end
     end
-  end
+      if sitevisit_response.status == 201
+        flash[:notice] = 'Site Visit was successfully updated.'
+      else
+        flash[:notice] = 'There was a problem creating your Site Visit.'
+      end
+
+  
+     render inline: "<script> window.location.href = '#{teknion_claim_issue_path(params[:issue_id], section: :site_visit, claim_id: params[:claim_id])}'; </script>"
+    end
 
   private
     def set_site_visit
+      @site_visit = Teknion::SiteVisit.find(params[:id], session['DealerCode'])
     end
 
     def site_visit_params

@@ -20,14 +20,23 @@ class Teknion::ClaimIssue < Teknion::Base
   attribute :facility_code, String
   attribute :facility_accept, String
   attribute :images, Array
-  attribute :clarifications, Array[Teknion::Clarification]
-  attribute :journals, Array[Teknion::Journal]
-  attribute :replaced_products, Array[Teknion::ReplacementOrder]
-  attribute :rgas, Array[Teknion::RGA]
-  attribute :back_charges, Array[Teknion::BackCharge]
   attribute :original_cr_number, String
   attribute :original_line_notes, String
   attribute :original_line_tags, String
   attribute :problem_category, String
   attribute :problem_description, String
+  attribute :clarifications, Array[Teknion::Clarification]
+  attribute :journals, Array[Teknion::Journal]
+  attribute :replaced_products, Array[Teknion::ReplacementOrder]
+  attribute :rgas, Array[Teknion::RGA]
+  attribute :back_charges, Array[Teknion::BackCharge]
+  attribute :site_visits, Array[Teknion::SiteVisit]
+  attribute :original_shipment, String
+  attribute :issue_status_desc, String
+  attribute :product_in_storage, String
+  attribute :action_plan, Array[Teknion::ActionPlan]
+  attribute :attachments, Array
+
+
+
 end

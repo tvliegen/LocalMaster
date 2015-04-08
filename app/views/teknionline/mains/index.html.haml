@@ -1,0 +1,58 @@
+#main_content
+- if session[:FirstName] == nil
+  .col-sm-12
+    .container-fluid
+      #myCarousel.carousel.slide{"data-ride" => "carousel"}
+        %ol.carousel-indicators
+          %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
+          %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
+          %li{"data-slide-to" => "2", "data-target" => "#myCarousel"}
+        .carousel-inner
+          .item.active
+            %img{:alt => "First slide", :src => "/images/pic_1.jpg"}
+              .carousel-caption
+                %h1 Welcome to Tekcare
+                %p
+                %p
+                %a#login_1.btn.btn-lg.btn-primary{"data-target" => "new", :href => "/login/authenticates/login", :role => "button"} Login
+          .item
+            %img{:alt => "Second slide", :src => "/images/pic_2.jpg"}
+              .carousel-caption
+                %h1 Please Login.
+                %p Tekcare is built for Teknion's Partners.
+                %p
+                %a#login_2.btn.btn-lg.btn-primary{:href => "/login/authenticates/login", :role => "button"} Login
+          .item
+            %img{:alt => "Third slide", :src => "/images/pic_3.jpg"}
+              .carousel-caption
+                %h1 If you are having problems, please contact us.
+                %p
+                %p
+                %a#login_3.btn.btn-lg.btn-primary{:href => "#", :role => "button"} Contact Customer Service
+        %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
+          %span.glyphicon.glyphicon-chevron-left
+        %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
+          %span.glyphicon.glyphicon-chevron-right
+- else
+  :javascript
+    window.location.href = '/login/authenticates/loginfn?redirect=/claims';
+
+:javascript    
+  $('#login_1').click(function (e) {
+   e.preventDefault();
+   load_login(this);
+  });
+  $('#login_2').click(function (e) {
+   e.preventDefault();
+   load_login(this);
+  });
+  $('#login_3').click(function (e) {
+   e.preventDefault();
+   load_login(this);
+  });
+  $('#login').click(function (e) {
+   e.preventDefault();
+   load_login(this);
+  });
+    
+ 

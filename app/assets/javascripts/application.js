@@ -19,3 +19,4 @@
 //= require jqModal
 //= require closebrowser
 //= require jquery.form
+//= require jquery.floatThead.min

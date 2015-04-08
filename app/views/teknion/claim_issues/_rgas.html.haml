@@ -7,20 +7,25 @@
             %th
               RGA Number
             %th
-              PO Number
+              Original PO Number
             %th
               Original Shipment Number
             %th
               Original Invoice Number
             %th
-              Claims Rep
+              Reason
+            %th
+              Requestor
             %th
               Created On
+            %th
+              RGA Status
         %tbody.rowlink
           - @claim_issue.rgas.each do |rga|
             %tr
               %td
-                = rga.rga_id
+                %a{href: 'javascript:;', id: "rga_modal_#{rga.rga_id}"}
+                  = rga.rga_id
               %td
                 = rga.po_number
               %td
@@ -28,6 +33,23 @@
               %td
                 = rga.original_invoice_no
               %td
+                "Coming..."
+              %td
                 = rga.claimsrep_id
               %td
-                = rga.rga_timestamp
+                = rga.rga_timestamp.strftime("%Y/%m/%d")
+              %td
+                "Coming..."
+                        
+            %div.jqmWindow{id: "rga_modal_#{rga.rga_id}"}
+              Please wait...
+
+            :javascript
+              $(function() {
+                $('#rga_modal_#{rga.rga_id}').jqm({
+                  ajax: "/rga/rgapack?rga_id=#{rga.rga_id}",
+                  
+                  trigger: 'a#rga_modal_#{rga.rga_id}',
+                  modal: true
+                });
+              });

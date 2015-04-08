@@ -8,20 +8,24 @@
       %ul
         - @journal.errors.full_messages.each do |message|
           %li= message
-
-  %p.mod-author
-    = f.label :created_by
-    = f.text_field :created_by
-  %p.mod-title
-    = f.label :subject
-    = f.text_field :subject
-  %p.mod-information
-    = f.label :content, "Information"
-    = f.text_area :content, placeholder: 'Type your information here'
-
-  = f.fields_for :journal_attachments do |journal_attachment_form|
-    = journal_attachment_form.file_field :attachment
-    -#= journal_attachment_form.link_to_remove "Remove this journal"
+  .table-responsive
+    %table.table.journal-additional-info
+      %tbody.rowlink
+        %tr
+          %td.labels
+            = f.label :created_by
+          %td
+            %span= @journal.created_by
+        %tr
+          %td
+            = f.label :subject
+          %td   
+            %span= @journal.subject
+        %tr
+          %td
+            = f.label :content, "Information"
+          %td
+            %span= @journal.content
 
   .form-actions
-    = f.button :submit, class: [:btn, 'btn-primary']
+    = button_tag "Close", class: [:btn, 'btn-primary']

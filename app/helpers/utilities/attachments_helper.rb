@@ -1,0 +1,2 @@
+module Utilities::AttachmentsHelper
+end

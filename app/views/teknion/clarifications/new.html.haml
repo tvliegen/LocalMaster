@@ -1,7 +1,7 @@
 #clarification_new_wrapper
 
   %h5.modal-header New Clarification
-  = form_for @clarification, url: teknion_claim_issue_clarifications_path(@clarification.issue_id, claim_id: @claim_id), html: { class: 'form-horizontal', id: 'whatever' } do |f|
+  = form_for @clarification, url: teknion_claim_issue_clarifications_path(@clarification.issue_id, claim_id: @claim_id), html: { class: 'form-horizontal', id: 'new_clarification' } do |f|
 
     - if @clarification.errors.any?
       #error_explanation
@@ -14,14 +14,10 @@
         .confirm-dismiss
           %a.btn.btn-default.btn-sm
             OK
-
     = f.hidden_field :type
     %p.mod-author
       = f.label :sent_by
-      = f.text_field :sent_by
-    %p.mod-author
-      = f.label :sent_to
-      = f.text_field :sent_to
+      = session[:FirstName] + ' ' + session[:LastName]
     %p.mod-subject
       = f.label :subject
       = f.text_field :subject
@@ -29,24 +25,16 @@
     - if @clarification.type == 'question'
       %p.mod-question
         = f.label :content, "Question"
-        = f.text_field :content
-
-    - if @clarification.type == 'answer'
-      = f.hidden_field :response_to_id
-      %p.mod-question
-        = label_tag :question, "Question"
-        = text_field_tag :question, @question.content
-      %p.mod-answer
-        = f.label :content, "Answer"
-        = f.text_area :content
-
+        = f.text_area :content, :cols => "50", :rows => "10"
+    %p
+      = f.label nil, "Attachments"
+      = f.file_field 'file_uploaded'
     .form-actions
-      = f.button :submit, class: [:btn, 'btn-primary']
-
-  -#:javascript
-    -#$("form", "#clarification_new_wrapper").ajaxForm({
-      -#target: "#clarification_new_wrapper",
-      -#replaceTarget: true
-    -#});
-
-
+      %a{:href => "javascript:submit_form()", :class => [:btn, 'btn-primary'], :id => "send_btn"} Send
+      %a{:href => "#", :class => [:btn, 'btn-primary', 'jqmClose'], :id => "close_btn"} Cancel 
+:javascript
+  function submit_form(){
+      $('#send_btn').addClass("disabled");
+      $('form#new_clarification').submit();
+    }    
+      

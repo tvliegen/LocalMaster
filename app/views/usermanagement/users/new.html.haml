@@ -1,0 +1,53 @@
+= form_for @user_profile, url: {action: "addstep2"} do |f|
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        %h3 New Profile
+        %h4 Step 1 - Choose User Name
+
+  %br
+  %br
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3= label_tag(:login, "User Name")
+        .col-md-9= f.text_field :login
+  %br
+  %br     
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-3
+          = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm btn-primary"                              
+          = f.submit "Next", class: "btn btn-default btn-primary btn-sm disabled", id: "save_btn"
+:javascript                                    
+  function check_mandatory() {
+     
+      if (($('#usermanagement_user_login').val()!="") && ($('#usermanagement_user_password').val()!="") && ($('#usermanagement_user_firstname').val()!="") && ($('#usermanagement_user_lastname').val()!="") && ($('#usermanagement_user_email').val()!=""))
+      {
+       $('#save_btn').removeClass( "disabled" );
+      }
+      else
+      {
+       $('#save_btn').addClass( "disabled" );
+      }
+  
+  }
+  $('#usermanagement_user_login').bind("keydown",function (e) {
+
+        if (e.which == 9)        {
+           check_mandatory();
+           
+           
+          }
+        if (e.which == 13)        {
+          e.preventDefault();
+          check_mandatory();
+          
+          }
+          });
+          
+  

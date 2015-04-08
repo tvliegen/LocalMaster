@@ -10,8 +10,6 @@
             %th
               Date Posted
             %th
-              Type
-            %th
               Subject
             %th
               Author
@@ -20,9 +18,7 @@
             %tr
               %td
                 %a{href: 'javascript:;', id: "journal_modal_#{journal.journal_id}"}
-                  = journal.timestamp
-              %td
-                Documentation
+                  = journal.timestamp.strftime("%Y/%m/%d %H:%M:%S")
               %td
                 = journal.subject
               %td

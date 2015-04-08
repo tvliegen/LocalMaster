@@ -7,8 +7,8 @@ class Teknionline::ProfilesController < ApplicationController
  idp_id=session["idp_id"]
 
   	 	
-  	   	   @idp=IdpLogin.new
-user_profile_raw=@idp.getProfile(idp_id)
+  	   	  
+user_profile_raw=Idp::User.get_profile(idp_id)
 
        @user_profile = Teknionline::Profile.new(user_profile_params)
 
@@ -28,33 +28,42 @@ user_profile_raw=@idp.getProfile(idp_id)
   # PATCH/PUT /teknionline/profiles/1
   # PATCH/PUT /teknionline/profiles/1.json
   def update
-  	    @user_profile = Teknionline::Profile.new(user_profile_params)
+    
+    #render text:params['changepassword']['accepted']
+
+    @user_profile = Teknionline::Profile.new(user_profile_params)
   	    
   	    
   	     idp_id=session["idp_id"]
 
   	 	
   	   	   @idp=IdpLogin.new
-user_profile_raw=@idp.getProfile(idp_id)
+user_profile_raw=Idp::User.get_profile(idp_id)
   profileHash=JSON.parse(user_profile_raw.to_json)
   
   
   profileHash["profile"]["firstName"]=params[:teknionline_profile]["firstname"]
    profileHash["profile"]["lastName"]=params[:teknionline_profile]["lastname"]
     profileHash["profile"]["email"]=params[:teknionline_profile]["email"]
-#     profileHash["profile"]["login"]=params[:teknionline_profile]["login"]
-    #  profileHash["profile"]["mobilePhone"]=params[:teknionline_profile]["login"]
+    
+    if params['changepassword']['accepted'].eql? 'yes'
+
+     @passwordChange=Idp::User.change_password(idp_id,params[:teknionline_profile]["newpassword"],params[:teknionline_profile]["currentpassword"])
+      
+    end
        idp_id=session["idp_id"]
 
          @idp=IdpLogin.new
-     @updateResults=@idp.updateProfile(idp_id,profileHash)
-   	
+     @updateResults=Idp::User.update_profile(idp_id,profileHash)
+  
+
 redirect_to "/login/authenticates/setsession"
+
     end
 
     def switch
     	    session[:DealerCode]=params[:id]
-    	    redirect_to "/"
+    	  redirect_to "/"
     end
     def user_profile_params
     	    

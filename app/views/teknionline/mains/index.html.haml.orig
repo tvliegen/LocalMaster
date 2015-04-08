@@ -1,0 +1,56 @@
+#main_content
+- if session[:FirstName] == nil
+  .container-fluid
+    #myCarousel.carousel.slide{"data-ride" => "carousel"}
+      %ol.carousel-indicators
+        %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
+        %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
+        %li{"data-slide-to" => "2", "data-target" => "#myCarousel"}
+      .carousel-inner
+        .item.active
+          %img{:alt => "First slide", :src => "/images/pic_1.jpg"}
+            .carousel-caption
+              %h1 Welcome to Tekcare
+              %p
+              %p
+              %a#login_1.btn.btn-lg.btn-primary{"data-target" => "new", :href => "/login/authenticates/login", :role => "button"} Login
+        .item
+          %img{:alt => "Second slide", :src => "/images/pic_2.jpg"}
+            .carousel-caption
+              %h1 Please Login.
+              %p Tekcare is built for Teknion's Partners.
+              %p
+              %a#login_2.btn.btn-lg.btn-primary{:href => "/login/authenticates/login", :role => "button"} Login
+        .item
+          %img{:alt => "Third slide", :src => "/images/pic_3.jpg"}
+            .carousel-caption
+              %h1 If you are having problems, please contact us.
+              %p
+              %p
+              %a#login_3.btn.btn-lg.btn-primary{:href => "#", :role => "button"} Contact Customer Service
+      %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
+        %span.glyphicon.glyphicon-chevron-left
+      %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
+        %span.glyphicon.glyphicon-chevron-right
+- else
+  - create_menu
+  .container-fluid
+    %h2 Applications
+    %br
+    - @main_menu.each do |menu_item|
+      %table.table
+        %tbody
+          %h4
+          = menu_item[0]
+          %tr
+          - for i in 1..menu_item.length-1
+            %td
+              %a{:href => menu_item[i][1]}
+                %img.image{:alt => "placeholder image", :height => "100", :src => "http://lorempixel.com/g/400/200/people", :width => "200"}
+                %br
+                = menu_item[i][0]
+  
+#contentModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Issue", :role => "dialog", :tabindex => "-1"}
+  #modal_content
+    
+ 

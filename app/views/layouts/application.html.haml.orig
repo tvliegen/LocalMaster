@@ -1,0 +1,98 @@
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    = favicon_link_tag
+    %title Teknionline
+    = csrf_meta_tags
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    = stylesheet_link_tag    "dashboard"
+    = stylesheet_link_tag    "carousel"
+  / Navbar Header
+ 
+ 
+  %body
+    - if session[:session_cookie] !=nil
+      %iframe{:src => session[:session_cookie], :style => "display: none"}
+    .navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+      .container-fluid
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+          %a.navbar-brand{:href => "\\"}
+            = image_tag("teklogo-green.jpg", :width => "50", :height => "50")
+            Tekcare
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right.main_top_menu
+            - if session[:FirstName] == nil
+              %li
+                %a#login{"data-target" => "/login/authenticates/login", :href => "#"} Login
+            - else
+              - create_menu
+              %li
+                %li.dropdown
+                  %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %span.glyphicon.glyphicon.glyphicon-th{"aria-hidden" => "true"}
+                    %span.caret
+                  %ul.dropdown-menu.scrollable-menu
+                    %li.dropdown-header Applications
+                    - @main_menu.each do |menu_item|
+                      %li.divider
+                      %li.dropdown-header
+                        = menu_item[0]
+                      - for i in 1..menu_item.length-1
+                        %li
+                          %a{:href => menu_item[i][1]}
+                            %img.image{:alt => "placeholder image", :height => "20", :src => "http://lorempixel.com/g/400/200/people", :width => "20"}
+                              = menu_item[i][0]
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.glyphicon.glyphicon.glyphicon-user{"aria-hidden" => "true"}
+                  = render :text => session[:FirstName]
+                  = render :text => session[:LastName]
+                  %b.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  %li.dropdown-header Accounts
+                  - @userAccounts=getAccounts(session[:Groups])
+                  - @userAccounts.each do |account_number|
+                    %li{:role => "presentation"}
+                      %a{:href => "/teknionline/profiles/switch/#{account_number.split('|')[1]} ", :role => "menuitem"}
+                        - if account_number.match(/#{session[:DealerCode]}/) !=nil
+                          %i.glyphicon.glyphicon.glyphicon-ok.icon-action                     
+                        = account_number.split('|')[0] + ' ('+account_number.split('|')[1] +')'                
+                  %li.divider
+                  %li.dropdown-header Settings
+                  %li
+                    %a{:href => "/teknionline/profiles/edit", :role => "menuitem"} Profile
+                  %li
+                    %a{:href => "/teknionline/profiles/edit", :role => "menuitem"} Change Password
+                  %li.divider
+                  %li
+                    %a{:href => "/login/authenticates/logout", :role => "menuitem"} Log Out
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.glyphicon.glyphicon.glyphicon-wrench{"aria-hidden" => "true"}
+                  Tools
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "/usermanagement/users/"} User Admin
+                  -#- if !@mygroups.grep(/portal/).empty?
+                  %li
+                    %a{:href => "/portalmanager/appdefs"} Portal Admin
+            %li
+              %a{:href => "#"} Help
+  = yield              
+:javascript
+  $('#login').click(function (e) {
+   e.preventDefault();
+                var target_issue=$(this).attr('data-target');
+                $('#modal_content').load(target_issue);
+                 $('#contentModal').modal('show');
+  });

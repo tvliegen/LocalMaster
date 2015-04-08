@@ -12,8 +12,8 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: teknion 
+  database: teknion
   pool: 5
-  username: apps 
-  password: teknion 
+  username: <%= ENV['POSTGRES_USER'] ? ENV['POSTGRES_USER'] : "apps" %>
+  password: <%= ENV['POSTGRES_PASS'] ? ENV['POSTGRES_PASS'] : "teknion" %>
 

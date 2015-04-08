@@ -1,17 +1,8 @@
 #claim_content
   .col-md-12
-    - if @claim_issue.comment.nil?
+    - if @action_plan.actionplan_id.nil?
       No Action Taken
-    - else
-      %button.btn.btn-default Show Replacement Order      
-      %button.btn Launch Chargeable Order
-
-      .col-md-12
-        %label Action plan summary
-        %p
-          = @claim_issue.comment
-
-      
+    - else      
       .col-md-12
         %label Replacement Product Information
         .table-responsive
@@ -23,19 +14,150 @@
                 %th
                   CR Number
                 %th
-                  Item Desc
+                  Item Description
                 %th
-                  Status
+                  Quanity Ordered
             %tbody.rowlink
-              - @claim_issue.replaced_products.each do |replaced_product|
+              - @action_plan.replaced_products.each do |replaced_product|
                 %tr
                   %td
                     = replaced_product.product_code
                   %td
                     = replaced_product.cr_number
                   %td
-                    %div{style: 'color:red'}MISSING_IN_API
-                    -#= replaced_product.product_desc
+                    = replaced_product['product_description']
                   %td
-                    %div{style: 'color:red'}MISSING_IN_API
-                    -#= replaced_product.status
+                    = replaced_product['qty_ordered']
+      .col-md-12
+        %label 
+          Action Plan Summary 
+        .table-responsive
+          %table.table.table-striped.table-hover
+            %tr
+              %td
+                Action Taken
+              %td
+                = @action_plan.response_code
+            %tr
+              %td
+                Comments
+              %td
+                = @action_plan.comment
+              
+          
+         
+      %br
+      - if @claim_issue.issue_status =='SIFGENRT'
+        .col-md-12
+          %a{:href => "#", :sect => "Replacement_Order", :id=>"replacementorder"}
+            %label Show Replacement Order Information
+          #Replacement_Order{:name => "Replacement_Order", :style => "display: none"}
+            %br
+            For more information, please visit:
+            %a{:href=>"javascript:open_teknionline();"} TekniOnline
+            and enter the PO Number listed below.
+            %br
+            %br
+            .row
+              .col-sm-3
+                %label Ship To Name
+              .col-sm-8
+                = @replacement_order['ship_header']['ship_name']
+              .col-sm-1
+            .row
+              .col-sm-3
+                %label Address
+              .col-sm-3
+                = @replacement_order['ship_header']['ship_address1']
+              .col-sm-2
+                %label City
+              .col-sm-3
+                = @replacement_order['ship_header']['ship_city']
+              .col-sm-1
+            .row
+              .col-sm-3
+                %label State/Province
+              .col-sm-3
+                = @replacement_order['ship_header']['ship_province_state']
+              .col-sm-2
+                %label Postal/Zip Code
+              .col-sm-3
+                = @replacement_order['ship_header']['ship_postal_zip']
+              .col-sm-1
+            .row
+              .col-sm-3
+                %label Replacement PO Number
+              .col-sm-3
+                = @action_plan.replaceorder_ponumber
+              .col-sm-2
+                
+              .col-sm-3
+            .row
+              .col-sm-3
+                %label Universal Number
+              .col-sm-3
+                = @replacement_order['order_header']['universal']
+              .col-sm-2
+       
+              .col-sm-3
+            %br
+            %br
+            .table-responsive
+              %table.table.table-striped.table-hover
+                %thead
+                  %tr
+                    %th 
+                      Shipment Number
+                    %th
+                      Sequence
+                    %th
+                      Item Code
+                    %th
+                      CR Number
+                    %th
+                      Item Description
+                    %th
+                      Quantity
+                    %th
+                      Tags
+                %tbody.rowlink
+                  - @replacement_order.order_lines.each do |replaced_product|
+                    %tr
+                      %td
+                        = replaced_product['shipment_number']
+                      %td
+                        = replaced_product['line_sequence_number']
+                      %td
+                        = replaced_product['item']
+                      %td
+                        = replaced_product['cr_number']
+                      %td
+                        = replaced_product['product_description']
+                      %td
+                        = replaced_product['order_quantity']
+                      %td
+                        = replaced_product['tag_text']
+:javascript
+  function hide_element(obj_name) {
+
+  var tbl=$('#'+obj_name);
+  
+  
+  if ($('#'+obj_name).css('display')=='block')
+  {
+    $('#'+obj_name).hide();
+    }
+    else {
+  $('#'+obj_name).show();
+  }
+  }
+  $('#replacementorder').click(function (e){
+        e.preventDefault();
+      
+        hide_element($(this).attr('sect'));
+        });
+  function open_teknionline(){
+  
+  window.open('http://home.teknion.com');
+  
+  }

@@ -1,5 +1,5 @@
 class Usermanagement::UsersController < ApplicationController
- # before_action :set_usermanagement_user, only: [:show, :edit, :update, :destroy]
+
 
   # GET /usermanagement/users
   # GET /usermanagement/users.json
@@ -10,7 +10,7 @@ class Usermanagement::UsersController < ApplicationController
   	  dealerCode=session[:DealerCode]
   	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
   	  @profiles=Usermanagement::Profile.new
-  	  group_members_raw = @idp.getGroupMembers(group_id)
+  	  group_members_raw = Idp::User.get_group_members(group_id)
   	  $i=0
   	  
   	  @raw_members=Array.new
@@ -36,6 +36,16 @@ class Usermanagement::UsersController < ApplicationController
     @user_profile = Usermanagement::User.new(usermanagement_user_params)
   end
   
+  def addstep2
+    @usermanagement_user = Usermanagement::User.new
+    @user_profile = Usermanagement::User.new(usermanagement_user_params)
+  end
+  
+  def search
+    @idp=IdpLogin.new
+    @search_results=Hash.new
+    @search_results = @idp.findperson(params[:search])  
+  end
   
 
   # POST /usermanagement/users
@@ -55,21 +65,31 @@ class Usermanagement::UsersController < ApplicationController
   	  	  "mobilePhone": ""
   	  	  },
   	  	  "credentials": {
-  	  	  "password" : { "value": "password987" }
+		    "password" : { "value": "" }
   	  	  }
-  	  	  }')
+		  }
+  	  	  ')
   	  profileHash["profile"]["firstName"]=params[:usermanagement_user]["firstname"]
   	  profileHash["profile"]["lastName"]=params[:usermanagement_user]["lastname"]
   	  profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
   	  profileHash["profile"]["login"]=params[:usermanagement_user]["login"]
   	  profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
-  	  new_user=@idp.createProfile(profileHash)
+	  passwordvalue=Hash.new
+	  passwordvalue['value']=params[:usermanagement_user]["password"]
+	  recovery=Hash.new
+	  recovery['question']='What colour is the sky?'
+	  recovery['answer']='blue'
+	  profileHash["credentials"]["password"]=passwordvalue
+	  profileHash["credentials"]["recovery_question"]=recovery
+	 
+	  new_user=Idp::User.createProfile(profileHash)
   	  
   	   @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
   	  dealerCode=session[:DealerCode]
   	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
   	  
-  	  @idp.addUserToGroup(group_id,new_user["id"])
+  	  Idp::User.add_user_to_group(group_id,new_user["id"])
+	  
   	  redirect_to '/usermanagement/users/'
 
   end
@@ -83,25 +103,36 @@ class Usermanagement::UsersController < ApplicationController
   	
   	idp_id=params["id"]
   	
-  	
   	@idp=IdpLogin.new
-  	user_profile_raw=@idp.getProfile(idp_id)
+  	
+  	user_profile_raw=Idp::User.get_profile(idp_id)
   	profileHash=JSON.parse(user_profile_raw.to_json)
   	
   	
-  	profileHash["profile"]["firstName"]=params[:usermanagement_user]["firstname"]
-  	profileHash["profile"]["lastName"]=params[:usermanagement_user]["lastname"]
-  	profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
-  	#     profileHash["profile"]["login"]=params[:teknionline_profile]["login"]
-  	profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
-  	profileHash["credentials"]["password"]["value"]=params[:usermanagement_user]["password"]
+	profileHash["profile"]["firstName"]=params[:usermanagement_user]["firstname"]
+  	  profileHash["profile"]["lastName"]=params[:usermanagement_user]["lastname"]
+  	  profileHash["profile"]["email"]=params[:usermanagement_user]["email"]
+  	  profileHash["profile"]["login"]=params[:usermanagement_user]["login"]
+  	  profileHash["profile"]["mobilePhone"]=params[:usermanagement_user]["mobile"]
+	  passwordvalue=Hash.new
+	  passwordvalue['value']=params[:usermanagement_user]["password"]
+	
   	
-  	
-  	@updateResults=@idp.updateProfile(idp_id,profileHash)
+  	recovery=Hash.new
+	  recovery['question']='What colour is the sky?'
+	  recovery['answer']='blue'
+	  profileHash["credentials"]["password"]=passwordvalue
+	  profileHash["credentials"]["recovery_question"]=recovery
+	  
+  	@updateResults=Idp::User.update_profile(idp_id,profileHash)
+	
   	@all_groups=@idp.getAllGroups('names')
   	@AccessibleGroups=@all_groups.grep(/#{session[:DealerCode]}/)
-  	 
-  	 new_groups=params[:groups]["enabled"] 
+  	 if params.key?'groups'
+	  new_groups=params[:groups]["enabled"] 
+	 else
+	   new_groups=Hash.new 
+	 end
   	 my_groups=@idp.getGroups(idp_id,'raw')
   	
   	  @AccessibleGroups.each do |accessible_group|
@@ -109,12 +140,12 @@ class Usermanagement::UsersController < ApplicationController
   	  	  if !(my_groups.grep(/#{accessible_group}/).empty?)  	  	  	
   	  	  	  if (new_groups.grep(/#{group_id}/).empty?)  
   	  	  	  	  # Remove from Group
-  	  	  	  	 @idp.removeUserFromGroup(group_id,idp_id)
+  	  	  	  	 Idp::User.remove_user_from_group(group_id,idp_id)
   	  	  	  end
   	  	  else
   	  	  	if !(new_groups.grep(/#{group_id}/).empty?)  
   	  	  	
-  	  	  	  	 @idp.addUserToGroup(group_id,idp_id)
+  	  	  	  	 Idp::User.add_user_to_group(group_id,idp_id)
   	  	  	  	 	
   	  	  	  end  
   	  	  end
@@ -122,6 +153,12 @@ class Usermanagement::UsersController < ApplicationController
     	     	  
   	  	  
   	  end	
+	  
+	my_groups=@idp.getGroups(idp_id,'raw')
+	
+	if my_groups.length==1
+	  Idp::User.deactivate(idp_id)
+	end
   	redirect_to '/usermanagement/users'
 
   end
@@ -143,7 +180,7 @@ class Usermanagement::UsersController < ApplicationController
   	  
   	  
   	  @idp=IdpLogin.new
-  	  user_profile_raw=@idp.getProfile(idp_id)
+  	  user_profile_raw=Idp::User.get_profile(idp_id)
   	  
   	  @user_profile = Usermanagement::User.new(usermanagement_user_params)
   	  
@@ -171,9 +208,22 @@ class Usermanagement::UsersController < ApplicationController
     	     	  
   	  	  
   	  end	
-  	  logger.info "user groups: " + userGroups.to_s
+  	  
   	  @user_profile.groups=userGroups
 
+  end
+  
+  def addotheruser
+    
+    logger.info "adduser"
+       @idp=IdpLogin.new
+       @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
+       dealerCode=session[:DealerCode]
+       group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
+       
+       render text: params
+  	  
+  #	  @idp.addUserToGroup(group_id,new_user["id"])
   end
   private
     # Use callbacks to share common setup or constraints between actions.

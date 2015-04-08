@@ -1,0 +1,19 @@
+%h1 Listing dealermanager_managers
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @dealermanager_managers.each do |dealermanager_manager|
+      %tr
+        %td= link_to 'Show', dealermanager_manager
+        %td= link_to 'Edit', edit_dealermanager_manager_path(dealermanager_manager)
+        %td= link_to 'Destroy', dealermanager_manager, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Manager', new_dealermanager_manager_path

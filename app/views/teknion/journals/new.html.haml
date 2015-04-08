@@ -1,6 +1,6 @@
 #journal_new_wrapper
 
-  %h5.modal-header New Journal
+  %h5.modal-header New Information
   = form_for @journal, url: teknion_claim_issue_journals_path(@journal.issue_id, claim_id: @claim_id), html: { class: 'form-horizontal' } do |f|
 
     - if @journal.errors.any?
@@ -14,7 +14,7 @@
 
     %p.mod-author
       = f.label :created_by
-      = f.text_field :created_by
+      = @journal.created_by
     %p.mod-title
       = f.label :subject
       = f.text_field :subject
@@ -26,7 +26,7 @@
       -#= journal_attachment_form.file_field :attachment
 
     .form-actions
-      = f.button :submit, class: [:btn, 'btn-primary']
+      = submit_tag "Save", class: [:btn, 'btn-primary']
 
   -#:javascript
     -#$("form", "#journal_new_wrapper").ajaxForm({

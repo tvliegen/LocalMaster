@@ -1,5 +1,8 @@
 #claim_content
   .col-md-12
+    .btn-group
+      %button#new_backcharge.btn.btn-default New
+  .col-md-12
     .table-responsive
       %table.table.table-striped.table-hover
         %thead
@@ -13,9 +16,9 @@
             %th
               Requested Amount
             %th
-              Approved Amount
-            %th
               Status
+            %th
+              Action
         %tbody.rowlink
           - @claim_issue.back_charges.each do |back_charge|
             %tr
@@ -27,19 +30,39 @@
               %td
                 = back_charge.create_date
               %td
-                = back_charge.estimate_amount
-              %td
-                = back_charge.authorized_amount
+                = number_to_currency(back_charge.estimate_amount)
               %td
                 = back_charge.bc_status
+              %td
+                %a{:href => "#",:id=>"request_close_#{back_charge.bc_id}", :class => ['glyphicon','glyphicon-folder-close'], :title => 'Request Close'}
+              %div.jqmWindow.closeReqWindow{id: "request_close_#{back_charge.bc_id}_modal"}
+              :javascript
+                $('#request_close_#{back_charge.bc_id}_modal').jqm({
+                ajax: "/claim_issues/#{@claim_issue.issue_id}/back_charges/closereq/new?claim_id=#{@claim_id}&bc_id=#{back_charge.bc_id}",
+                trigger: '#request_close_#{back_charge.bc_id}',
+                modal: true
+                });
 
-            %div.jqmWindow{id: "back_charge_modal_#{back_charge.bc_id}"}
+            %div.jqmWindow.back_charge_modal{id: "back_charge_modal_#{back_charge.bc_id}"}
               Please wait...
 
             :javascript
               $(function() {
                 $('#back_charge_modal_#{back_charge.bc_id}').jqm({
-                  ajax: "/claim_issues/#{@claim_issue.issue_id}/back_charges/#{back_charge.bc_id}/edit?claim_id=#{params[:claim_id]}",
-                  trigger: 'a#back_charge_modal_#{back_charge.bc_id}'
+                  ajax: "/claim_issues/#{@claim_issue.issue_id}/back_charges/#{back_charge.bc_id}/edit?dealer_code=#{@dealer_code}",
+                  trigger: 'a#back_charge_modal_#{back_charge.bc_id}',
+                  modal: true
                 });
               });
+  #new_backcharge_modal.jqmWindow
+    Please wait...
+
+
+:javascript
+  $(function() {
+    $('#new_backcharge_modal').jqm({
+      ajax: "/claim_issues/#{@claim_issue.issue_id}/back_charges/new?claim_id=#{@claim_id}",
+      trigger: '#new_backcharge',
+      modal: true
+    });
+  });
