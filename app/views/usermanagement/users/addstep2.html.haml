@@ -1,76 +1,81 @@
-  .row
-    .col-md-12
-      .col-md-1
-      .col-md-11
-        %h3 New Profile
-        %h4 Step 2 - Complete Profile
+.row
+  .col-md-12
+    .col-md-1
+    .col-md-11
+      %h3 New Profile
+      %h4 Step 2 - Complete Profile
 
   %br
   %br
   = form_for @user_profile, url: {action: "create"} do |f|
-    %div{:clas => "row"}
+    %br
+    %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:login, "User Name")
+            .col-md-9= @user_profile.login
+            = f.text_field :login, :value => @user_profile.login,:hidden => true
+    %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:firstname, "First Name")
+            .col-md-9= f.text_field :firstname
+    %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:lastname, "Last Name")
+            .col-md-9= f.text_field :lastname
+    %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:email, "E-Mail")
+            .col-md-9= f.text_field :email
+    %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:mobile, "Mobile")
+            .col-md-9= f.text_field :mobile
+    %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:language, "Language")
+            .col-md-9= f.select :language, [['English','EN'],['French','FRC']]
+                                    
+    %br
+    %br
+      .row
+        .col-md-12
+          .col-md-1
+          .col-md-11
+            .col-md-3= label_tag(:password, "Password")
+            .col-md-9= f.password_field :password   
+     
+    %br
+    .row
       .col-md-12
         .col-md-1
         .col-md-11
-          = f.submit "Save", class: "btn btn-default btn-sm disabled", id: "save_btn"
+          = f.submit "Add User", class: "btn btn-default btn-sm disabled", id: "save_btn"
           = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm"
-    %br
-      %br
-        .row
-          .col-md-12
-            .col-md-1
-            .col-md-11
-              .col-md-3= label_tag(:login, "User Name")
-              .col-md-9= f.text_field :login
-        %br
-          %br
-            .row
-              .col-md-12
-                .col-md-1
-                .col-md-11
-                  .col-md-3= label_tag(:firstname, "First Name")
-                  .col-md-9= f.text_field :firstname
-        %br
-          %br
-            .row
-              .col-md-12
-                .col-md-1
-                .col-md-11
-                  .col-md-3= label_tag(:lastname, "Last Name")
-                  .col-md-9= f.text_field :lastname
-        %br
-          %br
-            .row
-              .col-md-12
-                .col-md-1
-                .col-md-11
-                  .col-md-3= label_tag(:email, "E-Mail")
-                  .col-md-9= f.text_field :email
-        %br
-          %br
-            .row
-              .col-md-12
-                .col-md-1
-                .col-md-11
-                  .col-md-3= label_tag(:mobile, "Mobile")
-                  .col-md-9= f.text_field :mobile
-        %br
-          %br
-            .row
-              .col-md-12
-                .col-md-1
-                .col-md-11
-                  .col-md-3= label_tag(:language, "Language")
-                  .col-md-9= f.select :language, [['English','EN'],['French','FRC']]
-                                    
-        %br
-          %br
-            .row
-              .col-md-12
-                .col-md-1
-                .col-md-11
-                  .col-md-3= label_tag(:password, "Password")
-                  .col-md-9= f.password_field :password            
+    
                                     
 :javascript                                    
   function check_mandatory() {

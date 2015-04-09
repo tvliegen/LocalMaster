@@ -10,9 +10,10 @@ Teknion::Application.routes.draw do
 
   namespace :usermanagement do
     resources :users
-    post '/users/search', to: 'users#search'
-    post '/users/addotheruser', to: 'users#addotheruser'
+    get '/searchusers', to: 'users#search'
+    get '/addotheruser', to: 'users#addotheruser'
     post '/users/step2', to: 'users#addstep2', as: 'add_user_step_2'
+    post '/users/checkuser', to: 'users#checkuser', as: 'checkuser'
   end
 
   namespace :teknionline do

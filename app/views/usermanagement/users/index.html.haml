@@ -15,14 +15,9 @@
                   %td
                     = link_to "New User", "/usermanagement/users/new", class: "btn btn-default"
                   %td
-                    Search for Existing User: 
-                  %td
-                
-                    = form_tag :controller => 'users', :action => 'search' do
-                      = text_field_tag :search, params[:search], :id => 'search_field'
-                      = submit_tag "Search", :name => nil
-                    
-                      
+                    Search: 
+                    = text_field_tag 'searchcriteria', nil, placeholder: 'Enter search term...'
+                    %a{:href => "#", :class => ['glyphicon', 'glyphicon-search'], :id => "search_btn"}                
   .row
     .col-md-12
       .col-md-1
@@ -43,15 +38,17 @@
                   %th
                     Delete
               %tbody.rowlink{"data-link" => "row"}
-                - @raw_members.each do |user_profile|
+                - @dealer_members.each do |user_profile|
                   %tr
                     %td
-                      %a{:href => "/usermanagement/users/#{user_profile.idpid}/edit"}= user_profile.login
-                    %td= user_profile.firstname
+                      %a{:href => "/usermanagement/users/#{user_profile['id']}/edit"}
+                        = user_profile['profile']['login']
                     %td
-                      = user_profile.lastname
+                      = user_profile['profile']['firstName']
                     %td
-                      = user_profile.lastlogin.nil? ? "" : DateTime.parse(user_profile.lastlogin).strftime("%Y/%m/%d %H:%M:%S")
+                      = user_profile['profile']['lastName']
+                    %td
+                      = user_profile['lastLogin'].nil? ? "" : DateTime.parse(user_profile['lastLogin']).strftime("%Y/%m/%d %H:%M:%S")
                     %td                
                       = link_to("/", method: :delete, data: {confirm: "Are you sure you want to delete this user?"}) do
                         %i.glyphicon.glyphicon.glyphicon-trash.icon-action             
@@ -61,6 +58,20 @@
     $('#search').click(function (e) {
       e.preventDefault();
     
-      $('#modal_content').load('/usermanagement/users/search');
+      $('#modal_content').load('/usermanagement/searchusers');
       $('#contentModal').modal('show');
       });
+    $('#search_btn').click(function (e) {
+      e.preventDefault();
+      window.location='/usermanagement/searchusers?searchcriteria=' + $('#searchcriteria').val(); 
+    });
+  
+    $('#searchcriteria').bind("keydown",function (e) {
+
+         
+        if (e.which == 13)        {
+            e.preventDefault();
+            window.location='/usermanagement/searchusers?searchcriteria=' + $('#searchcriteria').val(); 
+      
+          }
+          });

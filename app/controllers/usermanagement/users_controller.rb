@@ -5,27 +5,10 @@ class Usermanagement::UsersController < ApplicationController
   # GET /usermanagement/users.json
   def index
   	  @usermanagement_users = Usermanagement::User.all
-  	  @idp=IdpLogin.new
-  	  @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
   	  dealerCode=session[:DealerCode]
-  	  group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
-  	  @profiles=Usermanagement::Profile.new
-  	  group_members_raw = Idp::User.get_group_members(group_id)
-  	  $i=0
-  	  
-  	  @raw_members=Array.new
-  	  
-  	  while $i<group_members_raw.length
-  	  	  @profiles=Usermanagement::Profile.new
-  	  	  @profiles.idpid=group_members_raw[$i]["id"]
-  	  	  @profiles.firstname=group_members_raw[$i]["profile"]["firstName"]
-  	  	  @profiles.lastname=group_members_raw[$i]["profile"]["lastName"]
-  	  	  @profiles.login=group_members_raw[$i]["profile"]["login"]
-  	  	  @profiles.lastlogin=group_members_raw[$i]["lastLogin"]
-  	  	  
-  	  	  $i +=1;
-  	  	  @raw_members.push(@profiles)
-  	  end
+  	  group_name=session[:Groups].grep(/all/).grep(/#{dealerCode}/)[0].split('|')[0]
+	  @dealer_members=Usermanagement::Users.all(group_name)
+	
 	
   end
   
@@ -34,6 +17,7 @@ class Usermanagement::UsersController < ApplicationController
   def new
     @usermanagement_user = Usermanagement::User.new
     @user_profile = Usermanagement::User.new(usermanagement_user_params)
+    @user_valid=false
   end
   
   def addstep2
@@ -42,16 +26,36 @@ class Usermanagement::UsersController < ApplicationController
   end
   
   def search
-    @idp=IdpLogin.new
-    @search_results=Hash.new
-    @search_results = @idp.findperson(params[:search])  
+    dealerCode=session[:DealerCode]
+    group_name=session[:Groups].grep(/all/).grep(/#{dealerCode}/)[0].split('|')[0]
+    @dealer_members=Usermanagement::Users.all(group_name)
+    
+     results=@dealer_members.find_all {|h1| (h1['profile']['login'].to_s + h1['profile']['firstName'].to_s+h1['profile']['lastName'].to_s).include?params['searchcriteria']}
+   @dealer_members=results
+  
+render "index"
   end
   
 
   # POST /usermanagement/users
   # POST /usermanagement/users.json
   
-  
+  def checkuser
+    valid_user=Idp::User.check_user(params['usermanagement_user']['login'])
+    @usermanagement_user = Usermanagement::User.new
+    @user_profile = Usermanagement::User.new(usermanagement_user_params)
+    @user_profile.login=params['usermanagement_user']['login']
+    if !valid_user
+     
+      render "addstep2"
+      
+    else
+       @user_valid=true
+      render "new"
+    end
+   
+    
+  end
   def create
   	  @usermanagement_user = Usermanagement::User.new(usermanagement_user_params)
   	  @user_profile = Usermanagement::User.new(usermanagement_user_params)
@@ -90,7 +94,10 @@ class Usermanagement::UsersController < ApplicationController
   	  
   	  Idp::User.add_user_to_group(group_id,new_user["id"])
 	  
-  	  redirect_to '/usermanagement/users/'
+  	 redirect_to '/usermanagement/users/'
+	  
+	 
+	
 
   end
 
@@ -214,16 +221,14 @@ class Usermanagement::UsersController < ApplicationController
   end
   
   def addotheruser
-    
-    logger.info "adduser"
-       @idp=IdpLogin.new
-       @dealerGroups=@idp.getGroups(session[:idp_id],'full').grep(/all/)
-       dealerCode=session[:DealerCode]
-       group_id=@dealerGroups.grep(/#{dealerCode}/)[0].split('|')[0]
-       
-       render text: params
-  	  
-  #	  @idp.addUserToGroup(group_id,new_user["id"])
+
+    dealerCode=session[:DealerCode]
+    group_name=session[:Groups].grep(/all/).grep(/#{dealerCode}/)[0].split('|')[0]
+    group_id=Idp::User.find_group(group_name)[0]['id']   
+    user_id=Idp::User.get_user_id(params['login'])
+   Idp::User.add_user_to_group(group_id,user_id)
+   redirect_to '/usermanagement/users'
+   
   end
   private
     # Use callbacks to share common setup or constraints between actions.

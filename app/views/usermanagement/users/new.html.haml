@@ -1,4 +1,4 @@
-= form_for @user_profile, url: {action: "addstep2"} do |f|
+= form_for @user_profile, url: {action: "checkuser"} do |f|
   .row
     .col-md-12
       .col-md-1
@@ -13,7 +13,9 @@
       .col-md-1
       .col-md-11
         .col-md-3= label_tag(:login, "User Name")
-        .col-md-9= f.text_field :login
+        .col-md-3= f.text_field :login
+        .col-md-6= @user_valid ? 'User Exists' : 'Please enter a user name'
+        
   %br
   %br     
   .row
@@ -21,8 +23,12 @@
       .col-md-1
       .col-md-11
         .col-md-3
-          = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm btn-primary"                              
-          = f.submit "Next", class: "btn btn-default btn-primary btn-sm disabled", id: "save_btn"
+          = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm btn-primary" 
+          -if @user_valid
+            %a{:href=>'#', :class=> "btn btn-default btn-primary btn-sm", :id => "add_btn"} Add User
+            = f.submit "Check User", class: "btn btn-default btn-primary btn-sm", id: "save_btn"
+          -else
+            = f.submit "Check User", class: "btn btn-default btn-primary btn-sm disabled", id: "save_btn"
 :javascript                                    
   function check_mandatory() {
      
@@ -46,8 +52,11 @@
         if (e.which == 13)        {
           e.preventDefault();
           check_mandatory();
-          
+          $('#save_btn').focus();
           }
           });
-          
+  $('#add_btn').click(function (e) {
+  
+     window.location='/usermanagement/addotheruser?login='+$('#usermanagement_user_login').val();
+  });
   

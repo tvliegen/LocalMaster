@@ -79,13 +79,40 @@ class Idp::User < Idp::Base
   end
   
   def self.check_user(user_id)
+    
+    valid_user=false
   group_response = client.get do |req|
         req.url "api/v1/users/#{user_id}"
         req.headers['Content-Type'] = 'application/json'
       end
    group_result = JSON.parse(group_response.body)
    
+   if group_result.key?'id'
+      valid_user=true
+   end
    
+   return valid_user
+   
+  end
+  
+   def self.get_user_id(user_id)
+    
+    
+  group_response = client.get do |req|
+        req.url "api/v1/users/#{user_id}"
+        req.headers['Content-Type'] = 'application/json'
+      end
+   group_result = JSON.parse(group_response.body)
+   
+   return group_result['id']
+   
+  end
+   def self.find_group(group_name)
+  group_response = client.get do |req|
+        req.url "/api/v1/groups?q=#{group_name}"
+        req.headers['Content-Type'] = 'application/json'
+      end
+   group_result = JSON.parse(group_response.body)
    return group_result
    
   end
