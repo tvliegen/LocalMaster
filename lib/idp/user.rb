@@ -20,7 +20,15 @@ class Idp::User < Idp::Base
    return login_response
    
   end
-  
+  def self.activate_user(idp_id)
+  validate_response = client.post do |req|
+        req.url "api/v1/users/#{idp_id}/lifecycle/activate?sendEmail=false"
+        req.headers['Content-Type'] = 'application/json'
+      end
+   login_response = JSON.parse(validate_response.body)
+   return login_response
+   
+  end
    def self.validate_session(session_id)
   validate_response = client.post do |req|
         req.url "api/v1/sessions/#{session_id}"

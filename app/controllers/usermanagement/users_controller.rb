@@ -173,12 +173,35 @@ render "index"
   # DELETE /usermanagement/users/1
   # DELETE /usermanagement/users/1.json
   def destroy
-    @usermanagement_user.destroy
-    respond_to do |format|
-      format.html { redirect_to usermanagement_users_url }
-      format.json { head :no_content }
+    idp=IdpLogin.new
+    @AccessibleGroups=idp.getAllGroups('names').grep(/#{session[:DealerCode]}/)
+    new_groups=Hash.new 
+    idp_id=params['id']
+    my_groups=idp.getGroups(idp_id,'raw')
+  	
+  	  @AccessibleGroups.each do |accessible_group|
+  	  	    group_id=accessible_group.split("|")[2]
+  	  	  if !(my_groups.grep(/#{accessible_group}/).empty?)  	  	  	
+  	  	  	  if (new_groups.grep(/#{group_id}/).empty?)  
+  	  	  	  	  # Remove from Group
+  	  	  	  	 Idp::User.remove_user_from_group(group_id,idp_id)
+  	  	  	  end
+  	  	  end
+  	  	
+    	     	  
+  	  	  
+  	  end	
+	  
+	my_groups=idp.getGroups(idp_id,'raw')
+	
+	if my_groups.length==1
+	  Idp::User.deactivate(idp_id)
+	end
+    
+    
+    redirect_to '/usermanagement/users/'
     end
-  end
+  
 
  
   def edit
@@ -227,6 +250,8 @@ render "index"
     group_id=Idp::User.find_group(group_name)[0]['id']   
     user_id=Idp::User.get_user_id(params['login'])
    Idp::User.add_user_to_group(group_id,user_id)
+   Idp::User.activate_user(user_id)
+   
    redirect_to '/usermanagement/users'
    
   end

@@ -20,7 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
   claims: "In Progress"
   inprogress: "In Progress"
   info: "Information Required"
