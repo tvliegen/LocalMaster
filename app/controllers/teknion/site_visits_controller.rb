@@ -12,9 +12,12 @@ class Teknion::SiteVisitsController < ApplicationController
 
   def update
    
-    site_visit_date=Hash.new
-    site_visit_date['appointment_date']=Date.civil(*params[:appointment_date].sort.map(&:last).map(&:to_i))
-    site_visit_date['appointment_time']=Time.parse(params[:appointment_time]['appointment_time(4i)']+":"+params[:appointment_time]['appointment_time(5i)']).strftime("%H:%M:%S")
+    site_visit_info=Hash.new
+    site_visit_info['appointment_date']=Date.civil(*params[:appointment_date].sort.map(&:last).map(&:to_i))
+    site_visit_info['appointment_time']=Time.parse(params[:appointment_time]['appointment_time(4i)']+":"+params[:appointment_time]['appointment_time(5i)']).strftime("%H:%M:%S")
+    site_visit_info['site_contactname']=params['site_visit_Contact_Name']
+    site_visit_info['site_contactnumber']=params['site_visit_Contact_Number']
+    site_visit_info['site_contactemail']=params['site_visit_Contact_Email']
     dealer_code=session[:DealerCode]
 
 
@@ -22,7 +25,7 @@ class Teknion::SiteVisitsController < ApplicationController
       sitevisit_response = tekcare_connection.put do |req|
         req.url "tekcare/sitevisits/#{params[:id]}?dealer_code=#{dealer_code}&action=schedule"
         req.headers['Content-Type'] = 'application/json'
-        req.body = site_visit_date.to_json
+        req.body = site_visit_info.to_json
       end
     end
       if sitevisit_response.status == 201

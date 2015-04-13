@@ -8,7 +8,10 @@ class Teknion::SiteVisit < Teknion::Base
   attribute :appointment_time, Time
   attribute :postvisit_date, Date
   attribute :resolution, String
-  attribute :scheduled, String
+  attribute :scheduled, String  
+  attribute :site_contactname, String
+  attribute :site_contactnumber, String
+  attribute :site_contactemail, String
 
   def save(dealer_code)
     client.put "tekcare/sitevisits/{issue_id}/sitevisitupdate", {dealer_code: dealer_code}

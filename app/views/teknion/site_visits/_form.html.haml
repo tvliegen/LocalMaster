@@ -1,4 +1,4 @@
-= form_for @site_visit, url: teknion_site_visit_path, method: :put, html: { class: 'form-horizontal', id: 'whatever' } do |f|
+= form_for @site_visit, url: teknion_site_visit_path, method: :put, html: { class: 'form-horizontal', id: 'site_visit' } do |f|
 
   - if @site_visit.errors.any?
     #error_explanation
@@ -37,11 +37,6 @@
               = f.label :site_visit_Contact_Email, "Contact Email"
             %td
               = text_field_tag 'site_visit_Contact_Email'
-          %tr
-            %td
-              = f.label :site_visit_Site_Conditions, "Site Conditions"
-            %td
-              = text_area_tag 'site_visit_Site_Conditions'
           %tr
             %td
               = f.label :appointment_date, "Appointment Date"
@@ -87,12 +82,12 @@
             = hidden_field_tag :issue_id, @issue_id
   .form-actions
     - if @site_visit.appointment_date.blank?
-      %a{:href => "javascript:submit_form()", :class => [:btn, 'btn-primary'], :id => "send_btn"} Save
+      %a{:href => "javascript:submit_form()", :class => [:btn, 'btn-primary'], :id => "send_btn"} Send
       
     %a{:href => "#", :class => [:btn, 'btn-primary', 'jqmClose'], :id => "close_btn"} Close 
     
 :javascript
   function submit_form(){
-      $('form#clarification').submit();
+      $('form#site_visit').submit();
     }   
     

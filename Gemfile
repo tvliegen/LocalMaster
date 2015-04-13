@@ -19,7 +19,7 @@ gem 'therubyracer',  platforms: :ruby
 #gem 'nested_form'
 gem 'httmultiparty'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'thin'
+#gem 'thin'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'virtus'
@@ -27,6 +27,7 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'newrelic_rpm'
 gem 'boxr'
+gem 'puma'
 
 #group :development do
 #  gem 'pry-byebug'

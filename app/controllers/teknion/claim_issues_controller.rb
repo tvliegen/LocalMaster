@@ -68,7 +68,7 @@ class Teknion::ClaimIssuesController < ApplicationController
         @claim_issue.clarifications = clarification_data.select {|cl| cl.clarification_type == 'QUESTION' }
 	
  #     elsif @section == 'other_information'
-        @claim_issue.journals = Teknion::Journal.all(params[:id], @dealer_code)
+      #  @claim_issue.journals = Teknion::Journal.all(params[:id], @dealer_code)
   #    elsif @section == 'actions'
         @action_plan = Teknion::ActionPlan.find(params[:id], @dealer_code)
 	 @replacement_order= Teknion::ReplacementOrder.find(@action_plan.replaceorder_ponumber,@dealer_code)

@@ -9,13 +9,9 @@
             %th
               Reason
             %th
-              Appointment Requested By
-            %th
               Appointment Date
             %th
               Appointment Time
-            %th
-              Confirmed By
         %tbody.rowlink
           - @claim_issue.site_visits.each do |site_visit|
             %tr
@@ -28,8 +24,7 @@
                 = site_visit.appointment_date
               %td
                 = site_visit.appointment_date.blank? ? "" : site_visit.appointment_time.strftime("%H:%M")
-              %td
-                %div{style: "color: red"} Coming Soon...
+
 
             %div.jqmWindow{id: "site_visit_modal_#{site_visit.sitevisit_id}"}
               Please wait...
