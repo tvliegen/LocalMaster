@@ -55,6 +55,21 @@
         -else
           %tr
             %td
+              = f.label :site_contactname, "Contact Name"
+            %td
+              = @site_visit.site_contact_name
+          %tr
+            %td
+              = f.label :site_contactnumber, "Contact Number"
+            %td
+              = @site_visit.site_contact_number
+          %tr
+            %td
+              = f.label :site_contactemail, "Contact Email"
+            %td
+              = @site_visit.site_contact_email
+          %tr
+            %td
               = f.label :appointment_date, "Appointment Date"
             %td
               = @site_visit.appointment_date
@@ -63,11 +78,7 @@
               = f.label :appointment_time, "Appointment Time"
             %td
               =  @site_visit.appointment_time
-          %tr
-            %td
-              = f.label :reason, "Confirmed By"
-            %td
-              -# = session["FirstName"] + " " + session["LastName"]
+          
         %tr
           %td
             = f.label :postvisit_date, "Site Visit Performed On"

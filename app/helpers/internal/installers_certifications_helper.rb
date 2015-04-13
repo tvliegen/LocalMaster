@@ -1,0 +1,2 @@
+module Internal::InstallersCertificationsHelper
+end

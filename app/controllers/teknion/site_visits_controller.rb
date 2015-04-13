@@ -15,9 +15,9 @@ class Teknion::SiteVisitsController < ApplicationController
     site_visit_info=Hash.new
     site_visit_info['appointment_date']=Date.civil(*params[:appointment_date].sort.map(&:last).map(&:to_i))
     site_visit_info['appointment_time']=Time.parse(params[:appointment_time]['appointment_time(4i)']+":"+params[:appointment_time]['appointment_time(5i)']).strftime("%H:%M:%S")
-    site_visit_info['site_contactname']=params['site_visit_Contact_Name']
-    site_visit_info['site_contactnumber']=params['site_visit_Contact_Number']
-    site_visit_info['site_contactemail']=params['site_visit_Contact_Email']
+    site_visit_info['site_contact_name']=params['site_visit_Contact_Name']
+    site_visit_info['site_contact_number']=params['site_visit_Contact_Number']
+    site_visit_info['site_contact_email']=params['site_visit_Contact_Email']
     dealer_code=session[:DealerCode]
 
 

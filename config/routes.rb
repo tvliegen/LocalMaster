@@ -1,5 +1,9 @@
 Teknion::Application.routes.draw do
 
+  namespace :internal do
+    resources :installers_certifications
+  end
+
   namespace :dealermanager do
     resources :managers
   end
