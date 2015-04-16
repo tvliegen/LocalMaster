@@ -1,0 +1,55 @@
+.row
+  .col-md-12
+    .col-md-1
+    .col-md-11
+      %h3 Tekcare Users
+            
+  .row
+    .col-md-12
+      .col-md-1
+      .col-md-11
+        .col-md-10
+          .table-responsive
+            %table.table.table-striped.table-hover
+              %thead
+                %tr
+                  %th
+                    Login Name
+                  %th
+                    First Name
+                  %th
+                    Last Name
+              %tbody.rowlink{"data-link" => "row"}
+                - @dealer_members.each do |user_profile|
+                  %tr
+                    %td
+                      %a{:href => "/usermanagement/users/#{user_profile['id']}/edit"}
+                        = user_profile['profile']['login']
+                    %td
+                      = user_profile['profile']['firstName']
+                    %td
+                      = user_profile['profile']['lastName']
+                   
+  #contentModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Search", :role => "dialog", :tabindex => "-1"}
+  #modal_content
+  :javascript
+    $('#search').click(function (e) {
+      e.preventDefault();
+    
+      $('#modal_content').load('/usermanagement/searchusers');
+      $('#contentModal').modal('show');
+      });
+    $('#search_btn').click(function (e) {
+      e.preventDefault();
+      window.location='/usermanagement/searchusers?searchcriteria=' + $('#searchcriteria').val(); 
+    });
+  
+    $('#searchcriteria').bind("keydown",function (e) {
+
+         
+        if (e.which == 13)        {
+            e.preventDefault();
+            window.location='/usermanagement/searchusers?searchcriteria=' + $('#searchcriteria').val(); 
+      
+          }
+          });

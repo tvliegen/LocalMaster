@@ -722,8 +722,27 @@ p {
 
 #helpModal {
     	width: 900px;	
+	
 }
 
+body .installer-modal {
+    /* new custom width */
+    width: 900px;
+    height:500px;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    margin-top: -25px;
+    margin-left: -100px;
+    padding: 0px;
+    
+    /* must be half of the width, minus scrollbar on the left (30px) */
+   
+}
+
+#installer_content {
+  padding: 20px;
+}
 table.floatThead-table {
     border-top: none;
     border-bottom: none;

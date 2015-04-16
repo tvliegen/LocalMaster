@@ -1,0 +1,112 @@
+= form_for @internal_massmail do |f|
+  .container
+    .row
+      .col-md-4
+        = image_tag("teklogo-green.jpg", :width => "50", :height => "50") 
+        Mass Mailer
+      .col-md-4
+      .col-md-4
+    .row
+      .col-md-4
+      .col-md-4
+      .col-md-4
+    .form-group
+    .row
+      .col-md-2
+        = f.submit 'Save', :class => ['btn', 'btn-primary']
+        -#= link_to 'Cancel', internal_installer_certifications_path,:class => ['btn', 'btn-primary']
+      .col-md-10
+        .form-group
+    .row
+      .col-md-4
+        %br
+      .col-md-4
+      .col-md-4
+    .row
+      %h3
+        Mailing Summary
+    .row
+      .col-md-2
+        %p
+          Mailer ID
+      .col-md-10
+        .form-group
+          - if @internal_massmail.id.nil?
+            None
+          - else
+            =@internal_massmail.id    
+    .row
+      .col-md-2
+        %p
+          Creation Date
+      .col-md-10
+        .form-group
+          - if @internal_massmail.id.nil?
+            None
+          - else
+            =@internal_massmail.id   
+    .row
+      .col-md-2
+        %p
+          Mailer Title
+      .col-md-10
+        .form-group
+          = text_field_tag :title,@internal_massmail.title, :size => 50
+    .row
+      .col-md-2
+        %p
+          Description
+      .col-md-9
+        .form-group
+          = text_area(:description, cols: 80, rows: 20)
+      .col-md-1
+    .row
+      .col-md-2
+        %p
+          Sent By
+      .col-md-9
+        = text_field_tag :author,@internal_massmail.author, :size => 50
+      .col-md-1  
+    .row
+      %hr
+    .row
+      %h3
+        Mailing Details
+    .row
+      .col-md-2
+        %p
+          Subject
+      .col-md-9
+        .form-group
+          = text_field_tag :subject,@internal_massmail.subject, :size => 60
+      .col-md-1
+    .row
+      .col-md-2
+        %p
+          Message Body
+      .col-md-9
+        = f.bootsy_area(:content, cols: 80, rows: 20)
+      .col-md-1
+    .row
+      %hr
+    .row
+      %h3
+        Mailing Distribution
+  #installerModal.modal.installer-modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Issue", :role => "dialog", :tabindex => "-1"}
+    .modal-content
+      #installer_content
+    
+:javascript
+  $('#add_installer').click(function (e) {
+   e.preventDefault();
+   load_add(this);
+  });
+
+  
+  function load_add(focus_element) {
+  
+                $('#installer_content').load('');
+                $('#installerModal').modal('show');
+  }
+
+  

@@ -1,0 +1,19 @@
+%h1 Listing internal_massmails
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @internal_massmails.each do |internal_massmail|
+      %tr
+        %td= link_to 'Show', internal_massmail
+        %td= link_to 'Edit', edit_internal_massmail_path(internal_massmail)
+        %td= link_to 'Destroy', internal_massmail, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Massmail', new_internal_massmail_path

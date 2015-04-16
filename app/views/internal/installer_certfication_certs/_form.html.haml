@@ -1,0 +1,10 @@
+= form_for @internal_installer_certfication_cert do |f|
+  - if @internal_installer_certfication_cert.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@internal_installer_certfication_cert.errors.count, "error")} prohibited this internal_installer_certfication_cert from being saved:"
+      %ul
+        - @internal_installer_certfication_cert.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

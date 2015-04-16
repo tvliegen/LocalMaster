@@ -1,0 +1,167 @@
+/ = render 'shared/sidebar'
+%iframe{:src => 'http://teknion.fotonotes.com/j_spring_security_logout',:style => "display: none"}
+.tek-bar
+  .container-fluid
+    %p.breadcrumb
+      %span.last='Tekcare'
+      
+    %div{:role => "tabpanel"}
+      %ul.nav.nav-tabs.navbar-right{:role => "tablist"}
+        %li{class: ('active' if params[:status] == 'to_submit'), :role => "presentation"}
+          %a{:href => "/tekcare/claimsrequests?status=to_submit", :role => "tab"} New Claim Requests
+        %li{class: ('active' if ((params[:status].nil?) || (params[:status] == 'inprogress'))), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'inprogress'), :role => "tab"} 
+            Under Investigation
+            %span.badge 
+              = @total_count
+        %li{class: ('active' if params[:status] == 'info'), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'info'), :role => "tab"}
+            Information Required
+            %span.badge
+              = @info_count
+        %li{class: ('active' if params[:status] == 'actioned'), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'actioned'), :role => "tab"}
+            Resolution Planned
+            %span.badge
+              = @action_count
+        %li{class: ('active' if params[:status] == 'closed'), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'closed'), :role => "tab"} 
+            Closed
+            %span.badge
+              = @close_count            
+    .col-sm-12.searchbar
+      Search: 
+      = text_field_tag 'searchcriteria', nil, placeholder: 'Enter search term...'
+      %a{:href => "#", :class => ['glyphicon', 'glyphicon-search'], :id => "search_btn"}
+.container-fluid.claims-list.claim-wrapper
+  .col-sm-12.main
+    %h2.page-header.claim-status
+    -#=t(params[:status].nil? ? 'inprogress': params[:status])
+    %table.table.table-striped.table-hover{id: 'claim_table'}
+      %thead
+        %tr
+          %th 
+            = link_to "Claim Number", tekcare_claims_path(sort: 'issue', status: @status, order: @sortorder == 'issue' ? @order : 'desc')
+            - if @sortorder.eql?'issue'
+              - if @order.eql?'asc' 
+                %span.glyphicon.glyphicon-triangle-bottom
+              - else
+                %span.glyphicon.glyphicon-triangle-top
+            - else
+              %span.glyphicon.glyphicon-minus
+          %th 
+            = link_to "Title", tekcare_claims_path(sort: 'title', status: @status, order: @status, order: @sortorder == 'issue' ? @order : 'desc')
+            - if @sortorder.eql?'title'
+              - if @order.eql?'asc'
+                %span.glyphicon.glyphicon-triangle-bottom
+              - else
+                %span.glyphicon.glyphicon-triangle-top
+            - else
+              %span.glyphicon.glyphicon-minus
+          %th 
+            = link_to "Project", tekcare_claims_path(sort: 'project', status: @status, order: @status, order: @sortorder == 'project' ? @order : 'desc')
+            - if @sortorder.eql?'project'
+              - if @order.eql?'asc'
+                %span.glyphicon.glyphicon-triangle-bottom
+              - else
+                %span.glyphicon.glyphicon-triangle-top
+            - else
+              %span.glyphicon.glyphicon-minus
+          %th 
+            = link_to "Created By", tekcare_claims_path(sort: 'author', status: @status, order: @status, order: @sortorder == 'author' ? @order : 'desc')
+            - if @sortorder.eql?'author'
+              - if @order.eql?'asc'
+                %span.glyphicon.glyphicon-triangle-bottom
+              - else
+                %span.glyphicon.glyphicon-triangle-top
+            - else
+              %span.glyphicon.glyphicon-minus
+          %th 
+            = link_to "Last Modified", tekcare_claims_path(sort: 'modified', status: @status, order: @status, order: @sortorder == 'modified' ? @order : 'desc')
+            - if @sortorder.eql?'modified'
+              - if @order.eql?'asc'
+                %span.glyphicon.glyphicon-triangle-bottom
+              - else
+                %span.glyphicon.glyphicon-triangle-top
+            - else
+              %span.glyphicon.glyphicon-minus
+          %th 
+            = link_to "Status", tekcare_claims_path(sort: 'status', status: @status, order: @status, order: @sortorder == 'status' ? @order : 'desc')
+            - if @sortorder.eql?'status'
+              - if @order.eql?'asc'
+                %span.glyphicon.glyphicon-triangle-bottom
+              - else
+                %span.glyphicon.glyphicon-triangle-top
+            - else
+              %span.glyphicon.glyphicon-minus
+          -#%th Actions
+      %tbody.rowlink{"data-link" => "row"}
+        
+        - @claims.each do |claim|
+          %tr
+            %td
+              = link_to claim.incident_id, tekcare_claim_path(claim.incident_id)
+            %td= claim.claim_description
+            %td= claim.project_name
+            %td= claim.contact_name
+            %td= claim.incident_date
+            %td
+              %a{:href => "#", :sect => "issue_status_#{claim.incident_id}", :id=>"issue_status_link_#{claim.incident_id}"}
+                = claim.status
+                %span.glyphicon.glyphicon-triangle-bottom
+              %div{:name => "issue_status_#{claim.incident_id}", :id => "issue_status_#{claim.incident_id}", :style => "display: none; margin-left: -20px"}
+                %table.table.table-hover
+                  - claim['issues'].each do |issue|
+                    %tr
+                      %td
+                        = link_to issue['issue_id'], tekcare_claim_issue_path(issue['issue_id'], claim_id: claim.incident_id)
+                      %td
+                        =issue['issue_status_desc']
+            %td
+              %a{:href => tekcare_claim_close_path(claim.incident_id), :class => ['glyphicon','glyphicon-trash'], :alt => 'Delete'}
+            :javascript
+              $('#issue_status_link_#{claim.incident_id}').click(function (e){
+                e.preventDefault();
+                hide_element($(this).attr('sect'));
+              });
+             
+:javascript
+  $("#claim_table").floatThead({
+    scrollingTop: 150,
+    useAbsolutePositioning: false, //the default value
+  
+    scrollContainer: function($table){
+        return $table.closest('claim-wrapper');
+        }
+                   
+    });
+  $('#search_btn').click(function (e) {
+   e.preventDefault();
+   window.location='/claim/search?searchcriteria=' + $('#searchcriteria').val(); 
+  });
+  
+  $('#searchcriteria').bind("keydown",function (e) {
+
+         
+        if (e.which == 13)        {
+            e.preventDefault();
+            window.location='/claim/search?searchcriteria=' + $('#searchcriteria').val(); 
+      
+          }
+          });
+  function hide_element(obj_name) {
+
+  var tbl=$('#'+obj_name);
+  
+  
+  if ($('#'+obj_name).css('display')=='block')
+  {
+    $('#'+obj_name).hide();
+    }
+    else {
+  $('#'+obj_name).show();
+  }
+  }
+
+  
+  

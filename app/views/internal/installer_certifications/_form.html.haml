@@ -1,0 +1,160 @@
+= form_for @internal_installer_certification do |f|
+
+  .container
+    .row
+      .col-md-4
+        = image_tag("teklogo-green.jpg", :width => "50", :height => "50") 
+        North American Installer Registry
+      .col-md-4
+      .col-md-4
+    .row
+      .col-md-4
+      .col-md-4
+      .col-md-4
+    .form-group
+    .row
+      .col-md-2
+        = f.submit 'Save', :class => ['btn', 'btn-primary']
+        = link_to 'Cancel', internal_installer_certifications_path,:class => ['btn', 'btn-primary']
+      .col-md-10
+        .form-group
+    .row
+      .col-md-4
+        %br
+      .col-md-4
+      .col-md-4
+    .row
+      .col-md-2
+        %p
+          Company ID
+      .col-md-10
+        .form-group
+          - if @internal_installer_certification.id.nil?
+            None
+          - else
+            =@internal_installer_certification.id
+            
+            
+    .row
+      .col-md-2
+        %p
+          Company Name
+      .col-md-10
+        .form-group
+          = text_field_tag :companyname,@internal_installer_certification.companyname
+    .row
+      .col-md-2
+        %p
+          Address
+      .col-md-10
+        .form-group
+          = text_field_tag :companyaddress,@internal_installer_certification.companyaddress
+    .row
+      .col-md-3
+        %p
+          City
+      .col-md-3
+        .form-group
+          = text_field_tag :companycity,@internal_installer_certification.companycity
+      .col-md-3
+        %p
+          Province/State
+      .col-md-3
+        = text_field_tag :companyprovstate,@internal_installer_certification.companyprovstate
+    .row
+      .col-md-3
+        %p
+          Country
+      .col-md-3
+        .form-group
+          = text_field_tag :companycountry,@internal_installer_certification.companycountry
+      .col-md-3
+        %p
+          Postal/Zip Code
+      .col-md-3
+        = text_field_tag :companypostalzip,@internal_installer_certification.companypostalzip
+    .row
+      .col-md-3
+        %p
+          Contact Name
+      .col-md-3
+        .form-group
+          = text_field_tag :companycontactname,@internal_installer_certification.companycontactname
+      .col-md-3
+        %p
+          Contact Number
+      .col-md-3
+        = text_field_tag :companycontactnumber,@internal_installer_certification.companycontactnumber
+    .row
+      .col-md-3
+        %p
+          Contact Email
+      .col-md-3
+        .form-group
+          = text_field_tag :companycontactemail,@internal_installer_certification.companycontactemail
+      .col-md-3
+      .col-md-3
+    .row
+      .col-md-3
+        %p
+          Associated Dealers
+      .col-md-3
+        = text_field_tag :companydealers,@internal_installer_certification.companydealers
+      .col-md-3
+        %p
+          Projects
+      .col-md-3
+        = text_field_tag :companyprojects,@internal_installer_certification.companyprojects
+    .row
+      .col-md-3
+        %p
+          Comments
+      .col-md-3
+        = text_field_tag :companycomments,@internal_installer_certification.companycomments
+      .col-md-3
+      .col-md-3
+    - if !@internal_installer_certification.id.nil?           
+      .row
+        .col-md-2
+          %a.btn.btn-primary{:href => "#", :id => 'add_installer'} Add Installer
+        .col-md-10
+          .form-group
+      %table.table
+        %tbody
+          %tr
+            %td
+              Installer Name
+            %td
+              Certifications
+            %td
+              Expiration
+            %td
+              %br/
+        - @internal_installer_certification_installers.each do |installer|
+          %tr
+            %td
+              = link_to installer.installername, edit_internal_installer_certifications_installer_path(installer)
+            %td
+              
+            %td
+              
+            %td
+              %br/
+  #installerModal.modal.installer-modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Issue", :role => "dialog", :tabindex => "-1"}
+    .modal-content
+      #installer_content
+    
+:javascript
+  $('#add_installer').click(function (e) {
+   e.preventDefault();
+   load_add(this);
+  });
+
+  
+  function load_add(focus_element) {
+  
+                $('#installer_content').load('#{new_internal_installer_certifications_installer_path}?companyid=#{@internal_installer_certification.id}');
+                 $('#installerModal').modal('show');
+  }
+
+  

@@ -1,0 +1,68 @@
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %link{:href => "https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css", :rel => "stylesheet"}/
+  %body
+    .container
+      .row
+        .col-md-4
+          = image_tag("teklogo-green.jpg", :width => "50", :height => "50") 
+          North American Installer Registry
+        .col-md-4
+        .col-md-4
+      .row
+        .col-md-4
+          %br
+        .col-md-4
+        .col-md-4
+      .row
+        .col-md-4
+          = link_to 'New Installation Company', new_internal_installer_certification_path, :class => ['btn', 'btn-primary']
+        .col-md-4
+        .col-md-4
+          %input.form-control{:placeholder => "Search Here...", :type => "text"}/
+      .form-group
+      %table.table
+        %tbody
+          %tr
+            %td
+              Company Name
+            %td
+              City
+            %td
+              State/Province
+            %td
+              Country
+            %td
+              Certifications
+            %td
+              Expiration Date
+            %td
+              Delete  
+            %td
+        - @internal_installer_certifications.each do |internal_installers_certification|
+          %tr
+            %td= link_to internal_installers_certification.companyname, edit_internal_installer_certification_path(internal_installers_certification)
+            %td= internal_installers_certification.companycity
+            %td= internal_installers_certification.companyprovstate
+            %td= internal_installers_certification.companycountry
+            %td
+            %td
+            %td= link_to 'Destroy', internal_installers_certification, :method => :delete, :data => { :confirm => 'Are you sure?' }
+            %td= link_to 'Show', internal_installers_certification
+            -#%td= link_to 'Edit', edit_internal_installers_certification_path(internal_installers_certification)
+            -#%td= link_to 'Destroy', internal_installers_certification, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          
+
+
+
+
+
+
+
+

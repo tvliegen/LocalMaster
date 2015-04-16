@@ -1,0 +1,19 @@
+%h1 Listing internal_installer_certfication_certs
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @internal_installer_certfication_certs.each do |internal_installer_certfication_cert|
+      %tr
+        %td= link_to 'Show', internal_installer_certfication_cert
+        %td= link_to 'Edit', edit_internal_installer_certfication_cert_path(internal_installer_certfication_cert)
+        %td= link_to 'Destroy', internal_installer_certfication_cert, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Installer certfication cert', new_internal_installer_certfication_cert_path

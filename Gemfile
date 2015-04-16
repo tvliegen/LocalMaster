@@ -28,6 +28,7 @@ gem 'faraday_middleware'
 gem 'newrelic_rpm'
 gem 'boxr'
 gem 'puma'
+gem 'bootsy'
 
 #group :development do
 #  gem 'pry-byebug'

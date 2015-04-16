@@ -1,0 +1,54 @@
+#claim_content
+  -# if @claim_issue.issue_status !='COMM-QUE'
+  .btn-group
+    - if @claim_issue.issue_status !='COMM-QUE'
+      %button#new_clarification.btn.btn-default New
+        
+  .table-responsive
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th
+            Date
+          %th
+            Subject
+          %th
+            From
+          %th
+            Status
+      %tbody.rowlink
+        - @claim_issue.clarifications.each do |clarification|
+          %tr
+            %td
+              %a{href: 'javascript:;', id: "clarification_modal_#{clarification.clarification_id}"}
+                = clarification.timestamp.strftime("%Y/%m/%d %H:%M:%S")
+            %td
+              = clarification.subject
+            %td
+              = clarification.sent_by
+            %td
+              = clarification.status
+          %div.jqmWindow{id: "clarification_modal_#{clarification.clarification_id}"}
+            Please wait...
+
+          :javascript
+            $(function() {
+              $('#clarification_modal_#{clarification.clarification_id}').jqm({
+                ajax: "/tekcare/clarifications/#{clarification.clarification_id}/edit?claim_issue_id=#{clarification.issue_id}&claim_id=#{@claim_id}",
+                trigger: 'a#clarification_modal_#{clarification.clarification_id}',
+                modal: true
+              });
+            });
+  
+
+      #new_clarification_modal.jqmWindow
+        Please wait...
+
+:javascript
+  $(function() {
+    $('#new_clarification_modal').jqm({
+      ajax: "/tekcare/claim_issues/#{@claim_issue.issue_id}/clarifications/new?claim_id=#{@claim_id}",
+      trigger: '#new_clarification',
+      modal: true
+    });
+  });

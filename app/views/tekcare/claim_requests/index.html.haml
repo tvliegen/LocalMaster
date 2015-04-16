@@ -1,0 +1,38 @@
+.tek-bar
+  .container-fluid
+    %p.breadcrumb
+      %span.last='Tekcare'
+      
+    %div{:role => "tabpanel"}
+      %ul.nav.nav-tabs.navbar-right{:role => "tablist"}
+        %li{class: ('active' if params[:status] == 'to_submit'), :role => "presentation"}
+          %a{:href => "/tekcare/claimsrequests?status=to_submit", :role => "tab"} New Claim Requests
+        %li{class: ('active' if ((params[:status].nil?) || (params[:status] == 'inprogress'))), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'inprogress'), :role => "tab"} 
+            Under Investigation 
+            %span.badge 
+              = @total_count
+        %li{class: ('active' if params[:status] == 'info'), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'info'), :role => "tab"}
+            Information Required
+            %span.badge
+              = @info_count
+        %li{class: ('active' if params[:status] == 'actioned'), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'actioned'), :role => "tab"}
+            Resolution Planned
+            %span.badge
+              = @action_count
+        %li{class: ('active' if params[:status] == 'closed'), :role => "presentation"}
+          %a{:href => tekcare_claims_path(status: 'closed'), :role => "tab"} 
+            Closed
+            %span.badge
+              = @close_count
+-if !session[:fntoken].empty?
+  .fotonotes-wrapper.col-sm-12
+    %iframe{:src => "http://teknion.fotonotes.com/tkn/index/?token=#{session[:fntoken]}",:frameborder =>0, :id => "fnframe"}
+-else
+  .fotonotes-wrapper.col-sm-12
+    %h3
+      Sorry, you do not have access to this feature. Please see your administrator.
+
+  

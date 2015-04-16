@@ -1,2 +1,0 @@
-module Teknion::RgaHelper
-end

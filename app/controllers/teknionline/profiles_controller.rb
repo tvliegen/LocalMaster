@@ -63,7 +63,7 @@ redirect_to "/login/authenticates/setsession"
 
     def switch
     	    session[:DealerCode]=params[:id]
-    	  redirect_to "/"
+    	  redirect_to "/login/authenticates/loginfn?redirect=/tekcare/claims"
     end
     def user_profile_params
     	    

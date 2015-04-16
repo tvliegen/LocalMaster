@@ -1,0 +1,66 @@
+%div.clarification_edit_modal{id: "clarification_edit_wrapper_#{@clarification.clarification_id}"}
+
+  %h5.modal-header Clarification
+  = form_for @clarification, url: tekcare_clarification_path(@clarification.clarification_id, claim_id: @claim_id), method: :put, html: { class: 'form-horizontal', id: 'clarification' } do |f|
+
+    - if @clarification.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@clarification.errors.count, "error")
+          prohibited this clarification from being saved:
+        %ul
+          - @clarification.errors.full_messages.each do |message|
+            %li= message
+    .table-responsive
+      %table.table
+        %tbody.rowlink
+          %tr
+            %td
+              = f.label :sent_by
+            %td
+              = @clarification.sent_by
+          %tr
+            %td
+              = f.label :subject
+            %td
+              = @clarification.subject
+          %tr
+            %td
+              = f.label :content, "Question"
+            %td
+              = @clarification.content
+          %tr
+            %td
+              = label_tag :answer_content, "Answer"
+            - if @answer.clarification_id.present?            
+              %td
+                = @answer.content
+            - else 
+              %td
+                = text_area_tag :answer_content, @answer.content, :cols => "50", :rows => "10" 
+          %tr
+            %td
+              %p
+                = f.label nil, "Attachments"
+                = f.file_field 'file_uploaded'
+                = hidden_field_tag :answer_issue_id, @answer.issue_id
+                = hidden_field_tag :answer_subject, @answer.subject
+                = hidden_field_tag :answer_response_to_id, @answer.response_to_id
+                = hidden_field_tag :answer_type, @answer.type
+                = hidden_field_tag :answer_sent_by, @answer.sent_by
+                = hidden_field_tag :answer_sent_to, @answer.sent_to
+             
+               
+            
+            
+            
+            
+    .form-actions
+      - if !@answer.clarification_id.present?
+        %a{:href => "javascript:submit_form()", :class => [:btn, 'btn-primary'], :id => "send_btn"} Send
+      %a{:href => "#", :class => [:btn, 'btn-primary', 'jqmClose'], :id => "close_btn"} Cancel 
+:javascript
+  function submit_form(){
+      $('#send_btn').addClass("disabled");
+      $('form#clarification').submit();
+    }   

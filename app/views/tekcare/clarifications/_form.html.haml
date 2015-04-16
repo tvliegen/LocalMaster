@@ -1,0 +1,39 @@
+= form_for @clarification, url: tekcare_clarification_path(@clarification.clarification_id), html: { class: 'form-horizontal', id: 'whatever' } do |f|
+
+  - if @clarification.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@clarification.errors.count, "error")
+        prohibited this clarification from being saved:
+      %ul
+        - @clarification.errors.full_messages.each do |message|
+          %li= message
+
+  = f.hidden_field :type
+  %p.mod-author
+    = f.label :sent_by
+    = f.text_field :sent_by
+  %p.mod-subject
+    = f.label :subject
+    = f.text_field :subject
+
+  - if @clarification.type == 'question'
+    %p.mod-question
+      = f.label :content, "Question"
+      = f.text_field :content
+    %p.mod-answer
+      = label_tag :answer, "Answer"
+      = text_area_tag :answer, @answer.content
+
+  - if @clarification.type == 'answer'
+    = f.hidden_field :response_to_id
+    %p.mod-question
+      = label_tag :question, "Question"
+      = text_field_tag :question, @question.content
+    %p.mod-answer
+      = f.label :content, "Answer"
+      = f.text_area :content
+
+  .form-actions
+    = f.button :submit, class: [:btn, 'btn-primary']
+

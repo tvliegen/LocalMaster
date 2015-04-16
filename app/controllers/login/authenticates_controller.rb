@@ -43,9 +43,13 @@ end
 
 def login_fotonotes
   @fn=FotonotesLogin.new
-  
-  session[:fntoken]=@fn.login(session[:username],session[:DealerCode])
+  session[:fntoken]=nil
+  fntoken=@fn.login(session[:username],session[:DealerCode])
+  session[:fntoken]=fntoken
+ logger.info 'TOKEN: ' + fntoken
  redirect_to params["redirect"]
+ 
+ 
  
 end
  
@@ -61,8 +65,7 @@ def set_session
 	session[:DealerCode]=set_default_dealercode
 	
 	respond_to do |format|
-      
-      	     format.html { redirect_to "/login/authenticates/loginfn?redirect=/claims" }
+      	     format.html { redirect_to "/login/authenticates/loginfn?redirect=/tekcare/claims" }
 	end
 end
 

@@ -1,0 +1,77 @@
+   
+.container
+  = form_for @internal_installer_certifications_installer do |f|
+    .row
+      .col-md-4
+        = f.submit 'Save', :class => ['btn', 'btn-primary']
+        = link_to 'Return', internal_installer_certification_path,:class => ['btn', 'btn-primary']
+        = text_field_tag :companyid,@internal_installer_certifications_installer.companyid,:hidden=> true
+      .col-md-8
+        .form-group
+    .row
+      .col-md-4
+        %br 
+      .col-md-4
+      .col-md-4
+    .row
+      .col-md-2
+        %p
+          Installer Name
+      .col-md-5
+        .form-group
+          = text_field_tag :installername,@internal_installer_certifications_installer.installername,{:size => 20, :class => 'form-control'}
+      .col-md-5
+    .row
+      .col-md-2
+        %p
+          Contact Number
+      .col-md-2
+        .form-group
+          = text_field_tag :installercontactnumber,@internal_installer_certifications_installer.installercontactnumber,{:size => 1, :class => 'form-control'}
+      .col-md-8
+    .row
+      .col-md-2
+        %p
+          Contact Email
+      .col-md-2
+        .form-group
+          = text_field_tag :installercontactemail,@internal_installer_certifications_installer.installercontactemail,{:size => 1, :class => 'form-control'}
+      .col-md-8
+    .row
+      .col-md-2
+        Certifications
+      .col-md-10
+        .form-group
+    .row   
+      .col-md-12
+        %table.table
+          %tbody
+            %tr
+              %th
+                Certification
+              %th
+                Training Date
+              %th
+                Certification Expiry
+              %th
+                Certification Number
+              %th
+                Certification Audited
+            %tr
+              %td
+                = text_field_tag :installertempcert
+              %td
+                = select_date()
+                -#('installertemptrainingdate')
+              %td
+                = select_date()
+                -#= text_field_tag :installertempexpiry
+              %td
+                = text_field_tag :installertempnumber
+              %td
+                = text_field_tag :installertempaudited
+    .row
+      .col-md-3
+        = link_to 'Add', '#',:class => ['btn', 'btn-primary']
+        -#= link_to 'Clear', internal_installers_certifications_path,:class => ['btn', 'btn-primary']
+      

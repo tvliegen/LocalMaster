@@ -1,0 +1,32 @@
+#clarification_new_wrapper
+
+  %h5.modal-header New Attachment
+  = form_for @attachment, url: tekcare_claim_issue_attachments_path(@attachment.issue_id, claim_id: @claim_id), html: { class: 'form-horizontal', id: 'whatever' } do |f|
+
+    - if @attachment.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@attachment.errors.count, "error")
+          prohibited this clarification from being saved:
+        %ul
+          - @attachment.errors.full_messages.each do |message|
+            %li= message
+        .confirm-dismiss
+          %a.btn.btn-default.btn-sm
+            OK
+    %p.mod-author
+      = f.label :created_by
+      = session[:FirstName] + ' ' + session[:LastName]
+    %p.mod-question
+      = f.label :description
+      = f.text_area :description, :cols => "50", :rows => "10"
+    %p
+      = f.label nil, "Attachments"
+      = f.file_field 'file_uploaded'
+    %p
+      Please note: Files uploaded may take up to 15 minutes to become available in Tekcare.
+    .form-actions
+      = submit_tag "Attach", :class => [:btn, 'btn-primary']
+      = button_tag "Cancel", :class => [:btn, 'btn-primary', 'jqmClose']
+      
+      

@@ -1,16 +1,27 @@
 Teknion::Application.routes.draw do
 
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   namespace :internal do
-    resources :installers_certifications
+    resources :massmails
   end
+
+  namespace :internal do
+    resources :installer_certfication_certs
+  end
+
+  namespace :internal do
+    resources :installer_certifications_installers
+  end
+
+  namespace :internal do
+    resources :installer_certifications
+  end
+
 
   namespace :dealermanager do
     resources :managers
   end
 
-  namespace :teknion do
-    resources :backcharges
-  end
 
   namespace :usermanagement do
     resources :users
@@ -53,13 +64,20 @@ Teknion::Application.routes.draw do
   root 'teknionline/mains#index'
 
   # Tekcare routes
-   scope module: 'teknion', as: 'teknion' do
-   
-     resources :claims, only: [:index, :show] do
+  # scope module: 'teknion', as: 'tekcare' do
+   namespace :tekcare do
+    resources :claims, only: [:index, :show] do
       get :close
       resources :claim_issues, only: :index
     end
+    
     get 'claim/search', to: 'claims#search'
+    get 'admin', to: 'user_admin#index'
+    get 'claimsrequests', to: 'claim_requests#index'
+    get 'rga/bol', to: 'rga#bol'
+    get 'rga/comminvoice', to: 'rga#comminvoice'
+    get 'rga/rgadoc', to: 'rga#rgadoc'
+    get 'rga/rgapack', to: 'rga#rgapack'
     resources :claim_issues, only: :show do
       resources :clarifications, shallow: true
       resources :journals, only: [:index, :new, :create, :edit, :show]
@@ -71,74 +89,13 @@ Teknion::Application.routes.draw do
       post 'back_charges/closereq', to: 'back_charges#close_request_create'
       get 'back_charges/closereq/new', to: 'back_charges#close_request_new'
     end
-    resources :journals, only: [:show, :update, :destroy]
     resources :back_charges, only: [:show, :update, :destroy]
     
   end
 
-  scope module: 'teknion', as: 'teknion' do
-    get 'claimsrequests', to: 'claim_requests#index'
-    get 'rga/bol', to: 'rga#bol'
-    get 'rga/comminvoice', to: 'rga#comminvoice'
-    get 'rga/rgadoc', to: 'rga#rgadoc'
-    get 'rga/rgapack', to: 'rga#rgapack'
-   
- end
+ 
 
   match '/oe', :to => redirect('/public/os/index.html'), via: [:get, :post]
   match '/tekcarehelp', :to =>redirect('/public/tekcare_help'), via: [:get, :post]
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+ 
 end
