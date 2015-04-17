@@ -27,8 +27,8 @@ private
   
   private
   def set_locale
-    I18n.locale = session[:locale] || I18n.default_locale
-    session[:locale] = I18n.locale
+    I18n.locale = session[:Language] || I18n.default_locale
+    session[:Language] = I18n.locale
   end
 
   def okta_connection
