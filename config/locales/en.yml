@@ -282,7 +282,9 @@ en:
     action_summ_lbl: "Action Plan Summary"
     action_tken_lbl: "Action Taken"
     comment_lbl: "Comments"
-    order_info_msg "Show Replacement Order Information"
+
+    order_info_msg: "Show Replacement Order Information"
+
     more_info_msg: "For more information, please visit:"
     more_info_cont_msg: "and enter the PO Number listed below."
     ship_lbl: "Ship To Name"
