@@ -1,5 +1,9 @@
 Teknion::Application.routes.draw do
 
+  get 'set_language/english'
+
+  get 'set_language/french'
+
   namespace :internal do
     resources :installers_certifications
   end

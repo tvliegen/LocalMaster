@@ -3,15 +3,15 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        = f.submit "Save", class: "btn btn-default btn-sm"
-        = link_to 'Cancel', "/", class: "btn btn-default btn-sm"
+        = f.submit t('general_buttons.save_btn'), class: "btn btn-default btn-sm"
+        = link_to t('general_buttons.cancel_btn'), "/", class: "btn btn-default btn-sm"
   %br/
   %br/
   .row
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:login, "User Name")
+        .col-md-3= label_tag(:login, t('profile_update_form.name_label'))
         .col-md-9= @user_profile.login
   %br/
   %br/
@@ -19,7 +19,7 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:firstname, "First Name")
+        .col-md-3= label_tag(:firstname, t('profile_update_form.first_name_label'))
         .col-md-9= f.text_field :firstname
   %br/
   %br/
@@ -27,7 +27,7 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:lastname, "Last Name")
+        .col-md-3= label_tag(:lastname, t('profile_update_form.last_name_label'))
         .col-md-9= f.text_field :lastname
   %br/
   %br/
@@ -35,7 +35,7 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:email, "E-Mail")
+        .col-md-3= label_tag(:email, t('profile_update_form.email_label'))
         .col-md-9= f.text_field :email
   %br/
   %br/
@@ -43,9 +43,9 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:language, "Language")
+        .col-md-3= label_tag(:language, t('general_languages.language_label'))
         .col-md-9
-          = f.select :language, [['English','EN'],['French','FRC']]
+          = f.select :language, [[t('general_languages.language_option_en'),'EN'],[t('general_languages.language_option_fr'),'FRC']]
           
           
   %br/
@@ -54,7 +54,7 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:changepassword, "Change Password")
+        .col-md-3= label_tag(:changepassword, t('profile_update_form.change_pass_label'))
         .col-md-9
           = check_box("changepassword", "accepted", {}, "yes", "no")
   %br/
@@ -63,7 +63,7 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:currentpassword, "Current Password")
+        .col-md-3= label_tag(:currentpassword, t('profile_update_form.current_pass_label'))
         .col-md-9
           = f.password_field :currentpassword
           
@@ -73,7 +73,7 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:newpassword, "New Password")
+        .col-md-3= label_tag(:newpassword, t('profile_update_form.new_pass_label'))
         .col-md-9
           = f.password_field :newpassword
           

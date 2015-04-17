@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper :all
   before_action :checkLogin
+  before_action :set_locale
 
 private
 
@@ -22,6 +23,12 @@ private
 
     logger.info conn.params
     return conn
+  end
+  
+  private
+  def set_locale
+    I18n.locale = session[:locale] || I18n.default_locale
+    session[:locale] = I18n.locale
   end
 
   def okta_connection

@@ -1,10 +1,11 @@
 = form_for @dealermanager_manager do |f|
   - if @dealermanager_manager.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@dealermanager_manager.errors.count, "error")} prohibited this dealermanager_manager from being saved:"
+      %h2= "#{pluralize(@dealermanager_manager.errors.count, "error")}"
+        =t('dealer_manage_form.dealer_error_message')
       %ul
         - @dealermanager_manager.errors.full_messages.each do |msg|
           %li= msg
 
   .actions
-    = f.submit 'Save'
+    = f.submit t('general_buttons.save_btn')

@@ -2,7 +2,8 @@
   .col-md-12
     .col-md-1
     .col-md-11
-      %h3 Search Results                      
+      %h3
+        =t('user_management.search_result_title')                     
   .row
     .col-md-12
       .col-md-1
@@ -13,13 +14,13 @@
               %thead
                 %tr
                   %th
-                    Login Name
+                    =t('user_management.login_name_lbl')
                   %th
-                    First Name
+                    =t('user_management.first_name_lbl')
                   %th
-                    Last Name
+                    =t('user_management.last_name_lbl')
                   %th
-                    Last Login
+                    =t('user_management.last_login_lbl')
               %tbody.rowlink{"data-link" => "row"}
                 - @search_results.each do |user_profile|
                   %tr
@@ -33,7 +34,7 @@
                     %td
                       = user_profile["lastLogin"]
                     %td                 
-                      = link_to("/usermanagement/users/addotheruser", data: {confirm: "Are you sure you want to add this user?"}) do
+                      = link_to("/usermanagement/users/addotheruser", data: {confirm: t('user_management.add_user_comfirm_msg')}) do
                         %i.glyphicon.glyphicon-play-circle            
             #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
               .modal-dialog
@@ -41,9 +42,12 @@
                   .modal-header
                     %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
                       %span{"aria-hidden" => "true"} &times;
-                    %h4#myModalLabel.modal-title Add User to Another Organization
+                    %h4#myModalLabel.modal-title 
+                      =t('user_management.add_to_org_msg')
                   .modal-body
                     \...
                   .modal-footer
-                    %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
-                    %button.btn.btn-primary{:type => "button"} Save changes
+                    %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+                      =t('general_buttons.close_btn')
+                    %button.btn.btn-primary{:type => "button"}
+                      =t('user_management.save_changes_btn')

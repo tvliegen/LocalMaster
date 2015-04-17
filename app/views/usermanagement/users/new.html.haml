@@ -3,8 +3,10 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        %h3 New Profile
-        %h4 Step 1 - Choose User Name
+        %h3
+          =t('user_management.new_user_title')
+        %h4 
+          =t('user_management.first_step_msg')
 
   %br
   %br
@@ -12,9 +14,9 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        .col-md-3= label_tag(:login, "User Name")
+        .col-md-3= label_tag(:login, t('user_management.username_lbl'))
         .col-md-3= f.text_field :login
-        .col-md-6= @user_valid ? 'User Exists' : 'Please enter a user name'
+        .col-md-6= @user_valid ? t('user_management.exists_msg') : t('user_management.username_prompt_msg')
         
   %br
   %br     
@@ -23,12 +25,12 @@
       .col-md-1
       .col-md-11
         .col-md-3
-          = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm btn-primary" 
+          = link_to t('general_buttons.cancel_btn'), "/usermanagement/users/", class: "btn btn-default btn-sm btn-primary" 
           -if @user_valid
             %a{:href=>'#', :class=> "btn btn-default btn-primary btn-sm", :id => "add_btn"} Add User
-            = f.submit "Check User", class: "btn btn-default btn-primary btn-sm", id: "save_btn"
+            = f.submit t('user_management.check_btn'), class: "btn btn-default btn-primary btn-sm", id: "save_btn"
           -else
-            = f.submit "Check User", class: "btn btn-default btn-primary btn-sm disabled", id: "save_btn"
+            = f.submit t('user_management.check_btn'), class: "btn btn-default btn-primary btn-sm disabled", id: "save_btn"
 :javascript                                    
   function check_mandatory() {
      

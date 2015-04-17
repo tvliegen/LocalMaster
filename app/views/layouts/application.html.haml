@@ -32,7 +32,8 @@
           %ul.nav.navbar-nav.navbar-right.main_top_menu
             - if session[:FirstName] == nil
               %li
-                %a#login{"data-target" => "/login/authenticates/login", :href => "#"} Login
+                %a#login{"data-target" => "/login/authenticates/login", :href => "#"}
+                  =t('login_page.username_label')
             - else
               - create_menu
               %li.dropdown
@@ -42,7 +43,8 @@
                   = render :text => session[:LastName]
                   %b.caret
                 %ul.dropdown-menu{:role => "menu"}
-                  %li.dropdown-header Accounts
+                  %li.dropdown-header 
+                    =t('head_file.account_dropdown.accounts')
                   - @userAccounts=getAccounts(session[:Groups])
                   - @userAccounts.each do |account_number|
                     %li{:role => "presentation"}
@@ -51,30 +53,36 @@
                           %i.glyphicon.glyphicon.glyphicon-ok.icon-action                     
                         = account_number.split('|')[0] + ' ('+account_number.split('|')[1] +')'                
                   %li.divider
-                  %li.dropdown-header Settings
+                  %li.dropdown-header 
+                    =t('head_file.account_dropdown.settings')
                   %li
-                    %a{:href => "/teknionline/profiles/edit", :role => "menuitem"} Profile
+                    %a{:href => "/teknionline/profiles/edit", :role => "menuitem"} 
+                      =t('head_file.account_dropdown.profile')
                   %li.divider
                   %li
-                    %a{:href => "/login/authenticates/logout", :role => "menuitem"} Log Out
+                    %a{:href => "/login/authenticates/logout", :role => "menuitem"}
+                      =t('head_file.account_dropdown.log_out')
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   %span.glyphicon.glyphicon.glyphicon-wrench{"aria-hidden" => "true"}
-                  Tools
+                    =t('head_file.tools_dropdown.tool_title')
                   %b.caret
                 %ul.dropdown-menu
                   %li
-                    %a{:href => "/usermanagement/users/"} User Admin
+                    %a{:href => "/usermanagement/users/"} 
+                      =t('head_file.tools_dropdown.user_admin')
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   %span.glyphicon.glyphicon-info-sign{"aria-hidden" => "true"}
-                  Help
+                    =t('head_file.help_dropdown.help_title')
                   %b.caret
                 %ul.dropdown-menu
                   %li
-                    %a{:href => "#", "data-target" => "/tekcare_help/dealerhandbook.html", :id =>"help1"} Tekcare Handbook
+                    %a{:href => "#", "data-target" => "/tekcare_help/dealerhandbook.html", :id =>"help1"}
+                      =t('head_file.help_dropdown.handbook')
                   %li
-                    %a{:href => "#", "data-target" => "/tekcare_help/statusdef.html", :id =>"help2"} Tekcare Status Definition
+                    %a{:href => "#", "data-target" => "/tekcare_help/statusdef.html", :id =>"help2"}
+                      =t('head_file.help_dropdown.status_definition')
                
                         
   #contentModal.modal.login_modal.fade{"aria-hidden" => "true", "aria-labelledby" => "Issue", :role => "dialog", :tabindex => "-1"}

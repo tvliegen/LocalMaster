@@ -56,6 +56,13 @@ def set_session
 	session[:FirstName] =@user_profile_raw["profile"]["firstName"]
 	session[:LastName] = @user_profile_raw["profile"]["lastName"]
 	session[:Language] = @user_profile_raw["profile"]["language"]
+	if @login_authenticate.language == 'en'
+	  session[:Language] = @login_authenticate.language
+	  set_language_english_path
+	elsif @login_authenticate.language == 'fr'
+	  session[:Language] = @login_authenticate.language
+	  set_language_french_path
+	end
 	
 	session[:Groups]=@idp.getGroups(idp_id,'names').select {|g| g.include? 'dealer'}
 	session[:DealerCode]=set_default_dealercode
