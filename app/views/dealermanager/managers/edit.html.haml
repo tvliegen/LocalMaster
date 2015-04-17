@@ -1,7 +1,8 @@
-%h1 Editing dealermanager_manager
+%h1
+  =t('dealer_manage_form.dealer_edit_msg')
 
 = render 'form'
 
-= link_to 'Show', @dealermanager_manager
+= link_to t('general_labels.show_lbl'), @dealermanager_manager
 \|
-= link_to 'Back', dealermanager_managers_path
+= link_to t('general_labels.back_lbl'), dealermanager_managers_path

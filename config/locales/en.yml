@@ -1,27 +1,383 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+---
 en:
-  claims: "In Progress"
-  inprogress: "In Progress"
-  info: "Information Required"
-  actioned: "Actioned"
-  closed: "Closed"
+  general_buttons:
+    save_btn: "Save"
+    login_btn: "Login"
+    close_btn: "Close"
+    cancel_btn: "Cancel"
+    send_btn: "Send"
+    new_btn: "New"
+    ok_btn: "OK"
+  general_labels:
+    show_lbl: "Show"
+    edit_lbl: "Edit"
+    destroy_lbl: "Destroy"
+    back_lbl: "Back"
+    delete_lbl: "Delete"
+  general_languages:
+    language_label: "Language"
+    language_option_en: "English"
+    language_option_fr: "French"
+  #Used over a few pages
+  search_bar:
+    search: "Search:"
+    search_placeholder: "Enter search term..."
+    
+
+  login_page:
+    #app/views/login/authenticates/_form
+    login_prompt: "Please Login."
+    username_label: "Login"
+    password_label: "Password"
+
+  head_file:
+  #app/views/layouts/application
+    account_dropdown:
+      accounts: "Accounts"
+      settings: "Settings"
+      profile: "Profile"
+      log_out: "Log Out"
+    tools_dropdown:
+      tool_title: "Tools"
+      user_admin: "User Admin"
+    help_dropdown: 
+      help_title: "Help"
+      handbook: "Tekcare Handbook"
+      status_definition: "Tekcare Status Definition"
+  
+  #app/views/teknion/claims/index
+  #also used for teknion/claim_requests/index
+  claims_navbar:
+    new_claim: "New Claim Requests"
+    investigation: "Under Investigation"
+    info_required: "Information Required"
+    resolution: "Resolution Planned"
+    closed: "Closed"
+  claim_title:
+    claim_number: "Claim Number"
+    claim_title: "Title"
+    claim_project: "Project"
+    claim_creator: "Created By"
+    claim_last_mod: "Last Modified"
+    claim_status: "Status"
+  #app/views/teknion/claims/show
+  claim_show_form:
+    claim_number: "Claim:"
+    claim_title_lbl: "Claim Title:"
+    claim_general_lbl: "General Claim Information"
+    
+    #Dealer Detailed Rows
+    dealer_info_lbl: "Dealer Information"
+    dealer_name_lbl: "Dealer Name"
+    dealer_number_lbl: "Dealer Number"
+    dealer_contact_name_lbl: "Dealer Contact Name"
+    dealer_contact_number_lbl: "Dealer Contact Number"
+    dealer_contact_email_lbl: "Dealer Contact Email"
+    
+    #Original Order Detailed Rows
+    org_order_info_lbl: "Original Order Information"
+    universal_num_lbl: "Universal Number"
+    po_num_lbl: "PO Number"
+    sq_num_lbl: "SQ Number"
+    sq_rev_num_lbl: "SQ Rev Number"
+    end_customer_lbl: "End Customer"
+    rec_date_lbl: "Claim Received Dated"
+    proj_name_lbl: "Project Name"
+    
+    #Installation Detailed Rows
+    install_info_lbl: "Installation Information"
+    intall_progress_lbl: "Installation in Progress"
+    estimated_complete_lbl: "Estimated Completion"
+    install_company_lbl: "Installation Company"
+    install_lead_lbl: "Installer Lead"
+    lead_contact_num_lbl: "Lead Contact Number"
+    lead_contact_email_lbl: "Lead Contact E-mail"
+   
+    #Replacement Order Detailed Rows
+    replace_order_info_lbl: "Replacement Order Information"
+    ship_name_lbl: "Ship To Name"
+    addr_lbl: "Address"
+    city_lbl: "City"
+    state_prov_lbl: "State/Province"
+    postal_zip_lbl: "Postal/Zip Code"
+    call_before_name_lbl: "Call Before Name"
+    call_before_num_lbl: "Call Before Number"
+    after_contact_name_lbl: "After Hours Contact Name"
+    after_contact_num_lbl: "After Hours Contact Number"
+    
+    #Issue Table Headings
+    issue_title_lbl: "Issues"
+    issue_num_lbl: "Issue Number"
+    issue_ship_num_lbl: "Shipment Number"
+    issue_item_code_lbl: "Item Code"
+    issue_cr_num_lbl: "CR Number"
+    issue_desc_lbl: "Problem Description"
+    issue_line_notes_lbl: "Line Notes"
+    issue_tag_lbl: "Tags"
+    issue_status_lbl: "Issue Status"
+    issue_action_lbl: "Action"
+    
+    
+   
+
+  #app/views/teknionline/profiles
+  profile_update_form:
+    #app/views/teknionline/profiles/_form
+    name_label: "User Name"
+    first_name_label: "First Name"
+    last_name_label: "Last Name"
+    email_label: "E-Mail"
+    
+    change_pass_label: "Change Password"
+    current_pass_label: "Current Password"
+    new_pass_label: "New Password"
+  #app/views/teknionline/profiles/edit
+    form_title: "Edit Profile"
+    
+    
+  #app/views/dealermanager/managers
+  dealer_manage_form:
+    #app/views/dealermanager/managers/_form
+    dealer_error_message: "prohibited this dealermanager_manager from being saved:"
+    #app/views/dealermanager/managers/edit
+    dealer_edit_msg: "Editing dealermanager_manager"
+    #app/views/dealermanager/managers/index
+    dealer_index_msg: "Listing dealermanager_managers"
+    confirm_delete_msg: "Are you sure?"
+    new_manager_link: "New Manager"
+    #app/views/dealermanager/mangers/new
+    dealer_new_msg: "New dealermanager_manager"
+    
+  #app/views/usermanagement/users  
+  user_management:
+    #Common Fields Amongst all forms of users
+    login_name_lbl: "Login Name"
+    first_name_lbl: "First Name"
+    last_name_lbl: "Last Name"
+    last_login_lbl: "Last Login"
+    user_name_lbl: "User Name"
+    email_lbl: "E-Mail"
+    mobile_lbl: "Mobile"
+    #app/views/usermanagement/users/edit
+    #app/views/usermanagement/users/show
+    edit_title: "Edit Profile"
+    #app/views/usermanagement/users/_form
+    
+    edit_new_pass: "New Password"
+    edit_confirm_pass: "Password Confirmation"
+    #app/views/usermanagement/users/index
+    all_user_title: "All Users"
+    new_user_btn: "New User"
+    delete_header: "Delete"
+    delete_confirm_msg: "Are you sure you want to delete this user?"
+    #app/views/usermanagement/users/new
+    new_user_title: "New Profile"
+    first_step_msg: "Step 1 - Choose User Name"
+    username_lbl: "User Name"
+    exists_msg: "User Exists"
+    username_prompt_msg: "Please enter a user name"
+    check_btn: "Check User"
+    #app/views/usermanagement/users/search
+    search_result_title: "Search Results"
+    add_user_comfirm_msg: "Are you sure you want to add this user?"
+    add_to_org_msg: "Add User to Another Organization"
+    save_changes_btn: "Save Changes"
+    #app/views/usermanagement/users/addstep2
+    new_profile_title: "New Profile"
+    second_step_msg: "Step 2 - Complete Profile"
+    password_lbl: "Password"
+    add_user_lbl: "Add User"
+  
+  attachment_form:
+    #app/views/teknion/attachments
+    #app/views/teknion/attachments/index
+    
+    name_lbl: "Name"
+    desc_lbl: "Description"
+    date_lbl: "Date"
+    wait_msg: "Please wait..."
+    #app/views/teknion/attachments/new
+    new_attach_title: "New Attachment"
+    attatch_prohibit_msg: "prohibited this clarification from being saved:"
+    attach_lbl: "Attachments"
+    delay_msg: "Please note: Files uploaded may take up to 15 minutes to become available in Tekcare."
+    attach_btn: "Attach"
+    
+  back_charges_form:
+    #app/views/teknion/back_charges
+    #common fields, on both edit and new
+    summary_lbl: "Summary"
+    date_lbl: "Date"
+    currency_lbl: "Currency"
+    type_lbl: "Type"
+    labour_lbl: "Labour Type"
+    hr_lbl: "Hours"
+    rate_lbl: "Rate"
+    sub_lbl: "Sub-Total"
+    reg_lbl: "Regular"
+    overtime_lbl: "Overtime"
+    travel_lbl: "Travel"
+    desc_lbl: "Description"
+    cost_lbl: "Cost"
+    other_cost_lbl: "Other Cost"
+    cost_sum_lbl: "Cost Summary"
+    labour_lbl: "Labour"
+    tot_amount_lbl: "Total Amount Requested"
+    relate_claim_lbl: "Related Claims"
+    
+    #app/views/teknion/back_charges/close_request
+    close_request_title: "Request to Close Issue"
+    close_prohibit_msg: "prohibited this clarification from being saved:"
+    
+    
+    closer_msg: "Submitting this request will ask Teknion to Close this particular Back Charge."
+    documented_msg: "This request will be documented in the 'Clarifications' section of the issue."
+    #app/views/teknion/back_charges/edit
+    back_charge_title: "Back Charge ID:"
+    #app/views/teknion/back_charges/new 
+    new_charge_title: "New Back Charge"
+    canada_curr: "CAD"
+    usa_curr: "USD"
+    with_prod: "With Product"
+    without_prod: "Without Product"
+    attach_lbl: "Attachments"
+  
+  
+  site_visits_form:
+    #app/views/teknion/site_visits/_form
+    visit_prohibit_msg: "prohibited this site visit from being saved:"
+    date_iss_lbl: "Date Issued"
+    reason_requ_lbl: "Reason Requested"
+    contact_name_lbl: "Contact Name"
+    contact_num_lbl: "Contact Number"
+    contact_email_lbl: "Contact Email"
+    appt_date_lbl: "Appointment Date"
+    appt_time_lbl: "Appointment Time"
+    confirmed_lbl: "Confirmed By"
+    site_visit_lbl: "Site Visit Performed On"
+    find_lbl: "Findings"
+    #app/views/teknion/site_visits/edit
+    visits_title: "Site Visit"
+  
+  #app/views/teknion/claim_issues
+  claim_issue_form:
+    #common fields :
+    #used on _clarifications & _attachments & _site_visit
+    date_lbl: "Date"
+    status_lbl: "Status"
+    #used in _site_visit & _rgas & _clarifications
+    wait_prompt_msg: "Please wait..."
+    #used in _clarifications & _other_information
+    subject_lbl: "Subject"
+    #used in _site_visit & _rgas
+    reason_lbl: "Reason"
+    
+    #app/views/teknion/claim_issues/_actions
+    no_action_msg: "No Action Taken"
+    replace_prod_title: "Replacement Product Information"
+    item_code_lbl: "Item Code"
+    cr_num_lbl: "CR Number"
+    item_desc_lbl: "Item Description"
+    qty_order_lbl: "Quantity Ordered"
+    action_summ_lbl: "Action Plan Summary"
+    action_tken_lbl: "Action Taken"
+    comment_lbl: "Comments"
+    order_info_msg: "Show Replacement Order Information"
+    more_info_msg: "For more information, please visit:"
+    more_info_cont_msg: "and enter the PO Number listed below."
+    ship_lbl: "Ship To Name"
+    addr_lbl: "Address"
+    city_lbl: "City"
+    state_prov_lbl: "State/Province"
+    postal_zip_lbl: "Postal/Zip Code"
+    replace_PO_num_lbl: "Replacement PO Number"
+    uni_num_lbl: "Universal Number"
+    ship_num_lbl: "Shipment Number"
+    sequence_lbl: "Sequence"
+    item_lbl: "Item Code"
+    cr_num_lbl: "CR Number"
+    item_desc_lbl: "Item Description"
+    quantity_lbl: "Quantity"
+    tag_lbl: "Tags"
+    
+    #app/views/teknion/claim_issues/_attachments
+    name_lbl: "Name"
+    desc_lbl: "Description"
+    
+    #app/views/teknion/claim_issues/_back_charges
+    back__charge_id_lbl: "Back Charge ID"
+    type_lbl: "Type"
+    reqest_amount_lbl: "Requested Amount"
+    action_lbl: "Action"
+    
+    #app/views/teknion/claim_issues/_clarifications
+    from_lbl: "From"
+    
+    #app/views/teknion/claim_issues/_other_information
+    date_posted_lbl: "Date Posted"
+    author_lbl: "Author"
+    
+    #app/views/teknion/claim_issues/_rgas
+    rga_num_lbl: "RGA Number"
+    orig_PO_num_lbl: "Original PO Number"
+    orig_ship_num_lbl: "Original Shipment Number"
+    orig_invo_num_lbl: "Original Invoice Number"
+    
+    requestor_lbl: "Requestor"
+    created_lbl: "Created On"
+    rga_stat_lable: "RGA Status"
+    coming_msg: "coming..."
+    #app/views/teknion/claim_issues/_site_visit
+    appoint_date_lbl: "Appointment Date"
+    appoint_time_lbl: "Appointment Time"
+    #app/views/teknion/claim_issues/close_request_new
+    request_close_title: "Request to Close Issue"
+    issue_prompt_msg: "prohibited this clarification from being saved:"
+    reason_lbl: "Reason for Closure"
+    issue_close_msg: "Submitting this request will ask Teknion to Close this particular issue."
+    issue_close_cont_msg: "This request will be documented in the 'Clarifications' section of the issue."
+    #app/views/teknion/claim_issues/show
+    clame_lbl: "Claim:"
+    issue_lbl: "Issue:"
+    claim_item_code_lbl: "Item Code"
+    claim_item_desc_lbl: "Item Description"
+    claimed_item_qty_ord_lbl: "Quantity Ordered"
+    claim_item_qty_affect_lbl: "Quantity Affected"
+    claim_item_prob_desc_lbl: "Problem Description"
+    claim_item_reason_lbl: "Reason"
+    prod_in_storage: "Product in Teknion Storage"
+    issue_stat_lbl: "Issue Status"
+    clarif_lbl: "Clarifications"
+    action_lbl: "Actions"
+    back_charge_lbl: "Back Charges"
+    rga_lbl: "RGAs"
+    site_visit_lbl: "Site Visits"
+    attach_lbl: "Attachments"
+  
+  #app/views/teknion/clarification
+  clarification_form:
+    #app/views/teknion/clarification/_form
+    clarify_prompt_msg: "prohibited this clarification from being saved:"
+    questions_lbl: "Questions"
+    answe_lblr: "Answer"
+    attachments_lbl: "Attachments"
+    #app/views/teknion/clarifications/edit
+    clarify_title: "Clarification"
+    #app/views/teknion/clarifications/new
+    new_clarify_title: "New Clarifiction"
+    
+  
+
+  
+#  Status_Column: 
+#    Planned: "Resolution Planned"
+#    Pending: "Communication Pending"
+#    Investigation: "Under Investigation"
+#    Requested: "RGA Requested"
+
+
+#  claims: "In Progress"
+#  inprogress: "In Progress"
+#  info: "Information Required"
+#  actioned: "Actioned"
+#  closed: "Closed"

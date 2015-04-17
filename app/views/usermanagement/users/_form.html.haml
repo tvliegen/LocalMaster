@@ -3,15 +3,15 @@
     .col-md-12
       .col-md-1
       .col-md-11
-        = f.submit "Save", class: "btn btn-default btn-sm"
-        = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm"
+        = f.submit t('general_buttons.save_btn'), class: "btn btn-default btn-sm"
+        = link_to t('general_buttons.cancel_btn'), "/usermanagement/users/", class: "btn btn-default btn-sm"
   %br
     %br
       .row
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:login, "User Name")
+            .col-md-3= label_tag(:login, t('user_management.user_name_lbl'))
             .col-md-9= @user_profile.login
       %br
         %br
@@ -19,7 +19,7 @@
             .col-md-12
               .col-md-1
               .col-md-11
-                .col-md-3= label_tag(:firstname, "First Name")
+                .col-md-3= label_tag(:firstname, t('user_management.first_name_lbl'))
                 .col-md-9= @user_profile.firstname
           %br
             %br
@@ -27,7 +27,7 @@
                 .col-md-12
                   .col-md-1
                   .col-md-11
-                    .col-md-3= label_tag(:lastname, "Last Name")
+                    .col-md-3= label_tag(:lastname, t('user_management.last_name_lbl'))
                     .col-md-9= @user_profile.lastname
               %br
                 %br
@@ -35,7 +35,7 @@
                     .col-md-12
                       .col-md-1
                       .col-md-11
-                        .col-md-3= label_tag(:email, "E-Mail")
+                        .col-md-3= label_tag(:email, t('user_management.email_lbl'))
                         .col-md-9= @user_profile.email
                   %br
                     %br
@@ -43,7 +43,7 @@
                         .col-md-12
                           .col-md-1
                           .col-md-11
-                            .col-md-3= label_tag(:mobile, "Mobile")
+                            .col-md-3= label_tag(:mobile, t('user_management.mobile_lbl'))
                             .col-md-9= @user_profile.mobile
                       %br
                         %br
@@ -51,7 +51,7 @@
                             .col-md-12
                               .col-md-1
                               .col-md-11
-                                .col-md-3= label_tag(:language, "Language")
+                                .col-md-3= label_tag(:language, t('general_languages.language_label'))
                                 .col-md-9
                                   = @user_profile.language
                           %br
@@ -60,7 +60,7 @@
                                 .col-md-12
                                   .col-md-1
                                   .col-md-11
-                                    .col-md-3= label_tag(:password, "New Password")
+                                    .col-md-3= label_tag(:password, t('user_management.edit_new_pass'))
                                     .col-md-9= f.password_field :password
                               %br
                                 %br
@@ -68,7 +68,7 @@
                                     .col-md-12
                                       .col-md-1
                                       .col-md-11
-                                        .col-md-3= label_tag(:password_confirm, "Password Confirmation")
+                                        .col-md-3= label_tag(:password_confirm, t('user_management.edit_confirm_pass'))
                                         .col-md-9= f.password_field :password_confirm
                                   %br
                                     %br

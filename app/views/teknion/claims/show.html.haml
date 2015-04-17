@@ -5,86 +5,101 @@
     %p.breadcrumb
       = link_to 'Tekcare', teknion_claims_path
       %span /
-      %span.last Claim: #{@claim.header['tekcare_number']}
+      %span.last 
+        =t('claim_show_form.claim_number')
+        #{@claim.header['tekcare_number']}
 .claim
   .claim-details
     .container-fluid
       .row
         %h2
           %u
-            Claim Title:
+            =t('claim_show_form.claim_title_lbl')
             = @claim.header['project_name']
     %legend
-      General Claim Information 
+      =t('claim_show_form.claim_general_lbl') 
       %a{:href => "#", :sect => "General_Info", :id=>"claiminfo"}
         %span.glyphicon.glyphicon-triangle-top
     #General_Info{:name => "General_Info"}
       .container-fluid
         .row
           .col-sm-12.dealer-section
-            %legend.dealer-heading Dealer Information
+            %legend.dealer-heading 
+              =t('claim_show_form.dealer_info_lbl')
         .row
           .col-sm-1
           .col-sm-2
-            %label Dealer Name
+            %label 
+              =t('claim_show_form.dealer_name_lbl')
           .col-sm-3
             = @claim.customer['dealer_name']
           .col-sm-2
-            %label Dealer Number
+            %label 
+              =t('claim_show_form.dealer_number_lbl')
           .col-sm-3
             = @claim.customer['dealer_code']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label Dealer Contact Name
+            %label 
+              =t('claim_show_form.dealer_contact_name_lbl')
           .col-sm-3
             = @claim.customer['dealer_contact_name']
           .col-sm-2
-            %label Dealer Contact Number
+            %label 
+              =t('claim_show_form.dealer_contact_number_lbl')
           .col-sm-3
             = @claim.customer['dealer_contact_number']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label Dealer Contact Email
+            %label 
+              =t('claim_show_form.dealer_contact_email_lbl')
           .col-sm-7
             = @claim.customer['dealer_contact_email']
           .col-sm-1
         .row
           .col-sm-12.dealer-section
-            %legend.dealer-heading Original Order Information
+            %legend.dealer-heading 
+              =t('claim_show_form.org_order_info_lbl')
         .row
           .col-sm-1
           .col-sm-2
-            %label Universal Number
+            %label 
+              =t('claim_show_form.universal_num_lbl')
           .col-sm-3
             = @claim.header['original_universal']
           .col-sm-2
-            %label PO Number
+            %label 
+              =t('claim_show_form.po_num_lbl')
           .col-sm-3
             = @claim.header['original_po']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label SQ Number
+            %label
+              =t('claim_show_form.sq_num_lbl')
           .col-sm-3
             = @claim.header['original_sq']
           .col-sm-2
-            %label SQ Rev Number
+            %label 
+              =t('claim_show_form.sq_rev_num_lbl')
           .col-sm-3
             = @claim.header['original_sq_revision']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label End Customer
+            %label 
+              =t('claim_show_form.end_customer_lbl')
           .col-sm-3
             = @claim.header['end_customer_name']
           .col-sm-2
-            %label Claim Received Dated
+            %label 
+              =t('claim_show_form.rec_date_lbl')
           .col-sm-3
             = @claim.header['submission_date']
           .col-sm-1
@@ -93,97 +108,115 @@
           .col-sm-2
           .col-sm-3
           .col-sm-2
-            %label Project Name
+            %label 
+              =t('claim_show_form.proj_name_lbl')
           .col-sm-3
             =@claim.header['project_name']
           .col-sm-1
         .row
           .col-sm-12.dealer-section
-            %legend.dealer-heading Installation Information
+            %legend.dealer-heading
+              =t('claim_show_form.install_info_lbl')
         .row
           .col-sm-1
           .col-sm-2
-            %label Installation in Progress
+            %label 
+              =t('claim_show_form.intall_progress_lbl')
           .col-sm-3
             = @claim.header['installation_in_progress']=='false' ? 'No' : 'Yes'
           .col-sm-2
-            %label Estimated Completion
+            %label
+              =t('claim_show_form.estimated_complete_lbl')
           .col-sm-3
             = @claim.header['est_install_complete_date']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label Installation Company
+            %label
+              =t('claim_show_form.install_company_lbl')
           .col-sm-3
             = @claim.header['installation_company']
           .col-sm-2
-            %label Installer Lead
+            %label
+              =t('claim_show_form.install_lead_lbl')
           .col-sm-3
             = @claim.header['installation_lead_contact_name']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label Lead Contact Number
+            %label
+              =t('claim_show_form.lead_contact_num_lbl')
           .col-sm-3
             = @claim.header['installation_lead_contact_phone']
           .col-sm-2
-            %label Lead Contact E-mail
+            %label 
+              =t('claim_show_form.lead_contact_email_lbl')
           .col-sm-3
             = @claim.header['installation_lead_contact_email']
           .col-sm-1
         .row
           .col-sm-12.dealer-section
-            %legend.dealer-heading Replacement Order Information
+            %legend.dealer-heading 
+              =t('claim_show_form.replace_order_info_lbl')
         .row
           .col-sm-1
           .col-sm-2
-            %label Ship To Name
+            %label
+              =t('claim_show_form.ship_name_lbl')
           .col-sm-8
             = @claim.ship_replacement_to['shipto_name']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label Address
+            %label
+              =t('claim_show_form.addr_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['address1']
           .col-sm-2
-            %label City
+            %label
+              =t('claim_show_form.city_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['city']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label State/Province
+            %label
+              =t('claim_show_form.state_prov_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['state_prov']
           .col-sm-2
-            %label Postal/Zip Code
+            %label
+              =t('claim_show_form.postal_zip_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['postal_zip']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label Call Before Name
+            %label
+              =t('claim_show_form.call_before_name_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['cb_name']
           .col-sm-2
-            %label Call Before Number
+            %label
+              =t('claim_show_form.call_before_num_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['cb_number']
           .col-sm-1
         .row
           .col-sm-1
           .col-sm-2
-            %label After Hours Contact Name
+            %label
+              =t('claim_show_form.after_contact_name_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['ah_name']
           .col-sm-2
-            %label After Hours Contact Number
+            %label 
+              =t('claim_show_form.after_contact_num_lbl')
           .col-sm-3
             = @claim.ship_replacement_to['ah_number']
           .col-sm-1
@@ -191,7 +224,7 @@
       .row
         .col-md-12.dealer-section
     %legend
-      Issues    
+      =t('claim_show_form.issue_title_lbl')    
     #IssueInfo{:name => "Issue_Info"}
       .row
         .col-md-12
@@ -200,23 +233,23 @@
               %thead
                 %tr
                   %th
-                    Issue Number
+                    =t('claim_show_form.issue_num_lbl')
                   %th
-                    Shipment Number
+                    =t('claim_show_form.issue_ship_num_lbl')
                   %th
-                    Item Code
+                    =t('claim_show_form.issue_item_code_lbl')
                   %th
-                    CR Number
+                    =t('claim_show_form.issue_cr_num_lbl')
                   %th
-                    Problem Description
+                    =t('claim_show_form.issue_desc_lbl')
                   %th
-                    Line Notes
+                    =t('claim_show_form.issue_line_notes_lbl')
                   %th
-                    Tags
+                    =t('claim_show_form.issue_tag_lbl')
                   %th
-                    Issue Status
+                    =t('claim_show_form.issue_status_lbl')
                   %th
-                    Action
+                    =t('claim_show_form.issue_action_lbl')
               %tbody.rowlink{"data-link" => "row"}
                 - @claim.claim_issues.each do |claim_issue|
                   %tr

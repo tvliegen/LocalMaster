@@ -2,8 +2,10 @@
   .col-md-12
     .col-md-1
     .col-md-11
-      %h3 New Profile
-      %h4 Step 2 - Complete Profile
+      %h3
+        =t('user_management.new_profile_title')
+      %h4 
+        =t('user_management.second_step_msg')
 
   %br
   %br
@@ -15,7 +17,7 @@
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:login, "User Name")
+            .col-md-3= label_tag(:login, t('user_management.user_name_lbl'))
             .col-md-9= @user_profile.login
             = f.text_field :login, :value => @user_profile.login,:hidden => true
     %br
@@ -24,7 +26,7 @@
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:firstname, "First Name")
+            .col-md-3= label_tag(:firstname, t('user_management.first_name_lbl'))
             .col-md-9= f.text_field :firstname
     %br
     %br
@@ -32,7 +34,7 @@
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:lastname, "Last Name")
+            .col-md-3= label_tag(:lastname, t('user_management.last_name_lbl'))
             .col-md-9= f.text_field :lastname
     %br
     %br
@@ -40,7 +42,7 @@
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:email, "E-Mail")
+            .col-md-3= label_tag(:email, t('user_management.email_lbl'))
             .col-md-9= f.text_field :email
     %br
     %br
@@ -48,7 +50,7 @@
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:mobile, "Mobile")
+            .col-md-3= label_tag(:mobile, t('user_management.mobile_lbl'))
             .col-md-9= f.text_field :mobile
     %br
     %br
@@ -56,8 +58,8 @@
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:language, "Language")
-            .col-md-9= f.select :language, [['English','EN'],['French','FRC']]
+            .col-md-3= label_tag(:language, t('general_languages.language_label'))
+            .col-md-9= f.select :language, [[t('general_languages.language_option_en'),'EN'],[t('general_languages.language_option_fr'),'FR']]
                                     
     %br
     %br
@@ -65,7 +67,7 @@
         .col-md-12
           .col-md-1
           .col-md-11
-            .col-md-3= label_tag(:password, "Password")
+            .col-md-3= label_tag(:password, t('user_management.password_lbl'))
             .col-md-9= f.password_field :password   
      
     %br
@@ -73,8 +75,8 @@
       .col-md-12
         .col-md-1
         .col-md-11
-          = f.submit "Add User", class: "btn btn-default btn-sm disabled", id: "save_btn"
-          = link_to 'Cancel', "/usermanagement/users/", class: "btn btn-default btn-sm"
+          = f.submit t('user_management.add_user_lbl'), class: "btn btn-default btn-sm disabled", id: "save_btn"
+          = link_to t('general_buttons.cancel_btn'), "/usermanagement/users/", class: "btn btn-default btn-sm"
     
                                     
 :javascript                                    

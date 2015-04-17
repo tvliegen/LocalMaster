@@ -8,30 +8,31 @@
     %div{:role => "tabpanel"}
       %ul.nav.nav-tabs.navbar-right{:role => "tablist"}
         %li{class: ('active' if params[:status] == 'to_submit'), :role => "presentation"}
-          %a{:href => "/claimsrequests?status=to_submit", :role => "tab"} New Claim Requests
+          %a{:href => "/claimsrequests?status=to_submit", :role => "tab"} 
+            =t('claims_navbar.new_claim')
         %li{class: ('active' if ((params[:status].nil?) || (params[:status] == 'inprogress'))), :role => "presentation"}
           %a{:href => teknion_claims_path(status: 'inprogress'), :role => "tab"} 
-            Under Investigation
+            =t('claims_navbar.investigation')
             %span.badge 
               = @total_count
         %li{class: ('active' if params[:status] == 'info'), :role => "presentation"}
           %a{:href => teknion_claims_path(status: 'info'), :role => "tab"}
-            Information Required
+            =t('claims_navbar.info_required')
             %span.badge
               = @info_count
         %li{class: ('active' if params[:status] == 'actioned'), :role => "presentation"}
           %a{:href => teknion_claims_path(status: 'actioned'), :role => "tab"}
-            Resolution Planned
+            =t('claims_navbar.resolution')
             %span.badge
               = @action_count
         %li{class: ('active' if params[:status] == 'closed'), :role => "presentation"}
           %a{:href => teknion_claims_path(status: 'closed'), :role => "tab"} 
-            Closed
+            =t('claims_navbar.closed')
             %span.badge
               = @close_count            
     .col-sm-12.searchbar
-      Search: 
-      = text_field_tag 'searchcriteria', nil, placeholder: 'Enter search term...'
+      =t('search_bar.search') 
+      = text_field_tag 'searchcriteria', nil, placeholder: t('search_bar.search_placeholder')
       %a{:href => "#", :class => ['glyphicon', 'glyphicon-search'], :id => "search_btn"}
 .container-fluid.claims-list.claim-wrapper
   .col-sm-12.main
@@ -41,7 +42,7 @@
       %thead
         %tr
           %th 
-            = link_to "Claim Number", teknion_claims_path(sort: 'issue', status: @status, order: @sortorder == 'issue' ? @order : 'desc')
+            = link_to t('claim_title.claim_number'), teknion_claims_path(sort: 'issue', status: @status, order: @sortorder == 'issue' ? @order : 'desc')
             - if @sortorder.eql?'issue'
               - if @order.eql?'asc' 
                 %span.glyphicon.glyphicon-triangle-bottom
@@ -50,7 +51,7 @@
             - else
               %span.glyphicon.glyphicon-minus
           %th 
-            = link_to "Title", teknion_claims_path(sort: 'title', status: @status, order: @status, order: @sortorder == 'issue' ? @order : 'desc')
+            = link_to t('claim_title.claim_title'), teknion_claims_path(sort: 'title', status: @status, order: @status, order: @sortorder == 'issue' ? @order : 'desc')
             - if @sortorder.eql?'title'
               - if @order.eql?'asc'
                 %span.glyphicon.glyphicon-triangle-bottom
@@ -59,7 +60,7 @@
             - else
               %span.glyphicon.glyphicon-minus
           %th 
-            = link_to "Project", teknion_claims_path(sort: 'project', status: @status, order: @status, order: @sortorder == 'project' ? @order : 'desc')
+            = link_to t('claim_title.claim_project'), teknion_claims_path(sort: 'project', status: @status, order: @status, order: @sortorder == 'project' ? @order : 'desc')
             - if @sortorder.eql?'project'
               - if @order.eql?'asc'
                 %span.glyphicon.glyphicon-triangle-bottom
@@ -68,7 +69,7 @@
             - else
               %span.glyphicon.glyphicon-minus
           %th 
-            = link_to "Created By", teknion_claims_path(sort: 'author', status: @status, order: @status, order: @sortorder == 'author' ? @order : 'desc')
+            = link_to t('claim_title.claim_creator'), teknion_claims_path(sort: 'author', status: @status, order: @status, order: @sortorder == 'author' ? @order : 'desc')
             - if @sortorder.eql?'author'
               - if @order.eql?'asc'
                 %span.glyphicon.glyphicon-triangle-bottom
@@ -77,7 +78,7 @@
             - else
               %span.glyphicon.glyphicon-minus
           %th 
-            = link_to "Last Modified", teknion_claims_path(sort: 'modified', status: @status, order: @status, order: @sortorder == 'modified' ? @order : 'desc')
+            = link_to t('claim_title.claim_last_mod'), teknion_claims_path(sort: 'modified', status: @status, order: @status, order: @sortorder == 'modified' ? @order : 'desc')
             - if @sortorder.eql?'modified'
               - if @order.eql?'asc'
                 %span.glyphicon.glyphicon-triangle-bottom
@@ -86,7 +87,7 @@
             - else
               %span.glyphicon.glyphicon-minus
           %th 
-            = link_to "Status", teknion_claims_path(sort: 'status', status: @status, order: @status, order: @sortorder == 'status' ? @order : 'desc')
+            = link_to t('claim_title.claim_status'), teknion_claims_path(sort: 'status', status: @status, order: @status, order: @sortorder == 'status' ? @order : 'desc')
             - if @sortorder.eql?'status'
               - if @order.eql?'asc'
                 %span.glyphicon.glyphicon-triangle-bottom
@@ -118,7 +119,7 @@
                       %td
                         =issue['issue_status_desc']
             %td
-              %a{:href => teknion_claim_close_path(claim.incident_id), :class => ['glyphicon','glyphicon-trash'], :alt => 'Delete'}
+              %a{:href => teknion_claim_close_path(claim.incident_id), :class => ['glyphicon','glyphicon-trash'], :alt => 'Delete' }
             :javascript
               $('#issue_status_link_#{claim.incident_id}').click(function (e){
                 e.preventDefault();
